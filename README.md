@@ -10,3 +10,18 @@ JSON Form :
     "password": "1234552dss"
 }
 ```
+# Login 
+JSON Form :
+```
+{
+    "username": "sir",
+    "password": "1234552dss"
+}
+```
+Received:
+```
+{
+    "accessToken": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzaXIiLCJpYXQiOjE2NjkwMzAzMTIsImV4cCI6MTY2OTAzMDM4Mn0.70gL1ial_bic0hbbA0kAlISQc9Mv7QQW_Wcn98PREESvauGkf9Fk5R8C5FjevR_0FymVO15iBqFmYJAR0jAcyQ",
+    "tokenType": "Bearer "
+}
+```
