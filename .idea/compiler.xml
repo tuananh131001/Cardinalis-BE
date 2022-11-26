@@ -7,16 +7,18 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="Cardinalis-BE" />
+        <module name="Cardinalis-BE (1) (com.example)" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="Cardinalis-BE" target="19" />
+      <module name="Cardinalis-BE (1) (com.example)" target="19" />
+      <module name="user-service" target="19" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="Cardinalis-BE" options="-parameters" />
+      <module name="Cardinalis-BE (1) (com.example)" options="-parameters" />
+      <module name="user-service" options="" />
     </option>
   </component>
 </project>
