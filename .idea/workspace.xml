@@ -73,7 +73,7 @@
     "spring.configuration.checksum": "6568b4954ce370027722fa05ffbe5536"
   }
 }]]></component>
-  <component name="RunManager" selected="Spring Boot.UserServiceApplication">
+  <component name="RunManager" selected="Docker.user-service: Compose Deployment">
     <configuration name="CardinalisBeApplication (1)" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
       <module name="Cardinalis-BE (1) (com.example)" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.cardinalisbe.CardinalisBeApplication" />
@@ -95,6 +95,19 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="user-service: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
+      <deployment type="docker-compose.yml">
+        <settings>
+          <option name="sourceFilePath" value="user-service/docker-compose.yml" />
+        </settings>
+      </deployment>
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Docker.user-service: Compose Deployment" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
