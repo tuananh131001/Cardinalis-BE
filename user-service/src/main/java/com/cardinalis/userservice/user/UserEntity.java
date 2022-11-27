@@ -1,5 +1,5 @@
 package com.cardinalis.userservice.user;
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.*;
 import org.hibernate.Hibernate;
 
