@@ -5,10 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="916d7a0e-dccb-4e95-8f07-183311752d56" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/auth-service/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/auth-service/src/main/java/com/cardinalis/authservice/AuthServiceApplication.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/auth-service/src/main/resources/application.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/auth-service/src/test/java/org/cardinalis/AppTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gateway/src/main/resources/application.yml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/user-service/.mvn/wrapper/maven-wrapper.jar" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/user-service/.mvn/wrapper/maven-wrapper.properties" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/user-service/docker-compose.yml" afterDir="false" />
@@ -23,14 +21,20 @@
       <change afterPath="$PROJECT_DIR$/user-service/src/main/resources/application.yml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/user-service/src/test/java/com/cardinalis/userservice/UserServiceApplicationTests.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/user-service/user-service.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/zuul-service/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/zuul-service/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/zuul-service/src/main/resources/application.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/zuul-service/src/test/java/org/cardinalis/AppTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/auth-service/src/main/java/com/cardinalis/authservice/security/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/auth-service/src/main/java/com/cardinalis/authservice/security/AuthController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/auth-service/src/main/java/com/cardinalis/authservice/security/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/auth-service/src/main/java/com/cardinalis/authservice/security/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/auth-service/target/classes/com/cardinalis/authservice/security/AuthController.class" beforeDir="false" afterPath="$PROJECT_DIR$/auth-service/target/classes/com/cardinalis/authservice/security/AuthController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/auth-service/target/classes/com/cardinalis/authservice/security/SecurityConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/auth-service/target/classes/com/cardinalis/authservice/security/SecurityConfig.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zuul-service/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/zuul-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zuul-service/src/main/java/com/cardinalis/zuulservice/ZuulServerApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/java/com/cardinalis/gateway/GatewayApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zuul-service/src/main/resources/application.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/zuul-service/src/test/java/org/cardinalis/AppTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/test/java/org/cardinalis/AppTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -95,9 +99,17 @@
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
     "settings.editor.selected.configurable": "preferences.lookFeel",
-    "spring.configuration.checksum": "6568b4954ce370027722fa05ffbe5536"
+    "spring.configuration.checksum": "039cf0023e6dac186c04ef4b817c829d"
   }
 }]]></component>
+  <component name="ReactorSettings">
+    <option name="notificationShown" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.cardinalis.zuulservice.security" />
+    </key>
+  </component>
   <component name="RunDashboard">
     <option name="configurationTypes">
       <set>
@@ -105,27 +117,10 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="Spring Boot.ZuulServerApplication">
+  <component name="RunManager" selected="Spring Boot.GatewayApplication">
     <configuration name="AuthServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
       <module name="auth-service" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.cardinalis.authservice.AuthServiceApplication" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="CardinalisBeApplication (1)" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
-      <module name="Cardinalis-BE (1) (com.example)" />
-      <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.cardinalisbe.CardinalisBeApplication" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="CardinalisBeApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
-      <option name="ACTIVE_PROFILES" />
-      <option name="ALTERNATIVE_JRE_PATH" value="corretto-17" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
-      <module name="user-service" />
-      <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.cardinalisbe.CardinalisBeApplication" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -146,22 +141,22 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="UserServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
-      <module name="user-service" />
-      <option name="SPRING_BOOT_MAIN_CLASS" value="com.cardinalis.userservice.UserServiceApplication" />
+    <configuration name="GatewayApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+      <module name="gateway" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.cardinalis.gateway.GatewayApplication" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.cardinalis.gateway.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ZuulServerApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
-      <module name="zuul-service" />
-      <option name="SPRING_BOOT_MAIN_CLASS" value="com.cardinalis.zuulservice.ZuulServerApplication" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.cardinalis.zuulservice.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
+    <configuration name="UserServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="user-service" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.cardinalis.userservice.UserServiceApplication" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -177,15 +172,13 @@
     <list>
       <item itemvalue="Docker.user-service: Compose Deployment" />
       <item itemvalue="Spring Boot.AuthServiceApplication" />
-      <item itemvalue="Spring Boot.CardinalisBeApplication" />
-      <item itemvalue="Spring Boot.CardinalisBeApplication (1)" />
       <item itemvalue="Spring Boot.UserServiceApplication" />
-      <item itemvalue="Spring Boot.ZuulServerApplication" />
+      <item itemvalue="Spring Boot.GatewayApplication" />
       <item itemvalue="Spring Boot.EurekaServerApplication" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Spring Boot.ZuulServerApplication" />
+        <item itemvalue="Spring Boot.GatewayApplication" />
         <item itemvalue="Spring Boot.EurekaServerApplication" />
         <item itemvalue="Docker.user-service: Compose Deployment" />
       </list>
@@ -202,6 +195,8 @@
       <workItem from="1669446564288" duration="716000" />
       <workItem from="1669448710203" duration="433000" />
       <workItem from="1669450210918" duration="644000" />
+      <workItem from="1669553573491" duration="1972000" />
+      <workItem from="1669557198832" duration="712000" />
     </task>
     <servers />
   </component>
@@ -232,5 +227,16 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/gateway/src/main/java/com/cardinalis/gateway/security/JwtTokenAuthenticationFilter.java</url>
+          <line>46</line>
+          <option name="timeStamp" value="10" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

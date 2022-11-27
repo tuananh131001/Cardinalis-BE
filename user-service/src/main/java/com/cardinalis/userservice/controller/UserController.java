@@ -18,4 +18,8 @@ public class UserController {
         log.info("new customer registration {}", userRegistrationRequest);
         userService.registerCustomer(userRegistrationRequest);
     }
+    @GetMapping
+    public String test() {
+        return "test";
+    }
 }
