@@ -12,6 +12,8 @@
   <modules>
     <module>user-service</module>
     <module>eureka-server</module>
+    <module>auth-service</module>
+    <module>zuul-service</module>
   </modules>
 
   <name>Cardinalis-BE</name>
