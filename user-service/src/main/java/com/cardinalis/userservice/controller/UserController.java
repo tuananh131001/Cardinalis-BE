@@ -32,6 +32,13 @@ public class UserController {
                         .data(mapper.map(userCreated, UserEntityDTO.class))
                         .build());
     }
+    @GetMapping("/fetch/{username}")
+    public ResponseEntity<ResponseDTO> fetchByUsername(@PathVariable("username") String username) {
+        UserEntity user = userService.fetchByUsername(username);
+        return ResponseEntity.ok(ResponseDTO.builder()
+                .data(mapper.map(user, UserEntityDTO.class))
+                .build());
+    }
     @GetMapping
     public String test() {
         return "test";
