@@ -10,7 +10,8 @@ Request:
     "username": "jjeanjacques11",
     "email": "jjeanjacques11@gmail.com",
     "password": "1234225"
-}```
+}
+```
 
 Reponse: 
 
