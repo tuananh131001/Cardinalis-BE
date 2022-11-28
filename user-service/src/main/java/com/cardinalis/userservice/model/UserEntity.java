@@ -14,9 +14,8 @@ import java.util.*;
 @Getter
 @Setter
 @ToString
-@RequiredArgsConstructor
-@Builder
 @Entity
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "Users")
