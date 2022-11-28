@@ -42,3 +42,18 @@ Reponse:
     }
 }
 ```
+## 1.3 ```/auth/login```
+Request:
+```
+{
+    "username": "jjeanjacques11",
+    "password": "1234225"
+}
+```
+Reponse: 
+```
+{
+    "token": "eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJlZWJmZTRkOS1mYzk2LTRiNTktYWI4Yi02YTViZDJjNDJkN2QiLCJpYXQiOjE2Njk2NDYwOTYsImV4cCI6MTY2OTczMjQ5Nn0.s848MeTQqBpdao1PJ4RJXNEUgOjuKhLlPBouX25c_uU",
+    "bearer": "Bearer"
+}
+```
