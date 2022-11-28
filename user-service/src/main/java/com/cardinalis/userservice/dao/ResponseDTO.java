@@ -7,6 +7,6 @@ import lombok.Data;
 @Data
 @Builder
 @AllArgsConstructor
-public class ResponseDTO<T> {
-    private T data;
+public class ResponseDTO {
+    private UserEntityDTO data;
 }

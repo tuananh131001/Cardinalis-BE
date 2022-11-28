@@ -1,5 +1,6 @@
 package com.cardinalis.userservice.service;
 import com.cardinalis.userservice.dao.RegisterDTO;
+import com.cardinalis.userservice.exception.NoContentFoundException;
 import com.cardinalis.userservice.model.Role;
 import com.cardinalis.userservice.repository.UserRepository;
 import com.cardinalis.userservice.model.UserEntity;
@@ -39,4 +40,8 @@ public class UserService {
         return userRepository.save(user);
     }
 
+    public UserEntity fetchByUsername(String username) {
+        return userRepository.findByUsername(username)
+                .orElseThrow(() -> new NoContentFoundException("User not found"));
+    }
 }
