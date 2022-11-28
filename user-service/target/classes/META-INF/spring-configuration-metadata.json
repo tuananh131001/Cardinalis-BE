@@ -1,0 +1,42 @@
+{
+  "groups": [
+    {
+      "name": "admin",
+      "type": "com.cardinalis.userservice.config.StartupProperties",
+      "sourceType": "com.cardinalis.userservice.config.StartupProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "admin.email",
+      "type": "java.lang.String",
+      "sourceType": "com.cardinalis.userservice.config.StartupProperties"
+    },
+    {
+      "name": "admin.hot-user",
+      "type": "java.lang.Boolean",
+      "sourceType": "com.cardinalis.userservice.config.StartupProperties"
+    },
+    {
+      "name": "admin.id",
+      "type": "java.lang.String",
+      "sourceType": "com.cardinalis.userservice.config.StartupProperties"
+    },
+    {
+      "name": "admin.is-hot-user",
+      "type": "java.lang.Boolean",
+      "sourceType": "com.cardinalis.userservice.config.StartupProperties"
+    },
+    {
+      "name": "admin.password",
+      "type": "java.lang.String",
+      "sourceType": "com.cardinalis.userservice.config.StartupProperties"
+    },
+    {
+      "name": "admin.username",
+      "type": "java.lang.String",
+      "sourceType": "com.cardinalis.userservice.config.StartupProperties"
+    }
+  ],
+  "hints": []
+}
