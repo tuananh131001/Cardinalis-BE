@@ -1,8 +1,7 @@
 package com.cardinalis.userservice.service;
 import com.cardinalis.userservice.repository.UserRepository;
-import com.cardinalis.userservice.user.UserEntity;
+import com.cardinalis.userservice.model.UserEntity;
 import lombok.AllArgsConstructor;
-import org.apache.catalina.User;
 import org.springframework.stereotype.Service;
 
 @Service

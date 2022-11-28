@@ -5,36 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="916d7a0e-dccb-4e95-8f07-183311752d56" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gateway/src/main/resources/application.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/user-service/.mvn/wrapper/maven-wrapper.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/user-service/.mvn/wrapper/maven-wrapper.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/user-service/docker-compose.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/user-service/mvnw" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/user-service/mvnw.cmd" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/user-service/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/user-service/src/main/java/com/cardinalis/userservice/UserServiceApplication.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/user-service/src/main/java/com/cardinalis/userservice/controller/UserController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/user-service/src/main/java/com/cardinalis/userservice/repository/UserRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/user-service/src/main/java/com/cardinalis/userservice/service/UserRegistrationRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/user-service/src/main/java/com/cardinalis/userservice/service/UserService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/user-service/src/main/resources/application.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/user-service/src/test/java/com/cardinalis/userservice/UserServiceApplicationTests.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/user-service/user-service.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-service/src/main/java/com/cardinalis/authservice/security/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/auth-service/src/main/java/com/cardinalis/authservice/security/AuthController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-service/src/main/java/com/cardinalis/authservice/security/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/auth-service/src/main/java/com/cardinalis/authservice/security/SecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-service/target/classes/com/cardinalis/authservice/security/AuthController.class" beforeDir="false" afterPath="$PROJECT_DIR$/auth-service/target/classes/com/cardinalis/authservice/security/AuthController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-service/target/classes/com/cardinalis/authservice/security/SecurityConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/auth-service/target/classes/com/cardinalis/authservice/security/SecurityConfig.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zuul-service/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zuul-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zuul-service/src/main/java/com/cardinalis/zuulservice/ZuulServerApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/java/com/cardinalis/gateway/GatewayApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zuul-service/src/main/resources/application.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zuul-service/src/test/java/org/cardinalis/AppTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/test/java/org/cardinalis/AppTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -95,11 +67,12 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
     "jdk.selected.JAVA_MODULE": "corretto-17",
+    "last_opened_file_path": "C:/Users/tuana/Documents/coding/Cardinalis-BE",
     "project.structure.last.edited": "SDKs",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
     "settings.editor.selected.configurable": "preferences.lookFeel",
-    "spring.configuration.checksum": "039cf0023e6dac186c04ef4b817c829d"
+    "spring.configuration.checksum": "ee63f8d3e172438ba5e65e6951c5f87e"
   }
 }]]></component>
   <component name="ReactorSettings">
@@ -197,6 +170,8 @@
       <workItem from="1669450210918" duration="644000" />
       <workItem from="1669553573491" duration="1972000" />
       <workItem from="1669557198832" duration="712000" />
+      <workItem from="1669627225122" duration="1160000" />
+      <workItem from="1669628437237" duration="609000" />
     </task>
     <servers />
   </component>
