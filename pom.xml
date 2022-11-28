@@ -13,7 +13,7 @@
     <module>user-service</module>
     <module>eureka-server</module>
     <module>auth-service</module>
-    <module>zuul-service</module>
+    <module>gateway</module>
   </modules>
 
   <name>Cardinalis-BE</name>
