@@ -1,0 +1,26 @@
+server:
+  port: 8091
+spring:
+  application:
+    name: tweet-crd
+  datasource:
+#    password: tnhK$ct21720#
+    password: 131001
+    url: jdbc:postgresql://localhost:5432/cardinalis
+    username: postgres
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+    show-sql: true
+jwt:
+  secret: screte-value
+  expiration: 86400000
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/

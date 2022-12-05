@@ -4,10 +4,52 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="916d7a0e-dccb-4e95-8f07-183311752d56" name="Changes" comment="">
+    <list default="true" id="916d7a0e-dccb-4e95-8f07-183311752d56" name="Changes" comment="Changes">
+      <change afterPath="$PROJECT_DIR$/user-service/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/user-service/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/user-service/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/user-service/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/user-service/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/user-service/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/user-service/.mvn/wrapper/maven-wrapper.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/user-service/.mvn/wrapper/maven-wrapper.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/user-service/docker-compose.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/user-service/mvnw" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/user-service/mvnw.cmd" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/user-service/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/user-service/src/main/java/com/cardinalis/userservice/UserServiceApplication.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/user-service/src/main/java/com/cardinalis/userservice/config/ApplicationStartUp.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/user-service/src/main/java/com/cardinalis/userservice/config/ModelMapperConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/user-service/src/main/java/com/cardinalis/userservice/config/SecurityConfiguration.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/user-service/src/main/java/com/cardinalis/userservice/config/StartupProperties.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/user-service/src/main/java/com/cardinalis/userservice/controller/AuthenticationController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/user-service/src/main/java/com/cardinalis/userservice/controller/UserController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/user-service/src/main/java/com/cardinalis/userservice/dao/LoginDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/user-service/src/main/java/com/cardinalis/userservice/dao/RegisterDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/user-service/src/main/java/com/cardinalis/userservice/dao/ResponseDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/user-service/src/main/java/com/cardinalis/userservice/dao/TokenDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/user-service/src/main/java/com/cardinalis/userservice/dao/UserEntityDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/user-service/src/main/java/com/cardinalis/userservice/exception/NoContentFoundException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/user-service/src/main/java/com/cardinalis/userservice/model/Relationship.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/user-service/src/main/java/com/cardinalis/userservice/model/RelationshipId.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/user-service/src/main/java/com/cardinalis/userservice/model/Role.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/user-service/src/main/java/com/cardinalis/userservice/model/UserEntity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/user-service/src/main/java/com/cardinalis/userservice/repository/RelationshipRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/user-service/src/main/java/com/cardinalis/userservice/repository/RoleRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/user-service/src/main/java/com/cardinalis/userservice/repository/UserRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/user-service/src/main/java/com/cardinalis/userservice/service/AuthenticationService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/user-service/src/main/java/com/cardinalis/userservice/service/TokenService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/user-service/src/main/java/com/cardinalis/userservice/service/UserRegistrationRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/user-service/src/main/java/com/cardinalis/userservice/service/UserService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/user-service/src/main/resources/application.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/user-service/src/test/java/com/cardinalis/userservice/UserServiceApplicationTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gateway/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway/target/classes/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/target/classes/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tweet-crd/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/tweet-crd/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tweet-crd/src/main/java/org/cardinalis/tweetcrd/TweetCrdApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/tweet-crd/src/main/java/org/cardinalis/tweetcrd/TweetCrdApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tweet-crd/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/tweet-crd/src/main/resources/application.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -17,11 +59,17 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="JpbToolWindowState">
@@ -43,43 +91,30 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="MavenImportPreferences">
-    <option name="generalSettings">
-      <MavenGeneralSettings>
-        <option name="mavenHome" value="Use Maven wrapper" />
-        <option name="useMavenConfig" value="true" />
-      </MavenGeneralSettings>
-    </option>
-  </component>
   <component name="ProjectId" id="2I4h3MfNA1CLnJPTYN3qtOnsJjD" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
-    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
-    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
-    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;corretto-17&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/tuana/Documents/coding/Cardinalis-BE&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;SDKs&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
-    &quot;spring.configuration.checksum&quot;: &quot;ee63f8d3e172438ba5e65e6951c5f87e&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "spring.configuration.checksum": "3c2a4979d656c78f8b0d9395b610bb8b"
   }
-}</component>
+}]]></component>
   <component name="ReactorSettings">
     <option name="notificationShown" value="true" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\RMIT_Courses\Sem7_2022C\SAD\Cardinalis-Flaming\Cardinalis-BE\tweet-crd\src\main\java\org\cardinalis\tweetcrd" />
+    </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="com.cardinalis.zuulservice.security" />
     </key>
@@ -91,7 +126,7 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="Spring Boot.UserServiceApplication">
+  <component name="RunManager" selected="Spring Boot.TweetCrdApplication">
     <configuration name="AuthServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
       <option name="ACTIVE_PROFILES" />
       <option name="ALTERNATIVE_JRE_PATH" value="corretto-17" />
@@ -134,6 +169,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="TweetCrdApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="tweet-crd" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="org.cardinalis.tweetcrd.TweetCrdApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="UserServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
       <option name="ACTIVE_PROFILES" />
       <option name="ALTERNATIVE_JRE_PATH" value="corretto-17" />
@@ -156,6 +198,7 @@
       <item itemvalue="Docker.user-service: Compose Deployment" />
       <item itemvalue="Spring Boot.AuthServiceApplication" />
       <item itemvalue="Spring Boot.UserServiceApplication" />
+      <item itemvalue="Spring Boot.TweetCrdApplication" />
       <item itemvalue="Spring Boot.GatewayApplication" />
       <item itemvalue="Spring Boot.EurekaServerApplication" />
     </list>
@@ -182,7 +225,32 @@
       <workItem from="1669557198832" duration="712000" />
       <workItem from="1669627225122" duration="1160000" />
       <workItem from="1669628437237" duration="3803000" />
+      <workItem from="1669693477188" duration="651000" />
+      <workItem from="1669694144830" duration="903000" />
+      <workItem from="1669695062124" duration="83000" />
+      <workItem from="1669695154038" duration="434000" />
+      <workItem from="1669695597360" duration="1144000" />
+      <workItem from="1669707856576" duration="4673000" />
+      <workItem from="1669961422530" duration="348000" />
+      <workItem from="1670215639753" duration="1811000" />
+      <workItem from="1670217881302" duration="863000" />
+      <workItem from="1670219110649" duration="2300000" />
     </task>
+    <task id="LOCAL-00001" summary="Initial commit Tweet CRD">
+      <created>1669712512990</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1669712512990</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Fix error create bean">
+      <created>1670220186508</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1670220186508</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -213,6 +281,15 @@
       </map>
     </option>
   </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <ignored-roots>
+      <path value="$PROJECT_DIR$/user-service" />
+    </ignored-roots>
+    <MESSAGE value="Initial commit Tweet CRD" />
+    <MESSAGE value="Fix error create bean" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix error create bean" />
+  </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
@@ -221,7 +298,16 @@
           <line>46</line>
           <option name="timeStamp" value="10" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/user-service/src/main/java/com/cardinalis/userservice/UserServiceApplication.java</url>
+          <line>14</line>
+          <option name="timeStamp" value="11" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>
