@@ -4,15 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="916d7a0e-dccb-4e95-8f07-183311752d56" name="Changes" comment="Initial commit Tweet CRD">
+    <list default="true" id="916d7a0e-dccb-4e95-8f07-183311752d56" name="Changes" comment="Fix error create bean">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eureka-server/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/eureka-server/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tweet-crd/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/tweet-crd/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tweet-crd/src/main/java/org/cardinalis/tweetcrd/repository/TweetRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/tweet-crd/src/main/java/org/cardinalis/tweetcrd/repository/TweetRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tweet-crd/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/tweet-crd/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/user-service/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tweet-crd/src/main/java/org/cardinalis/tweetcrd/controller/TweetController.java" beforeDir="false" afterPath="$PROJECT_DIR$/tweet-crd/src/main/java/org/cardinalis/tweetcrd/controller/TweetController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tweet-crd/src/main/java/org/cardinalis/tweetcrd/service/TweetSeriveImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/tweet-crd/src/main/java/org/cardinalis/tweetcrd/service/TweetSeriveImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tweet-crd/src/main/java/org/cardinalis/tweetcrd/service/TweetService.java" beforeDir="false" afterPath="$PROJECT_DIR$/tweet-crd/src/main/java/org/cardinalis/tweetcrd/service/TweetService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -209,7 +205,7 @@
       <workItem from="1669961422530" duration="348000" />
       <workItem from="1670215639753" duration="1811000" />
       <workItem from="1670217881302" duration="863000" />
-      <workItem from="1670219110649" duration="977000" />
+      <workItem from="1670219110649" duration="2300000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit Tweet CRD">
       <created>1669712512990</created>
@@ -218,7 +214,14 @@
       <option name="project" value="LOCAL" />
       <updated>1669712512990</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Fix error create bean">
+      <created>1670220186508</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1670220186508</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -256,7 +259,8 @@
       <path value="$PROJECT_DIR$/user-service" />
     </ignored-roots>
     <MESSAGE value="Initial commit Tweet CRD" />
-    <option name="LAST_COMMIT_MESSAGE" value="Initial commit Tweet CRD" />
+    <MESSAGE value="Fix error create bean" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix error create bean" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

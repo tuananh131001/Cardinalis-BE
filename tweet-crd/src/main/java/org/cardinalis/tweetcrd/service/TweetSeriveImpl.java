@@ -30,7 +30,7 @@ public class TweetSeriveImpl implements TweetService{
     }
 
     @Override
-    public Tweet getTweet(UUID id) {
+    public Tweet getTweetById(UUID id) {
         Tweet tweet = null;
         try {
             tweet = tweetRepository.findById(id)
@@ -55,7 +55,7 @@ public class TweetSeriveImpl implements TweetService{
     @Override
     public String deleteTweet(UUID id) {
         try {
-            Tweet tweet = getTweet(id);
+            Tweet tweet = getTweetById(id);
             tweetRepository.delete(tweet);
             return "deleted tweet";
         } catch (Exception e) {
@@ -63,10 +63,10 @@ public class TweetSeriveImpl implements TweetService{
         }
     }
 
-//    @Override
-//    public List<Tweet> getPage(int pageNo, int pageSize) {
-//        Pageable pageable = PageRequest.of(pageNo, pageSize);
-//        Page<Tweet> result = tweetRepository.findAll(pageable);
-//        return result.getContent();
-//    }
+    @Override
+    public List<Tweet> getTweet(int pageNo, int pageSize) {
+        Pageable pageable = PageRequest.of(pageNo, pageSize);
+        Page<Tweet> result = tweetRepository.findAll(pageable);
+        return result.getContent();
+    }
 }

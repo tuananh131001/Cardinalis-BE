@@ -3,8 +3,6 @@ package org.cardinalis.tweetcrd.controller;
 import org.cardinalis.tweetcrd.model.Tweet;
 import org.cardinalis.tweetcrd.service.TweetService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,9 +19,16 @@ public class TweetController {
         tweetService.saveTweet(tweet);
     }
 
+    @RequestMapping(path = "", method = RequestMethod.GET)
+    public List<Tweet> getTweet(
+            @RequestParam(defaultValue = "0") int pageNo,
+            @RequestParam(defaultValue = "20") int pageSize)
+    {return tweetService.getTweet(pageNo, pageSize);}
+
+
     @RequestMapping(path = "/{id}", method = RequestMethod.GET)
-    public Tweet getTweet(@PathVariable(value = "id") UUID id){
-        return tweetService.getTweet(id);
+    public Tweet getTweetById(@PathVariable(value = "id") UUID id){
+        return tweetService.getTweetById(id);
     }
 
     @RequestMapping(path = "/{id}", method = RequestMethod.DELETE)
