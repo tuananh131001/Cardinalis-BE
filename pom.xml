@@ -13,7 +13,7 @@
     <module>user-service</module>
     <module>eureka-server</module>
     <module>gateway</module>
-    <module>tweet-crd</module>
+    <module>tweet-service</module>
   </modules>
 
   <name>Cardinalis-BE</name>

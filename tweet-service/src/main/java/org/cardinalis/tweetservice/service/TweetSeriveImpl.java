@@ -1,7 +1,7 @@
-package org.cardinalis.tweetcrd.service;
+package org.cardinalis.tweetservice.service;
 
-import org.cardinalis.tweetcrd.model.Tweet;
-import org.cardinalis.tweetcrd.repository.TweetRepository;
+import org.cardinalis.tweetservice.model.Tweet;
+import org.cardinalis.tweetservice.repository.TweetRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;

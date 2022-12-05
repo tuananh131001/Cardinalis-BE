@@ -11,10 +11,10 @@ spring:
           uri: lb://user-service
           predicates:
             - Path=/user/**,/auth/**
-        - id: tweet-crd
-          uri: lb://tweet-crd
+        - id: tweet-service
+          uri: lb://tweet-service
           predicates:
-            - Path=/api/tweet/**
+            - Path=/tweet/**
 
 
 

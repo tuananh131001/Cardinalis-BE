@@ -1,5 +1,5 @@
-package org.cardinalis.tweetcrd.repository;
-import org.cardinalis.tweetcrd.model.Tweet;
+package org.cardinalis.tweetservice.repository;
+import org.cardinalis.tweetservice.model.Tweet;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

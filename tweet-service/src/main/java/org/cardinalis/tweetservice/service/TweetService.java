@@ -1,6 +1,6 @@
-package org.cardinalis.tweetcrd.service;
+package org.cardinalis.tweetservice.service;
 
-import org.cardinalis.tweetcrd.model.Tweet;
+import org.cardinalis.tweetservice.model.Tweet;
 
 import java.util.List;
 import java.util.UUID;

@@ -1,7 +1,7 @@
-package org.cardinalis.tweetcrd.controller;
+package org.cardinalis.tweetservice.controller;
 
-import org.cardinalis.tweetcrd.model.Tweet;
-import org.cardinalis.tweetcrd.service.TweetService;
+import org.cardinalis.tweetservice.model.Tweet;
+import org.cardinalis.tweetservice.service.TweetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping(path = "/api/tweet")
+@RequestMapping("/tweet")
 public class TweetController {
     @Autowired
     private TweetService tweetService;

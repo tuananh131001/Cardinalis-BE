@@ -1,10 +1,10 @@
-package org.cardinalis.tweetcrd;
+package org.cardinalis.tweetservice;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class TweetCrdApplicationTests {
+class TweetServiceApplicationTests {
 
 	@Test
 	void contextLoads() {
