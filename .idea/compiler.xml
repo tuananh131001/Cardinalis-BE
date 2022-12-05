@@ -11,6 +11,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="user-service" />
+        <module name="tweet-crd" />
         <module name="eureka-server" />
         <module name="gateway" />
       </profile>
@@ -18,11 +19,14 @@
     <bytecodeTargetLevel>
       <module name="auth-service" target="17" />
       <module name="Cardinalis-BE (1) (com.example)" target="19" />
+      <module name="crud" target="17" />
+      <module name="wrapper" target="1.5" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="Cardinalis-BE (1) (com.example)" options="-parameters" />
+      <module name="tweet-crd" options="" />
       <module name="user-service" options="" />
     </option>
   </component>
