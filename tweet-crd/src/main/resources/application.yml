@@ -4,6 +4,7 @@ spring:
   application:
     name: tweet-crd
   datasource:
+#    password: tnhK$ct21720#
     password: 131001
     url: jdbc:postgresql://localhost:5432/cardinalis
     username: postgres
