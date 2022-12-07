@@ -1,32 +1,34 @@
-xservices:
-  tweet-service:
-    container_name: tweet-service
-    image: cardinalis/tweet-service
+services:
+  database-tweet:
+    container_name: database-tweet
+    image: postgres
     environment:
+      POSTGRES_DB: cardinalis
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: 131001
       PGDATA: /data/postgres
     volumes:
-      - tweet-service:/data/postgres
+      - my-db-tweet:/data/postgres
     ports:
       - "3306:3306"
     networks:
-      - postgres
+      - twitter-network
     restart: unless-stopped
 
-  postgres:
-    container_name: postgres
+  database-user:
+    container_name: database-user
     image: postgres
     environment:
+      POSTGRES_DB: cardinalis
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: 131001
       PGDATA: /data/postgres
     volumes:
-      - postgres:/data/postgres
+      - my-db-user:/data/postgres
     ports:
-      - "5432:5432"
+      - "3307:3307"
     networks:
-      - postgres
+      - twitter-network
     restart: unless-stopped
 
   pgadmin:
@@ -41,17 +43,14 @@ xservices:
     ports:
       - "5050:80"
     networks:
-      - postgres
+      - twitter-network
     restart: unless-stopped
 
 
 volumes:
-  tweet-service:
-  postgres:
+  my-db-tweet:
+  my-db-user:
   pgadmin:
 
 networks:
-  postgres:
-    driver: bridge
-  spring:
-    driver: bridge
+  twitter-network:

@@ -1,0 +1,56 @@
+version: "3.1"
+services:
+  eureka-server:
+    container_name: eureka-server
+    build: ./eureka-server
+    restart: always
+    networks:
+      - twitter-network
+    ports:
+      - '9000:9000'
+  gateway:
+    container_name: gateway
+    build: ./gateway
+    restart: always
+    networks:
+      - twitter-network
+    ports:
+      - '9002:9002'
+    environment:
+      - EUREKA_URL=http://eureka-server:9000/eureka
+    links:
+      - "eureka-server"
+    depends_on:
+      - eureka-server
+  user-service:
+    container_name: user-service
+    build: ./user-service
+    networks:
+      - twitter-network
+    ports:
+      - '8081:8081'
+    environment:
+      - HOST_DB=postgresql:postgres://database-user:3307/user_database?useSSL=false
+      - EUREKA_URL=http://eureka-server:9000/eureka
+    links:
+      - "eureka-server"
+    depends_on:
+      - eureka-server
+      - gateway
+  tweet-service:
+    container_name: tweet-service
+    build: ./tweet-service
+    networks:
+      - twitter-network
+    ports:
+      - '8080:8080'
+    environment:
+      - HOST_DB=postgresql:postgres://database-tweet:3306/user_database?useSSL=false
+      - EUREKA_URL=http://eureka-server:9000/eureka
+    links:
+      - "eureka-server"
+    depends_on:
+      - eureka-server
+      - gateway
+networks:
+  twitter-network:
