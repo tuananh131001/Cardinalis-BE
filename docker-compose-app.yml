@@ -30,7 +30,7 @@ services:
     ports:
       - '8081:8081'
     environment:
-      - HOST_DB=postgresql:postgres://database-user:3307/user_database?useSSL=false
+      - HOST_DB=jdbc:postgresql://database-user:5432/cardinalis
       - EUREKA_URL=http://eureka-server:9000/eureka
     links:
       - "eureka-server"
@@ -45,7 +45,7 @@ services:
     ports:
       - '8080:8080'
     environment:
-      - HOST_DB=postgresql:postgres://database-tweet:3306/user_database?useSSL=false
+      - HOST_DB=jdbc:postgresql://database-tweet:5432/cardinalis
       - EUREKA_URL=http://eureka-server:9000/eureka
     links:
       - "eureka-server"

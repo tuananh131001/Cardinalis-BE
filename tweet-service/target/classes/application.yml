@@ -3,10 +3,12 @@ server:
 spring:
   application:
     name: tweet-service
+
   datasource:
-    password: '131001'
-    url: jdbc:postgresql://localhost:5432/cardinalis
-    username: 'postgres'
+    username:  ${USER_DB:postgres}
+    password: ${PASSWORD_DB:131001}
+    url: ${HOST_DB:jdbc:postgresql://localhost:3306/cardinalis}
+    driver-class-name: ${DRIVER_DB:org.postgresql.Driver}
   jpa:
     hibernate:
       ddl-auto: create-drop
@@ -22,4 +24,4 @@ jwt:
 eureka:
   client:
     service-url:
-      defaultZone: http://localhost:8761/eureka/
+      defaultZone: ${EUREKA_URL:http://localhost:9000/eureka}

@@ -8,3 +8,7 @@ eureka:
   client:
     registerWithEureka: false
     fetchRegistry: false
+    healthcheck:
+      enabled: true
+    serviceUrl:
+      defaultZone: ${EUREKA_URL:http://localhost:9000/eureka}

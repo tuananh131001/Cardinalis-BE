@@ -6,14 +6,13 @@ services:
       POSTGRES_DB: cardinalis
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: 131001
-      PGDATA: /data/postgres
     volumes:
       - my-db-tweet:/data/postgres
     ports:
-      - "3306:3306"
+      - "3306:5432"
     networks:
       - twitter-network
-    restart: unless-stopped
+    restart: always
 
   database-user:
     container_name: database-user
@@ -22,14 +21,13 @@ services:
       POSTGRES_DB: cardinalis
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: 131001
-      PGDATA: /data/postgres
     volumes:
       - my-db-user:/data/postgres
     ports:
-      - "3307:3307"
+      - "3307:5432"
     networks:
       - twitter-network
-    restart: unless-stopped
+    restart: always
 
   pgadmin:
     container_name: pgadmin
