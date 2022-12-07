@@ -5,6 +5,7 @@ import org.cardinalis.tweetservice.service.TweetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -15,8 +16,9 @@ public class TweetController {
     private TweetService tweetService;
 
     @RequestMapping(path = "", method = RequestMethod.POST)
-    public void addTweet(@RequestBody Tweet tweet){
-        tweetService.saveTweet(tweet);
+    public String addTweet(@RequestBody Tweet tweet){
+        if (tweet.getCreatedAt() == null) tweet.setCreatedAt(LocalDateTime.now());
+        return tweetService.saveTweet(tweet);
     }
 
     @RequestMapping(path = "", method = RequestMethod.GET)
@@ -32,8 +34,8 @@ public class TweetController {
     }
 
     @RequestMapping(path = "/{id}", method = RequestMethod.DELETE)
-    public void deleteProduct(@PathVariable(value = "id") UUID id){
-        tweetService.deleteTweet(id);
+    public String deleteTweet(@PathVariable(value = "id") UUID id){
+        return tweetService.deleteTweet(id);
     }
 
     @RequestMapping(path = "/search", method = RequestMethod.GET)
