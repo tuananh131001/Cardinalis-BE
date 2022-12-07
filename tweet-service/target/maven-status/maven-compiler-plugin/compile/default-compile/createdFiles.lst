@@ -1,6 +1,0 @@
-org/cardinalis/tweetservice/TweetServiceApplication.class
-org/cardinalis/tweetservice/model/Tweet.class
-org/cardinalis/tweetservice/controller/TweetController.class
-org/cardinalis/tweetservice/repository/TweetRepository.class
-org/cardinalis/tweetservice/service/TweetSeriveImpl.class
-org/cardinalis/tweetservice/service/TweetService.class
