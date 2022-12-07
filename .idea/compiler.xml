@@ -10,8 +10,8 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="tweet-service" />
         <module name="user-service" />
-        <module name="tweet-crd" />
         <module name="eureka-server" />
         <module name="gateway" />
       </profile>
@@ -26,8 +26,10 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="Cardinalis-BE (1) (com.example)" options="-parameters" />
-      <module name="tweet-crd" options="" />
-      <module name="user-service" options="" />
+      <module name="eureka-server" options="-parameters" />
+      <module name="gateway" options="-parameters" />
+      <module name="tweet-service" options="-parameters" />
+      <module name="user-service" options="-parameters" />
     </option>
   </component>
 </project>
