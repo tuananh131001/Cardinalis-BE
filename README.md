@@ -15,9 +15,8 @@ Running applications:
 
 ``` bash
 ## == Build ==
-run.sh 
-# or 
-run.bat
+./run.sh 
+
 
 ## == Running ==
 docker-compose -f docker-compose-app.yml up --build -d
