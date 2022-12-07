@@ -1,0 +1,54 @@
+services:
+  database-tweet:
+    container_name: database-tweet
+    image: postgres
+    environment:
+      POSTGRES_DB: cardinalis
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 131001
+    volumes:
+      - my-db-tweet:/data/postgres
+    ports:
+      - "3306:5432"
+    networks:
+      - twitter-network
+    restart: always
+
+  database-user:
+    container_name: database-user
+    image: postgres
+    environment:
+      POSTGRES_DB: cardinalis
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 131001
+    volumes:
+      - my-db-user:/data/postgres
+    ports:
+      - "3307:5432"
+    networks:
+      - twitter-network
+    restart: always
+
+  pgadmin:
+    container_name: pgadmin
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-pgadmin4@pgadmin.org}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin}
+      PGADMIN_CONFIG_SERVER_MODE: 'False'
+    volumes:
+      - pgadmin:/var/lib/pgadmin
+    ports:
+      - "5050:80"
+    networks:
+      - twitter-network
+    restart: unless-stopped
+
+
+volumes:
+  my-db-tweet:
+  my-db-user:
+  pgadmin:
+
+networks:
+  twitter-network:
