@@ -7,7 +7,7 @@ Running Databases:
 docker-compose up -d --build
 ```
 
-- Access DynamoDb Admin: http://localhost:8001/
+- Access Pgadmin Admin: http://localhost:5050/
 - Access Database Tweet: http://localhost:3306/
 - Access Database User: http://localhost:3307/
 
@@ -26,7 +26,6 @@ docker-compose -f docker-compose-app.yml up --build -d
 - Gateway Service: http://localhost:9002
   - Tweet Service: [/tweet](http://localhost:9002)
   - User Service: [/user](http://localhost:9002)
-  - Timeline Service: [/timeline](http://localhost:9002)
 - Eureka Service: http://localhost:9000
 ![System Design - Cardinalis](https://user-images.githubusercontent.com/67695658/204201001-31fae380-3132-4845-9307-07b08d4147d5.png)
 
