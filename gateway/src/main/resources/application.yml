@@ -6,6 +6,14 @@ spring:
     name: gateway
   cloud:
     gateway:
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins: "http://localhost:9002"
+            allowedHeaders: "*"
+            allowedMethods:
+              - GET
+              - POST
       routes:
         - id: user-service
           uri: lb://user-service
