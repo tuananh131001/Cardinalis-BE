@@ -36,7 +36,8 @@ public class AuthenticationController {
 
             return ResponseEntity.ok(new TokenDTO(token, "Bearer"));
         } catch (AuthenticationException e) {
-            return ResponseEntity.badRequest().build();
+            // return "Login Failed: Your user ID or password is incorrect" with 401
+            return ResponseEntity.status(401).build();
         }
     }
 }
