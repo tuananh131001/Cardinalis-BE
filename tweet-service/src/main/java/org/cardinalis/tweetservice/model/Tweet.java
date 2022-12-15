@@ -20,7 +20,7 @@ public class Tweet {
     private UUID id;
 
     @Column(nullable = false, length = 36)
-    private String userId;
+    private UUID userId;
 
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
@@ -37,7 +37,7 @@ public class Tweet {
         this.content = content;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(UUID userId) {
         this.userId = userId;
     }
 
@@ -53,7 +53,7 @@ public class Tweet {
         return content;
     }
 
-    public String getUserId() {
+    public UUID getUserId() {
         return userId;
     }
 

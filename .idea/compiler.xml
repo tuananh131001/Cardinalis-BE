@@ -12,6 +12,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="tweet-service" />
         <module name="user-service" />
+        <module name="timeline-service" />
         <module name="eureka-server" />
         <module name="gateway" />
       </profile>
@@ -20,6 +21,8 @@
       <module name="auth-service" target="17" />
       <module name="Cardinalis-BE (1) (com.example)" target="19" />
       <module name="crud" target="17" />
+      <module name="timeline-service (1) (com.cardinalis)" target="16" />
+      <module name="timeline-service (2) (com.twitter)" target="11" />
       <module name="wrapper" target="1.5" />
     </bytecodeTargetLevel>
   </component>
@@ -28,6 +31,9 @@
       <module name="Cardinalis-BE (1) (com.example)" options="-parameters" />
       <module name="eureka-server" options="-parameters" />
       <module name="gateway" options="-parameters" />
+      <module name="timeline-service" options="-parameters" />
+      <module name="timeline-service (1) (com.cardinalis)" options="-parameters" />
+      <module name="timeline-service (2) (com.twitter)" options="-parameters" />
       <module name="tweet-service" options="-parameters" />
       <module name="user-service" options="-parameters" />
     </option>

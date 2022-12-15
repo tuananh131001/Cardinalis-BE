@@ -42,7 +42,7 @@ public class TweetSeriveImpl implements TweetService{
     }
 
     @Override
-    public List<Tweet> getTweetByUserId(String userId) {
+    public List<Tweet> getTweetByUserId(UUID userId) {
         List<Tweet> tweets = null;
         try {
             tweets = tweetRepository.findByUserId(userId);
