@@ -83,4 +83,9 @@ Reponse:
     "bearer": "Bearer"
 }
 ```
+#Diary
+![image](https://user-images.githubusercontent.com/67695658/207519786-3c1d9086-4bd7-45e2-9992-fe383979e736.png)
+wrong ip change to asia.gcr.io/
 
+# Ref
+https://dev.to/adafycheng/java-microservice-in-google-could-2nbf#containerize-the-microservice
