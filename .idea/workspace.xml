@@ -4,26 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="916d7a0e-dccb-4e95-8f07-183311752d56" name="Changes" comment="add auto generate time when create tweet, docker tweet-service">
-      <change afterPath="$PROJECT_DIR$/timeline-service.zip" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/timeline-service/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/timeline-service/.mvn/wrapper/maven-wrapper.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/timeline-service/.mvn/wrapper/maven-wrapper.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/timeline-service/mvnw" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/timeline-service/mvnw.cmd" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/timeline-service/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/timeline-service/src/main/java/com/cardinalis/timelineservice/TimelineServiceApplication.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/timeline-service/src/main/java/com/cardinalis/timelineservice/model/Timeline.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/timeline-service/src/main/resources/application.properties" afterDir="false" />
+    <list default="true" id="916d7a0e-dccb-4e95-8f07-183311752d56" name="Changes" comment="merge with main, change user of tweet from string to uuid">
       <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eureka-server/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/eureka-server/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/user-service/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -82,7 +66,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/timeline-service" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/k8s" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
@@ -276,7 +260,7 @@
       <workItem from="1670393365546" duration="479000" />
       <workItem from="1670832216872" duration="2961000" />
       <workItem from="1671118682290" duration="276000" />
-      <workItem from="1671118985784" duration="336000" />
+      <workItem from="1671118985784" duration="1407000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit Tweet CRD">
       <created>1669712512990</created>
@@ -306,7 +290,21 @@
       <option name="project" value="LOCAL" />
       <updated>1670389444714</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="user of a tweet: string -&gt; uuid">
+      <created>1671119644201</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1671119644201</updated>
+    </task>
+    <task id="LOCAL-00006" summary="merge with main, change user of tweet from string to uuid">
+      <created>1671119894718</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1671119894718</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -347,7 +345,9 @@
     <MESSAGE value="Fix error create bean" />
     <MESSAGE value="rename to &quot;tweet-service&quot;, change api to &quot;/tweet&quot;" />
     <MESSAGE value="add auto generate time when create tweet, docker tweet-service" />
-    <option name="LAST_COMMIT_MESSAGE" value="add auto generate time when create tweet, docker tweet-service" />
+    <MESSAGE value="user of a tweet: string -&gt; uuid" />
+    <MESSAGE value="merge with main, change user of tweet from string to uuid" />
+    <option name="LAST_COMMIT_MESSAGE" value="merge with main, change user of tweet from string to uuid" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -359,7 +359,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/user-service/src/main/java/com/cardinalis/userservice/UserServiceApplication.java</url>
-          <line>14</line>
+          <line>12</line>
           <option name="timeStamp" value="11" />
         </line-breakpoint>
       </breakpoints>
