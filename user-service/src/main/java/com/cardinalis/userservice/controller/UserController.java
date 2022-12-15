@@ -25,76 +25,83 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/user")
+@AllArgsConstructor
 public class UserController {
-    @Autowired
-    private AuthenticationManager authManager;
-
-    @Autowired
-    private TokenService tokenService;
-
-    @Autowired
-    UserService userService;
-
-    @Autowired
-    private ModelMapper mapper;
+    private final AuthenticationManager authManager;
+    private final TokenService tokenService;
+    private final UserService userService;
+    private final ModelMapper mapper;
 
     @PostMapping("/register")
     public ResponseEntity<Map<String, Object>> createUser(@RequestBody RegisterDTO register) {
-        Map<String, Object> response = new HashMap<>();
-        response.put("data", new ArrayList<>());
-        response.put("success", true);
-        response.put("errors_message", null);
-
         UserEntity userCreated = userService.save(register);
-        response.put("code", HttpStatus.CREATED.value());
-        response.put("data", mapper.map(userCreated, UserEntityDTO.class));
+        UserEntityDTO userDTO = mapper.map(userCreated, UserEntityDTO.class);
 
-        return ResponseEntity.created(URI.create("/" + userCreated.getId())).body(response);
+        Map<String, Object> response = createResponse(
+                HttpStatus.CREATED,
+                userDTO
+        );
+
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(response);
     }
 
     @GetMapping("/fetch/{username}")
     public ResponseEntity<Map<String, Object>> fetchByUsername(@PathVariable("username") String username) {
-        Map<String, Object> response = new HashMap<>();
-        response.put("data", new ArrayList<>());
-        response.put("success", true);
-        response.put("errors_message", null);
-
         UserEntity user = userService.fetchByUsername(username);
-        response.put("code", HttpStatus.OK.value());
-        response.put("data", mapper.map(user, UserEntityDTO.class));
+        UserEntityDTO userDTO = mapper.map(user, UserEntityDTO.class);
+
+        Map<String, Object> response = createResponse(
+                HttpStatus.OK,
+                userDTO
+        );
 
         return ResponseEntity.ok(response);
     }
 
-    //    Will refactor this later
     @PostMapping("/login")
     public ResponseEntity<Map<String, Object>> authenticate(@RequestBody @Valid LoginDTO form) {
-        Map<String, Object> response = new HashMap<>();
-        response.put("data", new ArrayList<>());
-        response.put("success", true);
-        response.put("errors_message", null);
-
         try {
             UsernamePasswordAuthenticationToken login = form.converter();
             Authentication authentication = authManager.authenticate(login);
             String token = tokenService.generateToken(authentication);
 
-            response.put("code", HttpStatus.OK.value());
-            response.put("data", new TokenDTO(token, "Bearer"));
+            Map<String, Object> response = createResponse(
+                    HttpStatus.OK,
+                    new TokenDTO(token, "Bearer")
+            );
 
             return ResponseEntity.ok(response);
         } catch (AuthenticationException e) {
             // return "Login Failed: Your user ID or password is incorrect" with 401
-            response.put("code", HttpStatus.UNAUTHORIZED.value());
-            response.put("success", false);
-            response.put("errors_message", "Login Failed: Your user ID or password is incorrect");
+            Map<String, Object> response = createResponse(
+                    HttpStatus.UNAUTHORIZED,
+                    null,
+                    "Login Failed: Your user ID or password is incorrect"
+            );
 
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
+            return ResponseEntity
+                    .status(HttpStatus.UNAUTHORIZED)
+                    .body(response);
         }
     }
 
     @GetMapping
     public String test() {
         return "test";
+    }
+
+    private Map<String, Object> createResponse(HttpStatus status, Object data, String errorMessage) {
+        Map<String, Object> response = new HashMap<>();
+        response.put("success", status.is2xxSuccessful());
+        response.put("code", status.value());
+        response.put("data", data);
+        response.put("errors_message", errorMessage);
+        return response;
+    }
+
+    private Map<String, Object> createResponse(HttpStatus status, Object data) {
+        return createResponse(status, data, null);
     }
 }
