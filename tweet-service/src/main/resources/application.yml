@@ -21,7 +21,3 @@ jwt:
   secret: screte-value
   expiration: 86400000
 
-eureka:
-  client:
-    service-url:
-      defaultZone: ${EUREKA_URL:http://localhost:9000/eureka}
