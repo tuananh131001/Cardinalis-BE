@@ -5,9 +5,6 @@ set -e # stop shell when a command fails with status other than 0
 r=`pwd`
 echo $r
 
-# Eureka
-cd "$r/eureka-server"
-mvn clean install &
 
 # Gateway
 cd "$r/gateway"

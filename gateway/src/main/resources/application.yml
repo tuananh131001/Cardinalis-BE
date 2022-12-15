@@ -1,5 +1,5 @@
 server:
-  port: 9002
+  port: 8080
 
 spring:
   application:
@@ -23,10 +23,3 @@ spring:
           uri: lb://tweet-service
           predicates:
             - Path=/api/tweet/**
-
-eureka:
-  client:
-    service-url:
-      defaultZone: ${EUREKA_URL:http://localhost:9000/eureka}
-    fetch-registry: true
-    register-with-eureka: true

@@ -11,15 +11,15 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="tweet-service" />
-        <module name="user-service" />
-        <module name="eureka-server" />
         <module name="gateway" />
+        <module name="user-service" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="auth-service" target="17" />
       <module name="Cardinalis-BE (1) (com.example)" target="19" />
       <module name="crud" target="17" />
+      <module name="eureka-server" target="17" />
       <module name="wrapper" target="1.5" />
     </bytecodeTargetLevel>
   </component>

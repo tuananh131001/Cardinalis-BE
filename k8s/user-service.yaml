@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: user-service
+  labels:
+    app: user-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: user-service
+  template:
+    metadata:
+      labels:
+        app: user-service
+    spec:
+      containers:
+        - name: user-service
+          image: asia-southeast1-docker.pkg.dev/proven-solstice-371106/cardinalis/user-service
+          ports:
+            - containerPort: 8080
+          livenessProbe:
+            httpGet:
+              path: /actuator/health/liveness
+              port: 8080
+            initialDelaySeconds: 180
+            periodSeconds: 5
+            timeoutSeconds: 5
+            failureThreshold: 10
+              # Configure the readiness probe
+          readinessProbe:
+            httpGet:
+              path: /actuator/health/readiness
+              port: 8080
+            initialDelaySeconds: 180
+            periodSeconds: 5
+            timeoutSeconds: 5
+            failureThreshold: 10
+          env:
+            - name: USER_DB
+              value: postgres
+            - name: PASSWORD_DB
+              value: OYl4vnn9ULlV3Sc3tDNj
+            - name: HOST_DB
+              value: jdbc:postgresql://containers-us-west-59.railway.app:6571/railway
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: user-service
+  labels:
+    app: user-service
+    spring-boot: "true"
+spec:
+  ports:
+    - port: 8080
+      protocol: TCP
+      targetPort: 8080
+  selector:
+    app: user-service
+  type: ClusterIP
