@@ -1,5 +1,31 @@
 # Cardinalis-BE
+## Get Started
 
+Running Databases:
+
+``` bash
+docker-compose up -d --build
+```
+
+- Access Pgadmin Admin: http://localhost:5050/
+- Access Database Tweet: http://localhost:3306/
+- Access Database User: http://localhost:3307/
+
+Running applications:
+
+``` bash
+## == Build ==
+./run.sh 
+
+
+## == Running ==
+docker-compose -f docker-compose-app.yml up --build -d
+```
+
+- Gateway Service: http://localhost:9002
+  - Tweet Service: [/tweet](http://localhost:9002)
+  - User Service: [/user](http://localhost:9002)
+- Eureka Service: http://localhost:9000
 ![System Design - Cardinalis](https://user-images.githubusercontent.com/67695658/204201001-31fae380-3132-4845-9307-07b08d4147d5.png)
 
 # 1. User
@@ -57,3 +83,9 @@ Reponse:
     "bearer": "Bearer"
 }
 ```
+#Diary
+![image](https://user-images.githubusercontent.com/67695658/207519786-3c1d9086-4bd7-45e2-9992-fe383979e736.png)
+wrong ip change to asia.gcr.io/
+
+# Ref
+https://dev.to/adafycheng/java-microservice-in-google-could-2nbf#containerize-the-microservice

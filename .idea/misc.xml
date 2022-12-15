@@ -15,6 +15,7 @@
       <set>
         <option value="$PROJECT_DIR$/auth-service/pom.xml" />
         <option value="$PROJECT_DIR$/crud/pom.xml" />
+        <option value="$PROJECT_DIR$/eureka-server/pom.xml" />
       </set>
     </option>
   </component>

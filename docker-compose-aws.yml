@@ -1,20 +1,26 @@
 version: "3.1"
 services:
-  gateway:
-    container_name: gateway
-    build: ./gateway
+  eureka-server:
+    image: williama1pha/cardinalis-be-eureka-server
+    ports:
+      - '9000:9000'
     restart: always
     networks:
       - twitter-network
+  gateway:
+    image: williama1pha/cardinalis-be-gateway
     ports:
       - '9002:9002'
+    networks:
+      - twitter-network
     environment:
       - EUREKA_URL=http://eureka-server:9000/eureka
-      - DOCKER_DEFAULT_PLATFORM=linux/amd64 docker-compose build
-
+    links:
+      - "eureka-server"
+    depends_on:
+      - eureka-server
   user-service:
-    container_name: user-service
-    build: ./user-service
+    image: williama1pha/cardinalis-be-user-service
     networks:
       - twitter-network
     ports:
@@ -24,11 +30,14 @@ services:
       - PASSWORD_DB=OYl4vnn9ULlV3Sc3tDNj
       - HOST_DB=jdbc:postgresql://containers-us-west-59.railway.app:6571/railway
       - EUREKA_URL=http://eureka-server:9000/eureka
+    links:
+      - "eureka-server"
     depends_on:
+      - eureka-server
       - gateway
   tweet-service:
-    container_name: tweet-service
-    build: ./tweet-service
+    image: williama1pha/cardinalis-be-tweet-service
+    platform: linux/amd64
     networks:
       - twitter-network
     ports:
@@ -38,8 +47,10 @@ services:
       - PASSWORD_DB=V8GFrDT8372Cjw3uAY80
       - HOST_DB=jdbc:postgresql://containers-us-west-143.railway.app:7614/railway
       - EUREKA_URL=http://eureka-server:9000/eureka
-
+    links:
+      - "eureka-server"
     depends_on:
+      - eureka-server
       - gateway
 networks:
   twitter-network:
