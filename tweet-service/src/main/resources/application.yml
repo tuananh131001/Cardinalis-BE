@@ -3,7 +3,6 @@ server:
 spring:
   application:
     name: tweet-service
-
   datasource:
     username:  ${USER_DB:postgres}
     password: ${PASSWORD_DB:131001}

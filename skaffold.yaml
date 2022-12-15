@@ -4,10 +4,6 @@ metadata:
   name: cardinalis-be
 build:
   artifacts:
-  - image: asia-southeast1-docker.pkg.dev/proven-solstice-371106/cardinalis/gateway
-    context: gateway
-    jib:
-      project: com.cardinalis:gateway
   - image: asia-southeast1-docker.pkg.dev/proven-solstice-371106/cardinalis/tweet-service
     context: tweet-service
     jib:
@@ -18,7 +14,6 @@ build:
       project: com.cardinalis:user-service
 manifests:
   rawYaml:
-  - k8s/gateway.yaml
   - k8s/ingress.yaml
   - k8s/tweet-service.yaml
   - k8s/user-service.yaml
