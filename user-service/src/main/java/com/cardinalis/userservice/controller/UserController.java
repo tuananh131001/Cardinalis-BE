@@ -31,7 +31,6 @@ public class UserController {
     private final TokenService tokenService;
     private final UserService userService;
     private final ModelMapper mapper;
-
     @PostMapping("/register")
     public ResponseEntity<Map<String, Object>> createUser(@RequestBody RegisterDTO register) {
         UserEntity userCreated = userService.save(register);
@@ -86,12 +85,10 @@ public class UserController {
                     .body(response);
         }
     }
-
     @GetMapping
     public String test() {
         return "test";
     }
-
     private Map<String, Object> createResponse(HttpStatus status, Object data, String errorMessage) {
         Map<String, Object> response = new HashMap<>();
         response.put("success", status.is2xxSuccessful());
