@@ -1,0 +1,61 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tweet-service
+  labels:
+    app: tweet-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tweet-service
+  template:
+    metadata:
+      labels:
+        app: tweet-service
+    spec:
+      containers:
+        - name: tweet-service
+          image: us-central1-docker.pkg.dev/proven-solstice-371106/cardinalis/tweet-service
+          ports:
+            - containerPort: 8080
+          livenessProbe:
+            httpGet:
+              path: /actuator/health/liveness
+              port: 8080
+            initialDelaySeconds: 150
+            periodSeconds: 5
+            timeoutSeconds: 5
+            failureThreshold: 10
+          # Configure the readiness probe
+          readinessProbe:
+            httpGet:
+              path: /actuator/health/readiness
+              port: 8080
+            initialDelaySeconds: 150
+            periodSeconds: 5
+            timeoutSeconds: 5
+            failureThreshold: 10
+          env:
+            - name: USER_DB
+              value: postgres
+            - name: PASSWORD_DB
+              value: "131001"
+            - name: HOST_DB
+              value: jdbc:postgresql://localhost:3306/cardinalis
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: tweet-service
+  labels:
+    app: tweet-service
+    spring-boot: "true"
+spec:
+  ports:
+    - port: 8080
+      protocol: TCP
+      targetPort: 8080
+  selector:
+    app: tweet-service
+  type: ClusterIP

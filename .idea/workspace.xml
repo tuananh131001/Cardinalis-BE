@@ -5,9 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="916d7a0e-dccb-4e95-8f07-183311752d56" name="Changes" comment="rename to &quot;tweet-service&quot;, change api to &quot;/tweet&quot;">
+      <change afterPath="$PROJECT_DIR$/k8s/postgres-tweet.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/k8s/postgres-user.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/k8s/tweet-local-service.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/k8s/user-local-service.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/skaffoldLocal.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/user-service/src/main/resources/sql/populate-database.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/k8s/tweet-service.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/k8s/tweet-service.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/k8s/user-service.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/k8s/user-service.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose-app.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose-app.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user-service/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/user-service/src/main/resources/application.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,6 +61,7 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
     "com.google.cloudcode.ide_session_index": "20221221_0002",
+    "last_opened_file_path": "/Users/nguyentuananh/Documents/coding/REACT THANH NN/Cardinalis-BE/k8s",
     "nodejs_package_manager_path": "npm",
     "spring.configuration.checksum": "c9cb153a4b49ece577c6e74aa95dcd6c"
   }
@@ -63,11 +71,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/k8s" />
+      <recent name="$PROJECT_DIR$" />
       <recent name="D:\RMIT_Courses\Sem7_2022C\SAD\Cardinalis-Flaming\Cardinalis-BE" />
       <recent name="D:\RMIT_Courses\Sem7_2022C\SAD\Cardinalis-Flaming\Cardinalis-BE\user-service" />
       <recent name="D:\RMIT_Courses\Sem7_2022C\SAD\Cardinalis-Flaming\Cardinalis-BE\gateway" />
-      <recent name="D:\RMIT_Courses\Sem7_2022C\SAD\Cardinalis-Flaming\Cardinalis-BE\eureka-server" />
-      <recent name="D:\RMIT_Courses\Sem7_2022C\SAD\Cardinalis-Flaming\Cardinalis-BE\tweet-service" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="com.cardinalis.zuulservice.security" />
@@ -80,7 +88,7 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="Cloud Code: Kubernetes.Unnamed">
+  <component name="RunManager" selected="Cloud Code: Kubernetes.Local">
     <configuration name="AuthServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
       <option name="ACTIVE_PROFILES" />
       <option name="ALTERNATIVE_JRE_PATH" value="corretto-17" />
@@ -189,7 +197,7 @@
       </deployment>
       <method v="2" />
     </configuration>
-    <configuration name="Unnamed" type="google-container-tools-skaffold-run-config" factoryName="google-container-tools-skaffold-run-config-dev" show_console_on_std_err="false" show_console_on_std_out="false">
+    <configuration name="Deploy on Cloud" type="google-container-tools-skaffold-run-config" factoryName="google-container-tools-skaffold-run-config-dev" show_console_on_std_err="false" show_console_on_std_out="false">
       <option name="allowRunningInParallel" value="false" />
       <option name="buildEnvironment" value="Local" />
       <option name="cleanupDeployments" value="false" />
@@ -220,8 +228,40 @@
       <option name="verbosity" value="WARN" />
       <method v="2" />
     </configuration>
+    <configuration name="Local" type="google-container-tools-skaffold-run-config" factoryName="google-container-tools-skaffold-run-config-dev" show_console_on_std_err="false" show_console_on_std_out="false">
+      <option name="allowRunningInParallel" value="false" />
+      <option name="buildEnvironment" />
+      <option name="cleanupDeployments" value="false" />
+      <option name="deployToCurrentContext" value="false" />
+      <option name="deployToMinikube" value="true" />
+      <option name="envVariables" />
+      <option name="imageRepositoryOverride" />
+      <option name="kubernetesContext" />
+      <option name="mappings">
+        <list />
+      </option>
+      <option name="moduleDeploymentType" value="DEPLOY_EVERYTHING" />
+      <option name="projectPathOnTarget" />
+      <option name="resourceDeletionTimeoutMins" value="2" />
+      <option name="selectedOptions">
+        <list />
+      </option>
+      <option name="skaffoldConfigurationFilePath" value="$PROJECT_DIR$/skaffoldLocal.yaml" />
+      <option name="skaffoldModules">
+        <list>
+          <option value="cardinalis-be" />
+        </list>
+      </option>
+      <option name="skaffoldNamespace" />
+      <option name="skaffoldProfile" />
+      <option name="skaffoldWatchMode" value="ON_DEMAND" />
+      <option name="statusCheck" value="true" />
+      <option name="verbosity" value="WARN" />
+      <method v="2" />
+    </configuration>
     <list>
-      <item itemvalue="Cloud Code: Kubernetes.Unnamed" />
+      <item itemvalue="Cloud Code: Kubernetes.Local" />
+      <item itemvalue="Cloud Code: Kubernetes.Deploy on Cloud" />
       <item itemvalue="Docker.user-service: Compose Deployment" />
       <item itemvalue="Docker.user-service.tweet: Compose Deployment" />
       <item itemvalue="Spring Boot.AuthServiceApplication" />
@@ -284,7 +324,7 @@
       <workItem from="1671178667741" duration="2932000" />
       <workItem from="1671444923190" duration="898000" />
       <workItem from="1671528266376" duration="730000" />
-      <workItem from="1671619718394" duration="7974000" />
+      <workItem from="1671619718394" duration="17132000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit Tweet CRD">
       <created>1669712512990</created>

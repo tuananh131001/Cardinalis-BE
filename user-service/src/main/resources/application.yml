@@ -9,8 +9,9 @@ spring:
     url: ${HOST_DB:jdbc:postgresql://localhost:3307/cardinalis}
     driver-class-name: ${DRIVER_DB:org.postgresql.Driver}
   jpa:
+    defer-datasource-initialization: true
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
@@ -27,3 +28,10 @@ spring:
 jwt:
   secret: screte-value
   expiration: 86400000
+# Default user
+admin:
+  id: 1b2fe584-19b4-4173-9d3d-02acf970faa6
+  username: jjeanjacques10
+  email: jjeanjacques10@github.com
+  password: 12345
+  isHotUser: true
