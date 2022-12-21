@@ -5,19 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="916d7a0e-dccb-4e95-8f07-183311752d56" name="Changes" comment="rename to &quot;tweet-service&quot;, change api to &quot;/tweet&quot;">
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker-compose-app.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose-app.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/k8s/tweet-service.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/k8s/tweet-service.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/k8s/user-service.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/k8s/user-service.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/skaffold.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/skaffold.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tweet-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/tweet-service/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tweet-service/src/main/java/org/cardinalis/tweetservice/controller/TweetController.java" beforeDir="false" afterPath="$PROJECT_DIR$/tweet-service/src/main/java/org/cardinalis/tweetservice/controller/TweetController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/user-service/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user-service/src/main/java/com/cardinalis/userservice/config/SecurityConfig.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/user-service/src/main/java/com/cardinalis/userservice/config/SecurityConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/user-service/src/main/java/com/cardinalis/userservice/config/SecurityConfiguration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user-service/src/main/java/com/cardinalis/userservice/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/user-service/src/main/java/com/cardinalis/userservice/controller/UserController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -294,7 +284,7 @@
       <workItem from="1671178667741" duration="2932000" />
       <workItem from="1671444923190" duration="898000" />
       <workItem from="1671528266376" duration="730000" />
-      <workItem from="1671619718394" duration="5084000" />
+      <workItem from="1671619718394" duration="7974000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit Tweet CRD">
       <created>1669712512990</created>
