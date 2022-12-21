@@ -9,7 +9,6 @@ services:
     ports:
       - '9002:9002'
     environment:
-      - EUREKA_URL=http://eureka-server:9000/eureka
       - DOCKER_DEFAULT_PLATFORM=linux/amd64 docker-compose build
 
   user-service:
@@ -37,8 +36,6 @@ services:
       - USER_DB=postgres
       - PASSWORD_DB=V8GFrDT8372Cjw3uAY80
       - HOST_DB=jdbc:postgresql://containers-us-west-143.railway.app:7614/railway
-      - EUREKA_URL=http://eureka-server:9000/eureka
-
     depends_on:
       - gateway
 networks:

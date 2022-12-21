@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: tweet-service
-          image: asia-southeast1-docker.pkg.dev/proven-solstice-371106/cardinalis/tweet-service
+          image: us-central1-docker.pkg.dev/proven-solstice-371106/cardinalis/tweet-service
           ports:
             - containerPort: 8080
           livenessProbe:

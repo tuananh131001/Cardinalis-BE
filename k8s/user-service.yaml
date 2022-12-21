@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: user-service
-          image: asia-southeast1-docker.pkg.dev/proven-solstice-371106/cardinalis/user-service
+          image: us-central1-docker.pkg.dev/proven-solstice-371106/cardinalis/user-service
           ports:
             - containerPort: 8080
           livenessProbe:

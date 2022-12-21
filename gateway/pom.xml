@@ -29,7 +29,7 @@
                 <version>3.3.1</version>
                 <configuration>
                     <to>
-                        <image>asia-southeast1-docker.pkg.dev/proven-solstice-371106/cardinalis/${project.artifactId}</image>
+                        <image>us-central1-docker.pkg.dev/proven-solstice-371106/cardinalis/${project.artifactId}</image>
                     </to>
                 </configuration>
             </plugin>
