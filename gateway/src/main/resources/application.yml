@@ -21,4 +21,10 @@ spring:
         - id: tweet-service
           uri: lb://tweet-service
           predicates:
-            - Path=/api/tweet/**
+            - Path=/tweet/**
+eureka:
+  client:
+    service-url:
+      defaultZone: ${EUREKA_URL:http://localhost:9000/eureka}
+    fetch-registry: true
+    register-with-eureka: true

@@ -5,7 +5,7 @@ services:
     environment:
       POSTGRES_DB: cardinalis
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: 131001
+      POSTGRES_PASSWORD: postgres
     volumes:
       - my-db-tweet:/data/postgres
     ports:
@@ -20,7 +20,7 @@ services:
     environment:
       POSTGRES_DB: cardinalis
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: 131001
+      POSTGRES_PASSWORD: postgres
     volumes:
       - my-db-user:/data/postgres
     ports:

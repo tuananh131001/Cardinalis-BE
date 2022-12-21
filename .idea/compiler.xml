@@ -13,6 +13,7 @@
         <module name="tweet-service" />
         <module name="user-service" />
         <module name="timeline-service" />
+        <module name="eureka-server" />
         <module name="gateway" />
       </profile>
     </annotationProcessing>
@@ -20,13 +21,12 @@
       <module name="auth-service" target="17" />
       <module name="Cardinalis-BE (1) (com.example)" target="19" />
       <module name="crud" target="17" />
-      <module name="eureka-server" target="16" />
       <module name="wrapper" target="1.5" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="Cardinalis-BE" options="" />
+      <module name="Cardinalis-BE" options="-parameters" />
       <module name="Cardinalis-BE (1) (com.example)" options="-parameters" />
       <module name="eureka-server" options="-parameters" />
       <module name="gateway" options="-parameters" />

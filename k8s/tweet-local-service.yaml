@@ -40,7 +40,7 @@ spec:
             - name: USER_DB
               value: postgres
             - name: PASSWORD_DB
-              value: "131001"
+              value: postgres
             - name: HOST_DB
               value: jdbc:postgresql://localhost:3306/cardinalis
 ---
@@ -59,3 +59,4 @@ spec:
   selector:
     app: tweet-service
   type: ClusterIP
+

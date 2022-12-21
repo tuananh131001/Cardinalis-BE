@@ -68,3 +68,4 @@ spec:
     - port: 3307
   selector:
     app: postgres-user
+

@@ -35,3 +35,7 @@ admin:
   email: jjeanjacques10@github.com
   password: 12345
   isHotUser: true
+eureka:
+  client:
+    service-url:
+      defaultZone: ${EUREKA_URL:http://localhost:9000/eureka}

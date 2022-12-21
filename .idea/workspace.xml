@@ -5,15 +5,31 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="916d7a0e-dccb-4e95-8f07-183311752d56" name="Changes" comment="rename to &quot;tweet-service&quot;, change api to &quot;/tweet&quot;">
-      <change afterPath="$PROJECT_DIR$/k8s/postgres-tweet.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/k8s/postgres-user.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/k8s/tweet-local-service.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/k8s/user-local-service.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/skaffoldLocal.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/user-service/src/main/resources/sql/populate-database.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eureka-server/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eureka-server/Dockerfile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eureka-server/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eureka-server/src/main/java/com/cardinalis/eurekaserver/EurekaServerApplication.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eureka-server/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/docker-compose-app.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose-app.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/cardinalis/gateway/CorsConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/java/com/cardinalis/gateway/CorsConfiguration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/cardinalis/gateway/GatewayApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/java/com/cardinalis/gateway/GatewayApplication.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gateway/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/k8s/postgres-tweet.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/k8s/postgres-tweet.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/k8s/postgres-user.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/k8s/postgres-user.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/k8s/tweet-local-service.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/k8s/tweet-local-service.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/k8s/user-local-service.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/k8s/user-local-service.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/skaffoldLocal.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tweet-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/tweet-service/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tweet-service/src/main/java/org/cardinalis/tweetservice/TweetServiceApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/tweet-service/src/main/java/org/cardinalis/tweetservice/TweetServiceApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tweet-service/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/tweet-service/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/user-service/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user-service/src/main/java/com/cardinalis/userservice/UserServiceApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/user-service/src/main/java/com/cardinalis/userservice/UserServiceApplication.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/user-service/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/user-service/src/main/resources/application.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -44,6 +60,13 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="useMavenConfig" value="true" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
   <component name="ProjectId" id="2I4h3MfNA1CLnJPTYN3qtOnsJjD" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
@@ -60,9 +83,13 @@
     "RequestMappingsPanelWidth1": "75",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
-    "com.google.cloudcode.ide_session_index": "20221221_0002",
-    "last_opened_file_path": "/Users/nguyentuananh/Documents/coding/REACT THANH NN/Cardinalis-BE/k8s",
+    "com.google.cloudcode.ide_session_index": "20221222_0004",
+    "jdk.selected.JAVA_MODULE": "corretto-17",
+    "last_opened_file_path": "/Users/nguyentuananh/Documents/coding/REACT THANH NN/Cardinalis-BE/eureka-server",
     "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.73216885",
     "spring.configuration.checksum": "c9cb153a4b49ece577c6e74aa95dcd6c"
   }
 }]]></component>
@@ -71,11 +98,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/eureka-server" />
       <recent name="$PROJECT_DIR$/k8s" />
       <recent name="$PROJECT_DIR$" />
       <recent name="D:\RMIT_Courses\Sem7_2022C\SAD\Cardinalis-Flaming\Cardinalis-BE" />
       <recent name="D:\RMIT_Courses\Sem7_2022C\SAD\Cardinalis-Flaming\Cardinalis-BE\user-service" />
-      <recent name="D:\RMIT_Courses\Sem7_2022C\SAD\Cardinalis-Flaming\Cardinalis-BE\gateway" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="com.cardinalis.zuulservice.security" />
@@ -88,7 +115,7 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="Cloud Code: Kubernetes.Local">
+  <component name="RunManager" selected="Spring Boot.GatewayApplication">
     <configuration name="AuthServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
       <option name="ACTIVE_PROFILES" />
       <option name="ALTERNATIVE_JRE_PATH" value="corretto-17" />
@@ -115,18 +142,9 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="GatewayApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
-      <option name="ALTERNATIVE_JRE_PATH" value="corretto-17" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
+    <configuration name="GatewayApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
       <module name="gateway" />
-      <option name="SHORTEN_COMMAND_LINE" value="NONE" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.cardinalis.gateway.GatewayApplication" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.cardinalis.gateway.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -176,23 +194,32 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="user-service: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
-      <deployment type="docker-compose.yml">
+    <configuration name="eureka-server/Dockerfile eureka-server" type="docker-deploy" factoryName="dockerfile" temporary="true" server-name="Docker">
+      <deployment type="dockerfile">
         <settings>
-          <option name="sourceFilePath" value="user-service/docker-compose.yml" />
+          <option name="imageTag" value="amazoncorretto17_eureka-server" />
+          <option name="buildCliOptions" value="--target eureka-server" />
+          <option name="buildKitEnabled" value="true" />
+          <option name="buildOnly" value="true" />
+          <option name="sourceFilePath" value="eureka-server/Dockerfile" />
         </settings>
       </deployment>
       <method v="2" />
     </configuration>
-    <configuration name="user-service.tweet: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
-      <deployment type="docker-compose.yml">
+    <configuration name="eureka-server/Dockerfile" type="docker-deploy" factoryName="dockerfile" temporary="true" server-name="Docker">
+      <deployment type="dockerfile">
         <settings>
-          <option name="services">
-            <list>
-              <option value="tweet" />
-            </list>
-          </option>
-          <option name="sourceFilePath" value="user-service/docker-compose.yml" />
+          <option name="buildOnly" value="true" />
+          <option name="sourceFilePath" value="eureka-server/Dockerfile" />
+        </settings>
+      </deployment>
+      <method v="2" />
+    </configuration>
+    <configuration name="gateway/Dockerfile" type="docker-deploy" factoryName="dockerfile" temporary="true" server-name="Docker">
+      <deployment type="dockerfile">
+        <settings>
+          <option name="buildOnly" value="true" />
+          <option name="sourceFilePath" value="gateway/Dockerfile" />
         </settings>
       </deployment>
       <method v="2" />
@@ -262,8 +289,9 @@
     <list>
       <item itemvalue="Cloud Code: Kubernetes.Local" />
       <item itemvalue="Cloud Code: Kubernetes.Deploy on Cloud" />
-      <item itemvalue="Docker.user-service: Compose Deployment" />
-      <item itemvalue="Docker.user-service.tweet: Compose Deployment" />
+      <item itemvalue="Docker.eureka-server/Dockerfile" />
+      <item itemvalue="Docker.eureka-server/Dockerfile eureka-server" />
+      <item itemvalue="Docker.gateway/Dockerfile" />
       <item itemvalue="Spring Boot.AuthServiceApplication" />
       <item itemvalue="Spring Boot.UserServiceApplication" />
       <item itemvalue="Spring Boot.TimelineServiceApplication" />
@@ -275,11 +303,11 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Spring Boot.TweetServiceApplication" />
-        <item itemvalue="Docker.user-service.tweet: Compose Deployment" />
-        <item itemvalue="Spring Boot.GatewayApplication" />
+        <item itemvalue="Docker.eureka-server/Dockerfile" />
+        <item itemvalue="Docker.eureka-server/Dockerfile eureka-server" />
+        <item itemvalue="Docker.gateway/Dockerfile" />
         <item itemvalue="Spring Boot.EurekaServerApplication" />
-        <item itemvalue="Docker.user-service: Compose Deployment" />
+        <item itemvalue="Docker.eureka-server/Dockerfile eureka-server" />
       </list>
     </recent_temporary>
   </component>
@@ -324,7 +352,9 @@
       <workItem from="1671178667741" duration="2932000" />
       <workItem from="1671444923190" duration="898000" />
       <workItem from="1671528266376" duration="730000" />
-      <workItem from="1671619718394" duration="17132000" />
+      <workItem from="1671619718394" duration="17507000" />
+      <workItem from="1671642129300" duration="3440000" />
+      <workItem from="1671645737591" duration="3665000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit Tweet CRD">
       <created>1669712512990</created>
