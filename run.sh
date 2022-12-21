@@ -17,3 +17,7 @@ mvn clean install &
 # User Service
 cd "$r/user-service"
 mvn clean install &
+
+cd "$r"
+docker-compose up -d --build
+docker-compose -f docker-compose-app.yml up --build -d

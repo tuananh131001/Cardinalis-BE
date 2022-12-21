@@ -5,32 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="916d7a0e-dccb-4e95-8f07-183311752d56" name="Changes" comment="rename to &quot;tweet-service&quot;, change api to &quot;/tweet&quot;">
-      <change afterPath="$PROJECT_DIR$/eureka-server/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/eureka-server/Dockerfile" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/eureka-server/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/eureka-server/src/main/java/com/cardinalis/eurekaserver/EurekaServerApplication.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/eureka-server/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker-compose-app.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose-app.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/cardinalis/gateway/CorsConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/java/com/cardinalis/gateway/CorsConfiguration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/cardinalis/gateway/GatewayApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/java/com/cardinalis/gateway/GatewayApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/k8s/postgres-tweet.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/k8s/postgres-tweet.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/k8s/postgres-user.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/k8s/postgres-user.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/k8s/tweet-local-service.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/k8s/tweet-local-service.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/k8s/user-local-service.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/k8s/user-local-service.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/skaffoldLocal.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tweet-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/tweet-service/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tweet-service/src/main/java/org/cardinalis/tweetservice/TweetServiceApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/tweet-service/src/main/java/org/cardinalis/tweetservice/TweetServiceApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tweet-service/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/tweet-service/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/user-service/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user-service/src/main/java/com/cardinalis/userservice/UserServiceApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/user-service/src/main/java/com/cardinalis/userservice/UserServiceApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user-service/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/user-service/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/run.sh" beforeDir="false" afterPath="$PROJECT_DIR$/run.sh" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -354,7 +329,7 @@
       <workItem from="1671528266376" duration="730000" />
       <workItem from="1671619718394" duration="17507000" />
       <workItem from="1671642129300" duration="3440000" />
-      <workItem from="1671645737591" duration="3665000" />
+      <workItem from="1671645737591" duration="3925000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit Tweet CRD">
       <created>1669712512990</created>
