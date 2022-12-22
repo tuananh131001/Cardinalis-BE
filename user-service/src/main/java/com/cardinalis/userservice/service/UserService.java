@@ -37,6 +37,7 @@ public class UserService {
 
         // Create the new user if the email and username do not already exist in the system
         var user = mapper.map(register, UserEntity.class);
+        user.setAvatar("https://i.pinimg.com/736x/d4/15/95/d415956c03d9ca8783bfb3c5cc984dde.jpg");
         user.setIsHotUser(true);
         user.setCreatedAt(LocalDateTime.now());
         user.setLastLoginTime(LocalDateTime.now());
