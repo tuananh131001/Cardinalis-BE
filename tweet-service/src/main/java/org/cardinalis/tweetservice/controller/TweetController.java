@@ -9,20 +9,19 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
-@CrossOrigin("*")
 @RestController
 @RequestMapping("/tweet")
 public class TweetController {
     @Autowired
     private TweetService tweetService;
 
-    @RequestMapping(path = "/", method = RequestMethod.POST)
+    @RequestMapping(path = "", method = RequestMethod.POST)
     public String addTweet(@RequestBody Tweet tweet){
         if (tweet.getCreatedAt() == null) tweet.setCreatedAt(LocalDateTime.now());
         return tweetService.saveTweet(tweet);
     }
 
-    @RequestMapping(path = "/", method = RequestMethod.GET)
+    @RequestMapping(path = "", method = RequestMethod.GET)
     public List<Tweet> getTweet(
             @RequestParam(defaultValue = "0") int pageNo,
             @RequestParam(defaultValue = "20") int pageSize)
