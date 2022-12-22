@@ -4,20 +4,29 @@ metadata:
   name: gateway-ingress
   annotations:
     # If the class annotation is not specified it defaults to "gce".
-    kubernetes.io/ingress.class: "gce"
+#    kubernetes.io/ingress.class: "gce"
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      more_set_headers "Access-Control-Allow-Origin: $http_origin";
+    nginx.ingress.kubernetes.io/cors-allow-credentials: "true"
+    nginx.ingress.kubernetes.io/cors-allow-methods: PUT, GET, POST,
+      OPTIONS, DELETE, PATCH
+    nginx.ingress.kubernetes.io/enable-cors: "true"
+    nginx.ingress.kubernetes.io/service-upstream: "true"
 spec:
   rules:
-      - http:
+      - host: "cardinalis-be.live"
+        http:
           paths:
-            - path: /tweet/*
-              pathType: ImplementationSpecific
+            - path: /tweet
+              pathType: Prefix
               backend:
                 service:
                   name: tweet-service
                   port:
                     number: 8080
-            - path: /user/*
-              pathType: ImplementationSpecific
+            - path: /user
+              pathType: Prefix
               backend:
                 service:
                   name: user-service

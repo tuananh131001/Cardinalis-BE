@@ -17,7 +17,7 @@ public class CorsConfiguration extends
     public CorsWebFilter corsWebFilter() {
 
         final CorsConfiguration corsConfig = new CorsConfiguration();
-        corsConfig.setAllowedOrigins(Collections.singletonList("*"));
+        corsConfig.setAllowedOriginPatterns(Collections.singletonList("*"));
         corsConfig.setMaxAge(3600L);
         corsConfig.setAllowedMethods(Arrays.asList("GET", "POST","PUT", "DELETE"));
         corsConfig.addAllowedHeader("Content-Type");
