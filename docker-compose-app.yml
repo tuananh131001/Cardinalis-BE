@@ -1,5 +1,13 @@
 version: "3.1"
 services:
+  eureka-server:
+    container_name: eureka-server
+    build: ./eureka-server
+    restart: always
+    networks:
+      - twitter-network
+    ports:
+      - '9000:9000'
   gateway:
     container_name: gateway
     build: ./gateway
@@ -11,7 +19,10 @@ services:
     environment:
       - EUREKA_URL=http://eureka-server:9000/eureka
       - DOCKER_DEFAULT_PLATFORM=linux/amd64 docker-compose build
-
+    links:
+      - "eureka-server"
+    depends_on:
+      - eureka-server
   user-service:
     container_name: user-service
     build: ./user-service
@@ -20,11 +31,14 @@ services:
     ports:
       - '8081:8081'
     environment:
-      - USER_DB=postgres
-      - PASSWORD_DB=OYl4vnn9ULlV3Sc3tDNj
-      - HOST_DB=jdbc:postgresql://containers-us-west-59.railway.app:6571/railway
+      - HOST_DB=jdbc:postgresql://database-user:5432/cardinalis
       - EUREKA_URL=http://eureka-server:9000/eureka
+      - USER_DB=postgres
+      - PASSWORD_DB=postgres
+    links:
+      - "eureka-server"
     depends_on:
+      - eureka-server
       - gateway
   tweet-service:
     container_name: tweet-service
@@ -34,12 +48,14 @@ services:
     ports:
       - '8080:8080'
     environment:
-      - USER_DB=postgres
-      - PASSWORD_DB=V8GFrDT8372Cjw3uAY80
-      - HOST_DB=jdbc:postgresql://containers-us-west-143.railway.app:7614/railway
+      - HOST_DB=jdbc:postgresql://database-tweet:5432/cardinalis
       - EUREKA_URL=http://eureka-server:9000/eureka
-
+      - USER_DB=postgres
+      - PASSWORD_DB=postgres
+    links:
+      - "eureka-server"
     depends_on:
+      - eureka-server
       - gateway
 networks:
   twitter-network:

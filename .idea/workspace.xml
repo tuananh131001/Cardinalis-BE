@@ -4,10 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="916d7a0e-dccb-4e95-8f07-183311752d56" name="Changes" comment="merge with main, change user of tweet from string to uuid">
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="916d7a0e-dccb-4e95-8f07-183311752d56" name="Changes" comment="rename to &quot;tweet-service&quot;, change api to &quot;/tweet&quot;">
+      <change beforePath="$PROJECT_DIR$/run.sh" beforeDir="false" afterPath="$PROJECT_DIR$/run.sh" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -18,8 +16,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Interface" />
-        <option value="Class" />
         <option value="Kotlin Class" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -32,23 +30,17 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="JpbToolWindowState">
-    <option name="myId2FirstActivated">
-      <map>
-        <entry key="com.haulmont.jpb.jpaInspector" value="true" />
-        <entry key="com.haulmont.jpb.jpaPalette" value="true" />
-        <entry key="com.haulmont.jpb.jpaStructure" value="true" />
-      </map>
-    </option>
-    <option name="myId2Visible">
-      <map>
-        <entry key="com.haulmont.jpb.jpaInspector" value="false" />
-        <entry key="com.haulmont.jpb.jpaPalette" value="false" />
-        <entry key="com.haulmont.jpb.jpaStructure" value="false" />
-      </map>
-    </option>
+    <option name="isToolWindowVisible" value="false" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="useMavenConfig" value="true" />
+      </MavenGeneralSettings>
+    </option>
   </component>
   <component name="ProjectId" id="2I4h3MfNA1CLnJPTYN3qtOnsJjD" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
@@ -58,31 +50,34 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">
-    <property name="RequestMappingsPanelOrder0" value="0" />
-    <property name="RequestMappingsPanelOrder1" value="1" />
-    <property name="RequestMappingsPanelWidth0" value="75" />
-    <property name="RequestMappingsPanelWidth1" value="75" />
-    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/k8s" />
-    <property name="nodejs_package_manager_path" value="npm" />
-    <property name="project.structure.last.edited" value="Modules" />
-    <property name="project.structure.proportion" value="0.15" />
-    <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="preferences.language.Kotlin.scripting" />
-  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "com.google.cloudcode.ide_session_index": "20221222_0004",
+    "jdk.selected.JAVA_MODULE": "corretto-17",
+    "last_opened_file_path": "/Users/nguyentuananh/Documents/coding/REACT THANH NN/Cardinalis-BE/eureka-server",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.73216885",
+    "spring.configuration.checksum": "c9cb153a4b49ece577c6e74aa95dcd6c"
+  }
+}]]></component>
   <component name="ReactorSettings">
     <option name="notificationShown" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/eureka-server" />
+      <recent name="$PROJECT_DIR$/k8s" />
+      <recent name="$PROJECT_DIR$" />
       <recent name="D:\RMIT_Courses\Sem7_2022C\SAD\Cardinalis-Flaming\Cardinalis-BE" />
       <recent name="D:\RMIT_Courses\Sem7_2022C\SAD\Cardinalis-Flaming\Cardinalis-BE\user-service" />
-      <recent name="D:\RMIT_Courses\Sem7_2022C\SAD\Cardinalis-Flaming\Cardinalis-BE\gateway" />
-      <recent name="D:\RMIT_Courses\Sem7_2022C\SAD\Cardinalis-Flaming\Cardinalis-BE\eureka-server" />
-      <recent name="D:\RMIT_Courses\Sem7_2022C\SAD\Cardinalis-Flaming\Cardinalis-BE\tweet-service" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="com.cardinalis.zuulservice.security" />
@@ -95,45 +90,36 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="Spring Boot.TweetServiceApplication">
+  <component name="RunManager" selected="Spring Boot.GatewayApplication">
     <configuration name="AuthServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <option name="ACTIVE_PROFILES" />
+      <option name="ALTERNATIVE_JRE_PATH" value="corretto-17" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
       <module name="auth-service" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.cardinalis.authservice.AuthServiceApplication" />
-      <option name="ACTIVE_PROFILES" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
-      <option name="ALTERNATIVE_JRE_PATH" value="corretto-17" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <configuration name="EurekaServerApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+      <option name="ACTIVE_PROFILES" />
+      <option name="ALTERNATIVE_JRE_PATH" value="corretto-17" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
       <module name="eureka-server" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.cardinalis.eurekaserver.EurekaServerApplication" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="com.cardinalis.eurekaserver.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="SPRING_BOOT_MAIN_CLASS" value="com.cardinalis.eurekaserver.EurekaServerApplication" />
-      <option name="ACTIVE_PROFILES" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
-      <option name="ALTERNATIVE_JRE_PATH" value="corretto-17" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="GatewayApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+    <configuration name="GatewayApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
       <module name="gateway" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.cardinalis.gateway.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.cardinalis.gateway.GatewayApplication" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
-      <option name="ALTERNATIVE_JRE_PATH" value="corretto-17" />
-      <option name="SHORTEN_COMMAND_LINE" value="NONE" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -160,52 +146,127 @@
       </method>
     </configuration>
     <configuration name="TweetServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+      <option name="ACTIVE_PROFILES" />
       <module name="tweet-service" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="org.cardinalis.tweetservice.TweetServiceApplication" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="org.cardinalis.tweetservice.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="SPRING_BOOT_MAIN_CLASS" value="org.cardinalis.tweetservice.TweetServiceApplication" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <configuration name="UserServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <option name="ACTIVE_PROFILES" />
+      <option name="ALTERNATIVE_JRE_PATH" value="corretto-17" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
       <module name="user-service" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.cardinalis.userservice.UserServiceApplication" />
-      <option name="ACTIVE_PROFILES" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
-      <option name="ALTERNATIVE_JRE_PATH" value="corretto-17" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="user-service: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
-      <deployment type="docker-compose.yml">
+    <configuration name="eureka-server/Dockerfile eureka-server" type="docker-deploy" factoryName="dockerfile" temporary="true" server-name="Docker">
+      <deployment type="dockerfile">
         <settings>
-          <option name="sourceFilePath" value="user-service/docker-compose.yml" />
+          <option name="imageTag" value="amazoncorretto17_eureka-server" />
+          <option name="buildCliOptions" value="--target eureka-server" />
+          <option name="buildKitEnabled" value="true" />
+          <option name="buildOnly" value="true" />
+          <option name="sourceFilePath" value="eureka-server/Dockerfile" />
         </settings>
       </deployment>
       <method v="2" />
     </configuration>
-    <configuration name="user-service.tweet: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
-      <deployment type="docker-compose.yml">
+    <configuration name="eureka-server/Dockerfile" type="docker-deploy" factoryName="dockerfile" temporary="true" server-name="Docker">
+      <deployment type="dockerfile">
         <settings>
-          <option name="services">
-            <list>
-              <option value="tweet" />
-            </list>
-          </option>
-          <option name="sourceFilePath" value="user-service/docker-compose.yml" />
+          <option name="buildOnly" value="true" />
+          <option name="sourceFilePath" value="eureka-server/Dockerfile" />
         </settings>
       </deployment>
+      <method v="2" />
+    </configuration>
+    <configuration name="gateway/Dockerfile" type="docker-deploy" factoryName="dockerfile" temporary="true" server-name="Docker">
+      <deployment type="dockerfile">
+        <settings>
+          <option name="buildOnly" value="true" />
+          <option name="sourceFilePath" value="gateway/Dockerfile" />
+        </settings>
+      </deployment>
+      <method v="2" />
+    </configuration>
+    <configuration name="Deploy on Cloud" type="google-container-tools-skaffold-run-config" factoryName="google-container-tools-skaffold-run-config-dev" show_console_on_std_err="false" show_console_on_std_out="false">
+      <option name="allowRunningInParallel" value="false" />
+      <option name="buildEnvironment" value="Local" />
+      <option name="cleanupDeployments" value="false" />
+      <option name="deployToCurrentContext" value="true" />
+      <option name="deployToMinikube" value="false" />
+      <option name="envVariables" />
+      <option name="imageRepositoryOverride" />
+      <option name="kubernetesContext" />
+      <option name="mappings">
+        <list />
+      </option>
+      <option name="moduleDeploymentType" value="DEPLOY_EVERYTHING" />
+      <option name="projectPathOnTarget" />
+      <option name="resourceDeletionTimeoutMins" value="2" />
+      <option name="selectedOptions">
+        <list />
+      </option>
+      <option name="skaffoldConfigurationFilePath" value="$PROJECT_DIR$/skaffold.yaml" />
+      <option name="skaffoldModules">
+        <list>
+          <option value="cardinalis-be" />
+        </list>
+      </option>
+      <option name="skaffoldNamespace" />
+      <option name="skaffoldProfile" />
+      <option name="skaffoldWatchMode" value="ON_DEMAND" />
+      <option name="statusCheck" value="true" />
+      <option name="verbosity" value="WARN" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Local" type="google-container-tools-skaffold-run-config" factoryName="google-container-tools-skaffold-run-config-dev" show_console_on_std_err="false" show_console_on_std_out="false">
+      <option name="allowRunningInParallel" value="false" />
+      <option name="buildEnvironment" />
+      <option name="cleanupDeployments" value="false" />
+      <option name="deployToCurrentContext" value="false" />
+      <option name="deployToMinikube" value="true" />
+      <option name="envVariables" />
+      <option name="imageRepositoryOverride" />
+      <option name="kubernetesContext" />
+      <option name="mappings">
+        <list />
+      </option>
+      <option name="moduleDeploymentType" value="DEPLOY_EVERYTHING" />
+      <option name="projectPathOnTarget" />
+      <option name="resourceDeletionTimeoutMins" value="2" />
+      <option name="selectedOptions">
+        <list />
+      </option>
+      <option name="skaffoldConfigurationFilePath" value="$PROJECT_DIR$/skaffoldLocal.yaml" />
+      <option name="skaffoldModules">
+        <list>
+          <option value="cardinalis-be" />
+        </list>
+      </option>
+      <option name="skaffoldNamespace" />
+      <option name="skaffoldProfile" />
+      <option name="skaffoldWatchMode" value="ON_DEMAND" />
+      <option name="statusCheck" value="true" />
+      <option name="verbosity" value="WARN" />
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Docker.user-service: Compose Deployment" />
-      <item itemvalue="Docker.user-service.tweet: Compose Deployment" />
+      <item itemvalue="Cloud Code: Kubernetes.Local" />
+      <item itemvalue="Cloud Code: Kubernetes.Deploy on Cloud" />
+      <item itemvalue="Docker.eureka-server/Dockerfile" />
+      <item itemvalue="Docker.eureka-server/Dockerfile eureka-server" />
+      <item itemvalue="Docker.gateway/Dockerfile" />
       <item itemvalue="Spring Boot.AuthServiceApplication" />
       <item itemvalue="Spring Boot.UserServiceApplication" />
       <item itemvalue="Spring Boot.TimelineServiceApplication" />
@@ -217,11 +278,11 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Spring Boot.TweetServiceApplication" />
-        <item itemvalue="Docker.user-service.tweet: Compose Deployment" />
-        <item itemvalue="Spring Boot.GatewayApplication" />
+        <item itemvalue="Docker.eureka-server/Dockerfile" />
+        <item itemvalue="Docker.eureka-server/Dockerfile eureka-server" />
+        <item itemvalue="Docker.gateway/Dockerfile" />
         <item itemvalue="Spring Boot.EurekaServerApplication" />
-        <item itemvalue="Docker.user-service: Compose Deployment" />
+        <item itemvalue="Docker.eureka-server/Dockerfile eureka-server" />
       </list>
     </recent_temporary>
   </component>
@@ -261,6 +322,14 @@
       <workItem from="1670832216872" duration="2961000" />
       <workItem from="1671118682290" duration="276000" />
       <workItem from="1671118985784" duration="1407000" />
+      <workItem from="1671128181761" duration="4887000" />
+      <workItem from="1671154006744" duration="7371000" />
+      <workItem from="1671178667741" duration="2932000" />
+      <workItem from="1671444923190" duration="898000" />
+      <workItem from="1671528266376" duration="730000" />
+      <workItem from="1671619718394" duration="17507000" />
+      <workItem from="1671642129300" duration="3440000" />
+      <workItem from="1671645737591" duration="3925000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit Tweet CRD">
       <created>1669712512990</created>
@@ -313,8 +382,8 @@
   <component name="UnknownFeatures">
     <option featureType="dependencySupport" implementationName="java:org.springframework:spring-core" />
     <option featureType="dependencySupport" implementationName="java:org.springframework.security:spring-security-core" />
-    <option featureType="dependencySupport" implementationName="java:jakarta.persistence:jakarta.persistence-api" />
     <option featureType="dependencySupport" implementationName="java:jakarta.validation:jakarta.validation-api" />
+    <option featureType="dependencySupport" implementationName="java:jakarta.persistence:jakarta.persistence-api" />
     <option featureType="dependencySupport" implementationName="java:com.google.inject:guice" />
     <option featureType="dependencySupport" implementationName="java:io.projectreactor:reactor-core" />
     <option featureType="dependencySupport" implementationName="java:org.springframework.data:spring-data-commons" />
@@ -334,7 +403,6 @@
         </entry>
       </map>
     </option>
-    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
@@ -358,9 +426,9 @@
           <option name="timeStamp" value="10" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/user-service/src/main/java/com/cardinalis/userservice/UserServiceApplication.java</url>
-          <line>12</line>
-          <option name="timeStamp" value="11" />
+          <url>file://$PROJECT_DIR$/user-service/src/main/java/com/cardinalis/userservice/config/SecurityConfiguration.java</url>
+          <line>43</line>
+          <option name="timeStamp" value="12" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

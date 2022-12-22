@@ -4,11 +4,11 @@ metadata:
   name: cardinalis-be
 build:
   artifacts:
-  - image: asia-southeast1-docker.pkg.dev/proven-solstice-371106/cardinalis/tweet-service
+  - image: us-central1-docker.pkg.dev/proven-solstice-371106/cardinalis/tweet-service
     context: tweet-service
     jib:
       project: com.cardinalis:tweet-service
-  - image: asia-southeast1-docker.pkg.dev/proven-solstice-371106/cardinalis/user-service
+  - image: us-central1-docker.pkg.dev/proven-solstice-371106/cardinalis/user-service
     context: user-service
     jib:
       project: com.cardinalis:user-service

@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: tweet-service
-          image: asia-southeast1-docker.pkg.dev/proven-solstice-371106/cardinalis/tweet-service
+          image: us-central1-docker.pkg.dev/proven-solstice-371106/cardinalis/tweet-service
           ports:
             - containerPort: 8080
           livenessProbe:
@@ -40,9 +40,9 @@ spec:
             - name: USER_DB
               value: postgres
             - name: PASSWORD_DB
-              value: V8GFrDT8372Cjw3uAY80
+              value: i7AwMzU82NuTfDvn
             - name: HOST_DB
-              value: jdbc:postgresql://containers-us-west-143.railway.app:7614/railway
+              value: jdbc:postgresql://db.sfubsrtgfuorifqelqkz.supabase.co/postgres
 ---
 apiVersion: v1
 kind: Service

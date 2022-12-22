@@ -3,6 +3,7 @@ package com.cardinalis.userservice.config;
 import com.cardinalis.userservice.repository.UserRepository;
 import com.cardinalis.userservice.service.AuthenticationService;
 import com.cardinalis.userservice.service.TokenService;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,15 +19,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @EnableWebSecurity
 @Configuration
+@AllArgsConstructor
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
-    @Autowired
-    private AuthenticationService authenticationService;
-
-    @Autowired
-    private TokenService tokenService;
-
-    @Autowired
-    private UserRepository userRepository;
+    private final AuthenticationService authenticationService;
+    private final TokenService tokenService;
+    private final UserRepository userRepository;
 
     @Override
     @Bean
@@ -46,7 +43,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET, "/actuator/*").permitAll()
                 .anyRequest().permitAll()
                 .and().csrf().disable()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+               ;
+//        http.authorizeRequests()
+//                .anyRequest().authenticated()
+//                .and()
+//                .oauth2Login();
+
+
     }
 
     @Override

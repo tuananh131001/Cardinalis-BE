@@ -1,38 +1,38 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: user-service
+  name: tweet-service
   labels:
-    app: user-service
+    app: tweet-service
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: user-service
+      app: tweet-service
   template:
     metadata:
       labels:
-        app: user-service
+        app: tweet-service
     spec:
       containers:
-        - name: user-service
-          image: us-central1-docker.pkg.dev/proven-solstice-371106/cardinalis/user-service
+        - name: tweet-service
+          image: us-central1-docker.pkg.dev/proven-solstice-371106/cardinalis/tweet-service
           ports:
             - containerPort: 8080
           livenessProbe:
             httpGet:
               path: /actuator/health/liveness
               port: 8080
-            initialDelaySeconds: 180
+            initialDelaySeconds: 150
             periodSeconds: 5
             timeoutSeconds: 5
             failureThreshold: 10
-              # Configure the readiness probe
+          # Configure the readiness probe
           readinessProbe:
             httpGet:
               path: /actuator/health/readiness
               port: 8080
-            initialDelaySeconds: 180
+            initialDelaySeconds: 150
             periodSeconds: 5
             timeoutSeconds: 5
             failureThreshold: 10
@@ -40,17 +40,16 @@ spec:
             - name: USER_DB
               value: postgres
             - name: PASSWORD_DB
-              value: vgMO3WI1X77lPzJr
+              value: postgres
             - name: HOST_DB
-              value: jdbc:postgresql://db.bwhnnmrmncogofkklpqg.supabase.co/postgres
-
+              value: jdbc:postgresql://localhost:3306/cardinalis
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: user-service
+  name: tweet-service
   labels:
-    app: user-service
+    app: tweet-service
     spring-boot: "true"
 spec:
   ports:
@@ -58,5 +57,6 @@ spec:
       protocol: TCP
       targetPort: 8080
   selector:
-    app: user-service
+    app: tweet-service
   type: ClusterIP
+

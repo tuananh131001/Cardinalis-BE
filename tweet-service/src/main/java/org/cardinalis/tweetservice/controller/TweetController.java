@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/tweet")
 public class TweetController {

@@ -9,13 +9,33 @@ spring:
     url: ${HOST_DB:jdbc:postgresql://localhost:3307/cardinalis}
     driver-class-name: ${DRIVER_DB:org.postgresql.Driver}
   jpa:
+    defer-datasource-initialization: true
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         format_sql: true
     show-sql: true
+  security:
+    oauth2:
+      client:
+        registration:
+          github:
+            client-id:  ${GITHUB_CLIENT_ID:581a14a284dd1d5815f5}
+            client-secret:  ${GITHUB_CLIENT_SECRET:8c77af28a85cd5bc2063e007cb48116296767152}
+
 jwt:
   secret: screte-value
   expiration: 86400000
+# Default user
+admin:
+  id: 1b2fe584-19b4-4173-9d3d-02acf970faa6
+  username: jjeanjacques10
+  email: jjeanjacques10@github.com
+  password: 12345
+  isHotUser: true
+eureka:
+  client:
+    service-url:
+      defaultZone: ${EUREKA_URL:http://localhost:9000/eureka}
