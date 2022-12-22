@@ -4,6 +4,7 @@ import com.cardinalis.userservice.model.Role;
 import com.cardinalis.userservice.model.UserEntity;
 import com.cardinalis.userservice.repository.RoleRepository;
 import com.cardinalis.userservice.repository.UserRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
@@ -16,10 +17,11 @@ import java.util.Arrays;
 import java.util.List;
 
 @Component
+@AllArgsConstructor
 public class ApplicationStartUp {
 
-    @Autowired
-    private StartupProperties startupProperties;
+
+    final private StartupProperties startupProperties;
 
     @Bean
     public CommandLineRunner loadData(UserRepository userRepository, RoleRepository roleRepository) {
@@ -50,8 +52,8 @@ public class ApplicationStartUp {
         return UserEntity.builder()
                 .username(startupProperties.getUsername())
                 .email(startupProperties.getEmail())
-//                .password(BCrypt.hashpw(startupProperties.getPassword(), BCrypt.gensalt()))
-                .password("9999")
+                .password(BCrypt.hashpw(startupProperties.getPassword(), BCrypt.gensalt()))
+//                .password("9999")
                 .createdAt(LocalDateTime.now())
                 .lastLoginTime(LocalDateTime.now())
                 .isHotUser(true)

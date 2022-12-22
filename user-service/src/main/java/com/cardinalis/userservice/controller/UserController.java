@@ -9,6 +9,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -34,18 +35,63 @@ public class UserController {
     private final ModelMapper mapper;
     @PostMapping("/register")
     public ResponseEntity<Map<String, Object>> createUser(@RequestBody RegisterDTO register) {
-        UserEntity userCreated = userService.save(register);
-        UserEntityDTO userDTO = mapper.map(userCreated, UserEntityDTO.class);
+        try {
+            UserEntity userCreated = userService.save(register);
+            UserEntityDTO userDTO = mapper.map(userCreated, UserEntityDTO.class);
 
-        Map<String, Object> response = createResponse(
-                HttpStatus.CREATED,
-                userDTO
-        );
+            Map<String, Object> response = createResponse(
+                    HttpStatus.CREATED,
+                    userDTO
+            );
 
-        return ResponseEntity
-                .status(HttpStatus.CREATED)
-                .body(response);
+            return ResponseEntity
+                    .status(HttpStatus.CREATED)
+                    .body(response);
+        } catch (IllegalArgumentException e) {
+            // Check if the exception message is "User [username] [email] already exists"
+            if (e.getMessage().startsWith("User ") && e.getMessage().endsWith(" already exists")) {
+                // Return a response with a CONFLICT status code if the exception message matches
+                Map<String, Object> response = createResponse(
+                        HttpStatus.CONFLICT,
+                        "A user with this username or email already exists"
+                );
+                return ResponseEntity
+                        .status(HttpStatus.CONFLICT)
+                        .body(response);
+            } else {
+                // Handle other instances of IllegalArgumentException
+                Map<String, Object> response = createResponse(
+                        HttpStatus.BAD_REQUEST,
+                        "Invalid input"
+                );
+                return ResponseEntity
+                        .status(HttpStatus.BAD_REQUEST)
+                        .body(response);
+            }
+        } catch (DataAccessException e) {
+            // Handle the exception here
+            // This exception could be thrown if there is a problem with the database
+            Map<String, Object> response = createResponse(
+                    HttpStatus.INTERNAL_SERVER_ERROR,
+                    "Error accessing database"
+            );
+            return ResponseEntity
+                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(response);
+        } catch (Exception e) {
+            // Catch any other exception that may be thrown
+            // You can log the exception or return a response with a different HTTP status code
+            Map<String, Object> response = createResponse(
+                    HttpStatus.INTERNAL_SERVER_ERROR,
+                    "An error occurred"
+            );
+            return ResponseEntity
+                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(response);
+        }
     }
+
+
 
     @GetMapping("/fetch/{username}")
     public ResponseEntity<Map<String, Object>> fetchByUsername(@PathVariable("username") String username) {
