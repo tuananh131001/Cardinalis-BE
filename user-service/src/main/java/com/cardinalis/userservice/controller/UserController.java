@@ -52,15 +52,29 @@ public class UserController {
                 // Return a response with a CONFLICT status code if the exception message matches
                 Map<String, Object> response = createResponse(
                         HttpStatus.CONFLICT,
-                        "A user with this username or email already exists"
+                        null,
+                        "A user with this username already exists"
+
                 );
                 return ResponseEntity
                         .status(HttpStatus.CONFLICT)
+                        .body(response);
+            } else if(e.getMessage().startsWith("Email ") && e.getMessage().endsWith(" already exists")){
+                // Return a response with a BAD_REQUEST status code if the exception message matches
+                Map<String, Object> response = createResponse(
+                        HttpStatus.BAD_REQUEST,
+                        null,
+                        "Email already exists"
+
+                );
+                return ResponseEntity
+                        .status(HttpStatus.BAD_REQUEST)
                         .body(response);
             } else {
                 // Handle other instances of IllegalArgumentException
                 Map<String, Object> response = createResponse(
                         HttpStatus.BAD_REQUEST,
+                        null,
                         "Invalid input"
                 );
                 return ResponseEntity
@@ -72,7 +86,8 @@ public class UserController {
             // This exception could be thrown if there is a problem with the database
             Map<String, Object> response = createResponse(
                     HttpStatus.INTERNAL_SERVER_ERROR,
-                    "Error accessing database"
+                    null,
+                    e.getMessage()
             );
             return ResponseEntity
                     .status(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -82,6 +97,7 @@ public class UserController {
             // You can log the exception or return a response with a different HTTP status code
             Map<String, Object> response = createResponse(
                     HttpStatus.INTERNAL_SERVER_ERROR,
+                    null,
                     "An error occurred"
             );
             return ResponseEntity
