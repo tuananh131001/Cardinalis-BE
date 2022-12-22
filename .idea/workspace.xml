@@ -4,12 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="916d7a0e-dccb-4e95-8f07-183311752d56" name="Changes" comment="rename to &quot;tweet-service&quot;, change api to &quot;/tweet&quot;">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run.sh" beforeDir="false" afterPath="$PROJECT_DIR$/run.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user-service/src/main/java/com/cardinalis/userservice/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/user-service/src/main/java/com/cardinalis/userservice/controller/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user-service/src/main/java/com/cardinalis/userservice/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/user-service/src/main/java/com/cardinalis/userservice/service/UserService.java" afterDir="false" />
-    </list>
+    <list default="true" id="916d7a0e-dccb-4e95-8f07-183311752d56" name="Changes" comment="rename to &quot;tweet-service&quot;, change api to &quot;/tweet&quot;" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -333,7 +328,7 @@
       <workItem from="1671619718394" duration="17507000" />
       <workItem from="1671642129300" duration="3440000" />
       <workItem from="1671645737591" duration="3925000" />
-      <workItem from="1671718453672" duration="12468000" />
+      <workItem from="1671718453672" duration="12776000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit Tweet CRD">
       <created>1669712512990</created>
