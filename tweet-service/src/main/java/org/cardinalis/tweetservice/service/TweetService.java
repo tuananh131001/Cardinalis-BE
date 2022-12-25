@@ -8,7 +8,7 @@ import java.util.UUID;
 public interface TweetService {
     public String saveTweet(Tweet tweet);
     public Tweet getTweetById(UUID id);
-    public List<Tweet> getTweetByUserId(String userId);
+    public List<Tweet> getTweetByUsername(String username);
     public String deleteTweet(UUID id);
     public List<Tweet> getTweet(int pageNo, int pageSize);
 
