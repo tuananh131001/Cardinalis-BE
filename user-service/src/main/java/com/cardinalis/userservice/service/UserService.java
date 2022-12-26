@@ -27,16 +27,22 @@ public class UserService {
     private final RelationshipRepository relationshipRepository;
 
     @Autowired
-    private ModelMapper mapper;
+    private final ModelMapper mapper;
     @Transactional
     public UserEntity save(RegisterDTO register) {
-        Optional<UserEntity> userExists = Optional.of(userRepository.findByUsername(register.getUsername()))
-                .or(() -> Optional.of(userRepository.findByEmail(register.getEmail())))
-                .orElse(null);
+        // Check if the email already exists in the system
+        Optional<UserEntity> emailExists = userRepository.findByEmail(register.getEmail());
+        if (emailExists.isPresent()) {
+            throw new IllegalArgumentException("Email already exists");
+        }
 
-        if (userExists.isPresent())
-            throw new IllegalArgumentException("User " + register.getUsername() + " " + register.getEmail() + " already exists");
+        // Check if the username already exists in the system
+        Optional<UserEntity> usernameExists = userRepository.findByUsername(register.getUsername());
+        if (usernameExists.isPresent()) {
+            throw new IllegalArgumentException("User name  already exists");
+        }
 
+        // Create the new user if the email and username do not already exist in the system
         var user = mapper.map(register, UserEntity.class);
         user.setIsHotUser(true);
         user.setCreatedAt(LocalDateTime.now());
@@ -45,6 +51,7 @@ public class UserService {
         user.setPassword(BCrypt.hashpw(user.getPassword(), BCrypt.gensalt()));
         return userRepository.save(user);
     }
+
 
     public UserEntity fetchByUsername(String username) {
         return userRepository.findByUsername(username)

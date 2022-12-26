@@ -5,6 +5,7 @@ set -e # stop shell when a command fails with status other than 0
 r=`pwd`
 echo $r
 
+docker-compose up -d --build
 
 # Gateway
 cd "$r/gateway"
@@ -19,5 +20,5 @@ cd "$r/user-service"
 mvn clean install &
 
 cd "$r"
-docker-compose up -d --build
+
 docker-compose -f docker-compose-app.yml up --build -d
