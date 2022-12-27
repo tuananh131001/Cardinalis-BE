@@ -1,10 +1,10 @@
 # Cardinalis-BE
 ## Get Started
 
-# Run on local
+# Run on local (New Method 27-12-2022)      
 
-New Method 27-12-2022
-
+ 
+0. Run ```docker-compose up -d --build``` in folder of project
 ### MACOS
 1. Open terminal and type ```ipconfig getifaddr en0``` to get ip
 2. Go to ```user-local-service.yaml``` ```tweet-local-service.yaml``` then goto change ip here line and modify it
