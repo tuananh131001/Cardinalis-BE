@@ -2,7 +2,24 @@
 ## Get Started
 
 # Run on local
-``` ./run.sh ```
+
+New Method 27-12-2022
+
+### MACOS
+1. Open terminal and type ```ipconfig getifaddr en0``` to get ip
+2. Go to ```user-local-service.yaml``` ```tweet-local-service.yaml``` then goto change ip here line and modify it
+3. Choose Local and run.     
+
+<img width="375" alt="image" src="https://user-images.githubusercontent.com/67695658/209690474-d8188d1d-dbc1-41c7-b437-b1a47959670d.png">.  
+### Windows.    
+1. Open cmd and type ```ipconfig``` to get ip address    
+2. Go to ```user-local-service.yaml``` ```tweet-local-service.yaml``` then goto change ip here line and modify it.  
+3. Choose Local and run.     
+
+<img width="375" alt="image" src="https://user-images.githubusercontent.com/67695658/209690474-d8188d1d-dbc1-41c7-b437-b1a47959670d.png">.  
+
+
+
 
 ![System Design - Cardinalis](https://user-images.githubusercontent.com/67695658/204201001-31fae380-3132-4845-9307-07b08d4147d5.png)
 
