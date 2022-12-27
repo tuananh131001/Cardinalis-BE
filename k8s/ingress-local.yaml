@@ -1,0 +1,33 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: gateway-local-ingress
+  annotations:
+    # If the class annotation is not specified it defaults to "gce".
+    nginx.ingress.kubernetes.io/cors-allow-origin: "*"
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      more_set_headers "Access-Control-Allow-Origin: $http_origin";
+    nginx.ingress.kubernetes.io/cors-allow-credentials: "true"
+    nginx.ingress.kubernetes.io/cors-allow-methods: PUT, GET, POST,
+      OPTIONS, DELETE, PATCH
+    nginx.ingress.kubernetes.io/enable-cors: "true"
+    nginx.ingress.kubernetes.io/service-upstream: "true"
+spec:
+  rules:
+      - host: "cardinalis-be-local.live"
+        http:
+          paths:
+            - path: /tweet
+              pathType: Prefix
+              backend:
+                service:
+                  name: tweet-service
+                  port:
+                    number: 8080
+            - path: /user
+              pathType: Prefix
+              backend:
+                service:
+                  name: user-service
+                  port:
+                    number: 8080

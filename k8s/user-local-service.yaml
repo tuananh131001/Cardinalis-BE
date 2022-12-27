@@ -42,7 +42,7 @@ spec:
             - name: PASSWORD_DB
               value: postgres
             - name: HOST_DB
-              value: jdbc:postgresql://localhost:3307/cardinalis
+              value: jdbc:postgresql://10.99.4.125:3307/cardinalis # change ip here
 
 ---
 apiVersion: v1
@@ -52,14 +52,6 @@ metadata:
   labels:
     app: user-service
     spring-boot: "true"
-#spec:
-#  ports:
-#    - port: 8080
-#      protocol: TCP
-#      targetPort: 8080
-#  selector:
-#    app: user-service
-#  type: ClusterIP
 spec:
   ports:
     - port: 5984

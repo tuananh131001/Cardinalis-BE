@@ -5,12 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="916d7a0e-dccb-4e95-8f07-183311752d56" name="Changes" comment="rename to &quot;tweet-service&quot;, change api to &quot;/tweet&quot;">
+      <change afterPath="$PROJECT_DIR$/k8s/ingress-local.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/skaffoldLocal.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/user-service/src/main/java/com/cardinalis/userservice/config/AuthenticateViaTokenFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/k8s/ingress.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/k8s/ingress.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user-service/src/main/java/com/cardinalis/userservice/dao/UserEntityDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/user-service/src/main/java/com/cardinalis/userservice/dao/UserEntityDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user-service/src/main/java/com/cardinalis/userservice/model/UserEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/user-service/src/main/java/com/cardinalis/userservice/model/UserEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user-service/src/main/java/com/cardinalis/userservice/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/user-service/src/main/java/com/cardinalis/userservice/service/UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user-service/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/user-service/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/k8s/postgres-tweet.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/k8s/postgres-user.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/k8s/tweet-local-service.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/k8s/tweet-local-service.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/k8s/user-local-service.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/k8s/user-local-service.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user-service/src/main/java/com/cardinalis/userservice/config/SecurityConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/user-service/src/main/java/com/cardinalis/userservice/config/SecurityConfiguration.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,9 +67,9 @@
     "RequestMappingsPanelWidth1": "75",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
-    "com.google.cloudcode.ide_session_index": "20221223_0000",
+    "com.google.cloudcode.ide_session_index": "20221227_0001",
     "jdk.selected.JAVA_MODULE": "corretto-17",
-    "last_opened_file_path": "/Users/nguyentuananh/Documents/coding/REACT THANH NN/Cardinalis-BE/eureka-server",
+    "last_opened_file_path": "/Users/nguyentuananh/Documents/coding/REACT THANH NN/Cardinalis-BE/k8s",
     "nodejs_package_manager_path": "npm",
     "project.structure.last.edited": "Project",
     "project.structure.proportion": "0.15",
@@ -78,9 +82,9 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/eureka-server" />
       <recent name="$PROJECT_DIR$/k8s" />
       <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/eureka-server" />
       <recent name="D:\RMIT_Courses\Sem7_2022C\SAD\Cardinalis-Flaming\Cardinalis-BE" />
       <recent name="D:\RMIT_Courses\Sem7_2022C\SAD\Cardinalis-Flaming\Cardinalis-BE\user-service" />
     </key>
@@ -95,7 +99,7 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="Cloud Code: Kubernetes.Deploy on Cloud">
+  <component name="RunManager" selected="Cloud Code: Kubernetes.Local">
     <configuration name="AuthServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
       <option name="ACTIVE_PROFILES" />
       <option name="ALTERNATIVE_JRE_PATH" value="corretto-17" />
@@ -237,7 +241,7 @@
     </configuration>
     <configuration name="Local" type="google-container-tools-skaffold-run-config" factoryName="google-container-tools-skaffold-run-config-dev" show_console_on_std_err="false" show_console_on_std_out="false">
       <option name="allowRunningInParallel" value="false" />
-      <option name="buildEnvironment" />
+      <option name="buildEnvironment" value="Local" />
       <option name="cleanupDeployments" value="false" />
       <option name="deployToCurrentContext" value="false" />
       <option name="deployToMinikube" value="true" />
@@ -335,7 +339,10 @@
       <workItem from="1671619718394" duration="17507000" />
       <workItem from="1671642129300" duration="3440000" />
       <workItem from="1671645737591" duration="3925000" />
-      <workItem from="1671718453672" duration="15876000" />
+      <workItem from="1671718453672" duration="16497000" />
+      <workItem from="1671774508945" duration="6237000" />
+      <workItem from="1671786002981" duration="422000" />
+      <workItem from="1672148233989" duration="8604000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit Tweet CRD">
       <created>1669712512990</created>
