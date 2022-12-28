@@ -39,8 +39,8 @@ public class TweetController {
     }
 
     @RequestMapping(path = "/search", method = RequestMethod.GET)
-    public List<Tweet> findTweetByUserId(@RequestParam String userId) {
-        List<Tweet> result = tweetService.getTweetByUserId(userId);
+    public List<Tweet> findTweetByUsername(@RequestParam String username) {
+        List<Tweet> result = tweetService.getTweetByUsername(username);
         return result;
     }
 

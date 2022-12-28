@@ -12,7 +12,7 @@ import java.util.UUID;
 
 @Entity
 @Table(name="Tweet")
-public class Tweet {
+public class Tweet implements Comparable<Tweet> {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Type(type = "org.hibernate.type.UUIDCharType")
@@ -20,7 +20,7 @@ public class Tweet {
     private UUID id;
 
     @Column(nullable = false, length = 36)
-    private String userId;
+    private String username;
 
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
@@ -37,8 +37,8 @@ public class Tweet {
         this.content = content;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public void setCreatedAt(LocalDateTime createdAt) {
@@ -53,11 +53,19 @@ public class Tweet {
         return content;
     }
 
-    public String getUserId() {
-        return userId;
+    public String getUsername() {
+        return username;
     }
 
     public LocalDateTime getCreatedAt() {
         return createdAt;
+    }
+
+    @Override
+    public int compareTo(Tweet tweet) {
+        if (getCreatedAt() == null || tweet.getCreatedAt() == null) {
+            return 0;
+        }
+        return getCreatedAt().compareTo(tweet.getCreatedAt());
     }
 }
