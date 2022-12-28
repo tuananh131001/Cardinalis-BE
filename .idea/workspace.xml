@@ -4,9 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="916d7a0e-dccb-4e95-8f07-183311752d56" name="Changes" comment="rename to &quot;tweet-service&quot;, change api to &quot;/tweet&quot;">
+    <list default="true" id="916d7a0e-dccb-4e95-8f07-183311752d56" name="Changes" comment="Merge remote-tracking branch 'origin/main' into Tweet-Service&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;#&#9;user-service/src/main/java/com/cardinalis/userservice/service/UserService.java">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/k8s/ingress-local.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/k8s/ingress-local.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,32 +56,28 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "com.google.cloudcode.ide_session_index": "20221228_0002",
-    "jdk.selected.JAVA_MODULE": "corretto-17",
-    "last_opened_file_path": "/Users/nguyentuananh/Documents/coding/REACT THANH NN/Cardinalis-BE/k8s",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.73216885",
-    "spring.configuration.checksum": "44607bd96a4bcf0f8bac29ceb77ec0a6"
-  }
-}]]></component>
+  <component name="PropertiesComponent">
+    <property name="DatabaseDriversLRU" value="postgresql" />
+    <property name="RequestMappingsPanelOrder0" value="0" />
+    <property name="RequestMappingsPanelOrder1" value="1" />
+    <property name="RequestMappingsPanelWidth0" value="75" />
+    <property name="RequestMappingsPanelWidth1" value="75" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/timeline-service/src/main/resources" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="preferences.language.Kotlin.scripting" />
+  </component>
   <component name="ReactorSettings">
     <option name="notificationShown" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/k8s" />
-      <recent name="$PROJECT_DIR$" />
-      <recent name="$PROJECT_DIR$/eureka-server" />
+      <recent name="D:\RMIT_Courses\Sem7_2022C\SAD\Cardinalis-Flaming\Cardinalis-BE\timeline-service\src\main\resources" />
       <recent name="D:\RMIT_Courses\Sem7_2022C\SAD\Cardinalis-Flaming\Cardinalis-BE" />
       <recent name="D:\RMIT_Courses\Sem7_2022C\SAD\Cardinalis-Flaming\Cardinalis-BE\user-service" />
       <recent name="D:\RMIT_Courses\Sem7_2022C\SAD\Cardinalis-Flaming\Cardinalis-BE\gateway" />
@@ -101,7 +96,7 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="Cloud Code: Kubernetes.Local">
+  <component name="RunManager" selected="Spring Boot.TweetServiceApplication">
     <configuration name="AuthServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
       <module name="auth-service" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.cardinalis.authservice.AuthServiceApplication" />
@@ -209,77 +204,6 @@
       </deployment>
       <method v="2" />
     </configuration>
-    <configuration name="gateway/Dockerfile" type="docker-deploy" factoryName="dockerfile" temporary="true" server-name="Docker">
-      <deployment type="dockerfile">
-        <settings>
-          <option name="buildOnly" value="true" />
-          <option name="sourceFilePath" value="gateway/Dockerfile" />
-        </settings>
-      </deployment>
-      <method v="2" />
-    </configuration>
-    <configuration name="Deploy on Cloud" type="google-container-tools-skaffold-run-config" factoryName="google-container-tools-skaffold-run-config-dev" show_console_on_std_err="false" show_console_on_std_out="false">
-      <option name="allowRunningInParallel" value="false" />
-      <option name="buildEnvironment" value="Local" />
-      <option name="cleanupDeployments" value="false" />
-      <option name="deployToCurrentContext" value="false" />
-      <option name="deployToMinikube" value="false" />
-      <option name="envVariables" />
-      <option name="imageRepositoryOverride" />
-      <option name="kubernetesContext" value="gke_proven-solstice-371106_us-central1-a_cluster-1" />
-      <option name="mappings">
-        <list />
-      </option>
-      <option name="moduleDeploymentType" value="DEPLOY_EVERYTHING" />
-      <option name="projectPathOnTarget" />
-      <option name="resourceDeletionTimeoutMins" value="2" />
-      <option name="selectedOptions">
-        <list />
-      </option>
-      <option name="skaffoldConfigurationFilePath" value="$PROJECT_DIR$/skaffold.yaml" />
-      <option name="skaffoldModules">
-        <list>
-          <option value="cardinalis-be" />
-        </list>
-      </option>
-      <option name="skaffoldNamespace" />
-      <option name="skaffoldProfile" />
-      <option name="skaffoldWatchMode" value="ON_DEMAND" />
-      <option name="statusCheck" value="true" />
-      <option name="verbosity" value="WARN" />
-      <method v="2" />
-    </configuration>
-    <configuration name="Local" type="google-container-tools-skaffold-run-config" factoryName="google-container-tools-skaffold-run-config-dev" show_console_on_std_err="false" show_console_on_std_out="false">
-      <option name="allowRunningInParallel" value="false" />
-      <option name="buildEnvironment" value="Local" />
-      <option name="cleanupDeployments" value="false" />
-      <option name="deployToCurrentContext" value="false" />
-      <option name="deployToMinikube" value="true" />
-      <option name="envVariables" />
-      <option name="imageRepositoryOverride" />
-      <option name="kubernetesContext" />
-      <option name="mappings">
-        <list />
-      </option>
-      <option name="moduleDeploymentType" value="DEPLOY_EVERYTHING" />
-      <option name="projectPathOnTarget" />
-      <option name="resourceDeletionTimeoutMins" value="2" />
-      <option name="selectedOptions">
-        <list />
-      </option>
-      <option name="skaffoldConfigurationFilePath" value="$PROJECT_DIR$/skaffoldLocal.yaml" />
-      <option name="skaffoldModules">
-        <list>
-          <option value="cardinalis-be" />
-        </list>
-      </option>
-      <option name="skaffoldNamespace" />
-      <option name="skaffoldProfile" />
-      <option name="skaffoldWatchMode" value="ON_DEMAND" />
-      <option name="statusCheck" value="true" />
-      <option name="verbosity" value="WARN" />
-      <method v="2" />
-    </configuration>
     <list>
       <item itemvalue="Docker.user-service: Compose Deployment" />
       <item itemvalue="Docker.user-service.tweet: Compose Deployment" />
@@ -337,20 +261,15 @@
       <workItem from="1670393365546" duration="479000" />
       <workItem from="1670832216872" duration="2961000" />
       <workItem from="1671118682290" duration="276000" />
-      <workItem from="1671118985784" duration="1407000" />
-      <workItem from="1671128181761" duration="4887000" />
-      <workItem from="1671154006744" duration="7371000" />
-      <workItem from="1671178667741" duration="2932000" />
-      <workItem from="1671444923190" duration="898000" />
-      <workItem from="1671528266376" duration="730000" />
-      <workItem from="1671619718394" duration="17507000" />
-      <workItem from="1671642129300" duration="3440000" />
-      <workItem from="1671645737591" duration="3925000" />
-      <workItem from="1671718453672" duration="16497000" />
-      <workItem from="1671774508945" duration="6237000" />
-      <workItem from="1671786002981" duration="422000" />
-      <workItem from="1672148233989" duration="16955000" />
-      <workItem from="1672165536540" duration="6092000" />
+      <workItem from="1671118985784" duration="2006000" />
+      <workItem from="1671170795776" duration="232000" />
+      <workItem from="1671171120187" duration="648000" />
+      <workItem from="1671172236418" duration="15000" />
+      <workItem from="1671172381968" duration="887000" />
+      <workItem from="1671696989911" duration="4604000" />
+      <workItem from="1671776331982" duration="5820000" />
+      <workItem from="1671945329390" duration="16851000" />
+      <workItem from="1672029646740" duration="325000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit Tweet CRD">
       <created>1669712512990</created>
