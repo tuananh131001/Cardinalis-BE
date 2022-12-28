@@ -9,8 +9,7 @@
 1. Open terminal and type ```ipconfig getifaddr en0``` to get ip
 2. Go to k8s folder and find ```user-local-service.yaml``` ```tweet-local-service.yaml``` then goto ```change ip here``` line and modify ```10.99.4.125``` to yourPreviousIP has get
 3. Choose Local and run.     
-4.
-RUn in terminal these lines
+4. Run in terminal these lines
 ```minikube addons enable ingress```
 
 ```minikube addons enable ingress-dns```
