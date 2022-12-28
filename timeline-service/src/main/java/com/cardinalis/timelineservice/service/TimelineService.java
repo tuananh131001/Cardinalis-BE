@@ -18,7 +18,8 @@ import java.util.List;
 //@Transactional
 @Service
 @Import(value = {UserService.class, TweetSeriveImpl.class})
-public class TimelineService implements TimelineRepository{
+public class
+TimelineService implements TimelineRepository{
     private final String TIMELINE_CACHE = "TIMELINE";
 
     @Autowired
