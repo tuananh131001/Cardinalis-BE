@@ -14,7 +14,7 @@ Cloud code plugin in Intellij
 Google cloud account:
 ```
 user: tuananhspotify1@gmail.com
-pass:helloworld02@
+pass:Helloworld01@
 ```
 ## Running
  
