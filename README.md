@@ -7,7 +7,8 @@
 0. Run ```docker-compose up -d --build``` in folder of project
 ### MACOS
 1. Open terminal and type ```ipconfig getifaddr en0``` to get ip
-2. Go to k8s folder and find ```user-local-service.yaml``` ```tweet-local-service.yaml``` then goto ```change ip here``` line and modify it
+2. Go to k8s folder and find ```user-local-service.yaml``` ```tweet-local-service.yaml``` then goto ```change ip here``` line and modify it to
+(READ:this is example change the yourPreviousIpHere only)```value: jdbc:postgresql://yourPreviousIPHere:3307/cardinalis # Change ip here```
 3. Choose Local and run.     
 4.
 ```minikube addons enable ingress```
