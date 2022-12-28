@@ -22,6 +22,9 @@ pass:helloworld02@
 ### MACOS
 1. Open terminal and type ```ipconfig getifaddr en0``` to get ip
 2. Go to k8s folder and find ```user-local-service.yaml``` ```tweet-local-service.yaml``` then goto ```change ip here``` line and modify ```10.99.4.125``` to yourPreviousIP has get
+2.1 Folder structure -> set java 17 
+<img width="1022" alt="image" src="https://user-images.githubusercontent.com/67695658/209799773-2ff3d5bf-2d84-4487-ad1b-a8ee9eb567c4.png"> 
+2.2 run this command in any terminal : ```gcloud auth login``` then login using login above
 3. Choose Local and run.     
 4. Run in terminal these lines.   
 ```minikube addons enable ingress```
