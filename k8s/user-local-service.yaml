@@ -42,7 +42,7 @@ spec:
             - name: PASSWORD_DB
               value: vgMO3WI1X77lPzJr
             - name: HOST_DB
-              value: jdbc:postgresql://db.bwhnnmrmncogofkklpqg.supabase.co/postgres
+              value: jdbc:postgresql://10.99.4.125:3307/cardinalis # Change ip here
 
 ---
 apiVersion: v1
