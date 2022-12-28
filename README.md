@@ -23,7 +23,7 @@ pass:helloworld02@
 1. Open terminal and type ```ipconfig getifaddr en0``` to get ip
 2. Go to k8s folder and find ```user-local-service.yaml``` ```tweet-local-service.yaml``` then goto ```change ip here``` line and modify ```10.99.4.125``` to yourPreviousIP has get 
 
-4.1 Folder structure -> set java 17  
+2.1 Folder structure -> set java 17  
 
 <img width="1022" alt="image" src="https://user-images.githubusercontent.com/67695658/209799773-2ff3d5bf-2d84-4487-ad1b-a8ee9eb567c4.png"> 
 2.2 run this command in any terminal :   
@@ -34,25 +34,18 @@ then login using login above
 
 3. Choose Local and run.   
 
-5. Run in terminal these lines     
+4. Run in terminal these lines     
 ```minikube addons enable ingress``` 
 
 ```minikube addons enable ingress-dns``` 
 
-5.Wait until you see the ingress-nginx-controller-XXXX is up and running using    
-```Kubectl get pods -n ingress-nginx```
-
-6. Create an ingress using the K8s example yaml file  
-
-7. Update the service section to point to the NodePort Service that you already created   
-
-8. Append 127.0.0.1 cardinalis-be.com to your /etc/hosts file on MacOS (NOTE: Do NOT use the Minikube IP) ```use sudo nano hosts```
+5. Append 127.0.0.1 cardinalis-be.com to your /etc/hosts file on MacOS (NOTE: Do NOT use the Minikube IP) ```use sudo nano hosts```
 
 
-9. Run ```minikube tunnel``` ( Keep the window open. After you entered the password there will be no more messages, and the cursor just blinks)   
+6. Run ```minikube tunnel``` ( Keep the window open. After you entered the password there will be no more messages, and the cursor just blinks)   
 
 
-10. Hit the http://cardinalis-be.com/user ( or whatever host you configured in the yaml file) in a browser and it should work   
+7. Hit the http://cardinalis-be.com/user ( or whatever host you configured in the yaml file) in a browser and it should work   
 
 
 <img width="375" alt="image" src="https://user-images.githubusercontent.com/67695658/209690474-d8188d1d-dbc1-41c7-b437-b1a47959670d.png">.  
