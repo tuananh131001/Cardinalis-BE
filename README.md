@@ -9,12 +9,52 @@
 1. Open terminal and type ```ipconfig getifaddr en0``` to get ip
 2. Go to ```user-local-service.yaml``` ```tweet-local-service.yaml``` then goto change ip here line and modify it
 3. Choose Local and run.     
+4.
+```minikube addons enable ingress```
+
+```minikube addons enable ingress-dns```
+
+Wait until you see the ingress-nginx-controller-XXXX is up and running using ```Kubectl get pods -n ingress-nginx```
+
+Create an ingress using the K8s example yaml file
+
+Update the service section to point to the NodePort Service that you already created
+
+Append 127.0.0.1 cardinalis-be.com to your /etc/hosts file on MacOS (NOTE: Do NOT use the Minikube IP) ```use sudo nano hosts```
+
+
+Run ```minikube tunnel``` ( Keep the window open. After you entered the password there will be no more messages, and the cursor just blinks)
+
+Hit the http://cardinalis-be.com/user ( or whatever host you configured in the yaml file) in a browser and it should work
+
 
 <img width="375" alt="image" src="https://user-images.githubusercontent.com/67695658/209690474-d8188d1d-dbc1-41c7-b437-b1a47959670d.png">.  
 ### Windows.    
 1. Open cmd and type ```ipconfig``` to get ip address    
 2. Go to ```user-local-service.yaml``` ```tweet-local-service.yaml``` then goto change ip here line and modify it.  
 3. Choose Local and run.     
+```
+I got Minikube on Windows 11 to work for me
+
+minikube start --vm-driver=hyperv
+Install minikube Ingress Controller
+
+minikube addons enable ingress
+minikube addons enable ingress-dns
+Deploy Helm Chart
+
+helm install ...
+Get Kubernetes IP Address
+
+nslookup <host-found-in-ingress> $(minikube ip)
+Add to etc/host
+
+<minikube-ip> <domain-url>
+Live!
+
+curl <domain-url>
+```
+<img width="720" alt="image" src="https://user-images.githubusercontent.com/67695658/209758185-01b7beeb-b4d3-4c49-a6f0-e44182bb72c1.png">
 
 <img width="375" alt="image" src="https://user-images.githubusercontent.com/67695658/209690474-d8188d1d-dbc1-41c7-b437-b1a47959670d.png">.  
 
