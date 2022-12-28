@@ -13,14 +13,14 @@
         <module name="tweet-service" />
         <module name="user-service" />
         <module name="timeline-service" />
-        <module name="eureka-server" />
-        <module name="gateway" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="auth-service" target="17" />
       <module name="Cardinalis-BE (1) (com.example)" target="19" />
       <module name="crud" target="17" />
+      <module name="eureka-server" target="16" />
+      <module name="gateway" target="16" />
       <module name="wrapper" target="1.5" />
     </bytecodeTargetLevel>
   </component>
