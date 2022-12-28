@@ -11,6 +11,7 @@
 (READ:this is example change the yourPreviousIpHere only)```value: jdbc:postgresql://yourPreviousIPHere:3307/cardinalis # Change ip here```
 3. Choose Local and run.     
 4.
+RUn in terminal these lines
 ```minikube addons enable ingress```
 
 ```minikube addons enable ingress-dns```
