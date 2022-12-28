@@ -8,7 +8,7 @@
 ### MACOS
 1. Open terminal and type ```ipconfig getifaddr en0``` to get ip
 2. Go to k8s folder and find ```user-local-service.yaml``` ```tweet-local-service.yaml``` then goto ```change ip here``` line and modify it to
-(READ:this is example change the yourPreviousIpHere only)```value: jdbc:postgresql://yourPreviousIPHere:3307/cardinalis # Change ip here```
+(READ:this is just a example change the yourPreviousIpHere only)```value: jdbc:postgresql://yourPreviousIPHere:3307/cardinalis # Change ip here```
 3. Choose Local and run.     
 4.
 RUn in terminal these lines
