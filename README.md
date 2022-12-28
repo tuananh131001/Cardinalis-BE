@@ -34,6 +34,8 @@ then login using login above
 
 3. Choose Local and run.   
 
+
+<img width="375" alt="image" src="https://user-images.githubusercontent.com/67695658/209690474-d8188d1d-dbc1-41c7-b437-b1a47959670d.png">. 
 4. Run in terminal these lines     
 ```minikube addons enable ingress``` 
 
@@ -46,9 +48,7 @@ then login using login above
 
 
 7. Hit the http://cardinalis-be.com/user ( or whatever host you configured in the yaml file) in a browser and it should work   
-
-
-<img width="375" alt="image" src="https://user-images.githubusercontent.com/67695658/209690474-d8188d1d-dbc1-41c7-b437-b1a47959670d.png">.  
+ 
 ### Windows.    
 1. Open cmd and type ```ipconfig``` to get ip address    
 2. Go to ```user-local-service.yaml``` ```tweet-local-service.yaml``` then goto change ip here line and modify it.  
