@@ -35,7 +35,7 @@ then login using login above
 3. Choose Local and run.   
 
 
-<img width="375" alt="image" src="https://user-images.githubusercontent.com/67695658/209690474-d8188d1d-dbc1-41c7-b437-b1a47959670d.png">. 
+<img width="375" alt="image" src="https://user-images.githubusercontent.com/67695658/209690474-d8188d1d-dbc1-41c7-b437-b1a47959670d.png">.   
 4. Run in terminal these lines     
 ```minikube addons enable ingress``` 
 
