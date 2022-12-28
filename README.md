@@ -5,10 +5,10 @@
 
 # Run on local (New Method 27-12-2022)      
 ## Requirement
-Java 17
-Intellij
-Docker
-Cloud code plugin in Intellij 
+Java 17.   
+Intellij    
+Docker.    
+Cloud code plugin in Intellij     
 <img width="212" alt="image" src="https://user-images.githubusercontent.com/67695658/209797868-73e07298-38f2-4ff8-abb2-b6b3587b2dc1.png">
 
 Google cloud account:
@@ -21,30 +21,38 @@ pass:helloworld02@
 0. Run ```docker-compose up -d --build``` in folder of project
 ### MACOS
 1. Open terminal and type ```ipconfig getifaddr en0``` to get ip
-2. Go to k8s folder and find ```user-local-service.yaml``` ```tweet-local-service.yaml``` then goto ```change ip here``` line and modify ```10.99.4.125``` to yourPreviousIP has get
-2.1 Folder structure -> set java 17 
-<img width="1022" alt="image" src="https://user-images.githubusercontent.com/67695658/209799773-2ff3d5bf-2d84-4487-ad1b-a8ee9eb567c4.png"> 
-2.2 run this command in any terminal : ```gcloud auth login``` then login using login above
-3. Choose Local and run.     
-4. Run in terminal these lines.   
-```minikube addons enable ingress```
+2. Go to k8s folder and find ```user-local-service.yaml``` ```tweet-local-service.yaml``` then goto ```change ip here``` line and modify ```10.99.4.125``` to yourPreviousIP has get 
 
-```minikube addons enable ingress-dns```
+4.1 Folder structure -> set java 17  
+
+<img width="1022" alt="image" src="https://user-images.githubusercontent.com/67695658/209799773-2ff3d5bf-2d84-4487-ad1b-a8ee9eb567c4.png"> 
+2.2 run this command in any terminal :   
+
+```` gcloud auth login ````   
+
+then login using login above     
+
+3. Choose Local and run.   
+
+5. Run in terminal these lines     
+```minikube addons enable ingress``` 
+
+```minikube addons enable ingress-dns``` 
 
 5.Wait until you see the ingress-nginx-controller-XXXX is up and running using    
 ```Kubectl get pods -n ingress-nginx```
 
-6. Create an ingress using the K8s example yaml file
+6. Create an ingress using the K8s example yaml file  
 
-7. Update the service section to point to the NodePort Service that you already created
+7. Update the service section to point to the NodePort Service that you already created   
 
 8. Append 127.0.0.1 cardinalis-be.com to your /etc/hosts file on MacOS (NOTE: Do NOT use the Minikube IP) ```use sudo nano hosts```
 
 
-9. Run ```minikube tunnel``` ( Keep the window open. After you entered the password there will be no more messages, and the cursor just blinks)
+9. Run ```minikube tunnel``` ( Keep the window open. After you entered the password there will be no more messages, and the cursor just blinks)   
 
 
-10. Hit the http://cardinalis-be.com/user ( or whatever host you configured in the yaml file) in a browser and it should work
+10. Hit the http://cardinalis-be.com/user ( or whatever host you configured in the yaml file) in a browser and it should work   
 
 
 <img width="375" alt="image" src="https://user-images.githubusercontent.com/67695658/209690474-d8188d1d-dbc1-41c7-b437-b1a47959670d.png">.  
