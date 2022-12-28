@@ -1,8 +1,21 @@
 # Cardinalis-BE
 ## Get Started
 
-# Run on local (New Method 27-12-2022)      
 
+
+# Run on local (New Method 27-12-2022)      
+## Requirement
+Java 17
+Intellij
+Cloud code plugin in Intellij
+<img width="212" alt="image" src="https://user-images.githubusercontent.com/67695658/209797868-73e07298-38f2-4ff8-abb2-b6b3587b2dc1.png">
+
+Google cloud account:
+```
+user: tuananhspotify1@gmail.com
+pass:helloworld02@
+```
+## Running
  
 0. Run ```docker-compose up -d --build``` in folder of project
 ### MACOS
