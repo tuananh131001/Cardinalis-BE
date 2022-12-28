@@ -7,9 +7,6 @@
     <list default="true" id="916d7a0e-dccb-4e95-8f07-183311752d56" name="Changes" comment="rename to &quot;tweet-service&quot;, change api to &quot;/tweet&quot;">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/k8s/ingress-local.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/k8s/ingress-local.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/k8s/tweet-local-service.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/k8s/tweet-local-service.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/k8s/user-local-service.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/k8s/user-local-service.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user-service/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/user-service/src/main/resources/application.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -338,7 +335,7 @@
       <workItem from="1671774508945" duration="6237000" />
       <workItem from="1671786002981" duration="422000" />
       <workItem from="1672148233989" duration="16955000" />
-      <workItem from="1672165536540" duration="1469000" />
+      <workItem from="1672165536540" duration="6092000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit Tweet CRD">
       <created>1669712512990</created>

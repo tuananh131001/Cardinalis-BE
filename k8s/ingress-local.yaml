@@ -1,12 +1,11 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: gateway-local-ingress
+  name: gateway-local
   annotations:
+    ingress.kubernetes.io/rewrite-target: /
     kubernetes.io/ingress.class: "nginx"
-    nginx.ingress.kubernetes.io/rewrite-target: /
-#    kubernetes.io/ingress.class: "nginx"
-#    # If the class annotation is not specified it defaults to "gce".
+    # If the class annotation is not specified it defaults to "gce".
 #    nginx.ingress.kubernetes.io/cors-allow-origin: "*"
 #    nginx.ingress.kubernetes.io/configuration-snippet: |
 #      more_set_headers "Access-Control-Allow-Origin: $http_origin";
@@ -17,7 +16,7 @@ metadata:
 #    nginx.ingress.kubernetes.io/service-upstream: "true"
 spec:
   rules:
-      - host: cardinalis.internal
+      - host: cardinalis-be.com
         http:
           paths:
             - path: /tweet
@@ -26,12 +25,12 @@ spec:
                 service:
                   name: tweet-service
                   port:
-                    number: 8080
+                    number: 8081
             - path: /user
               pathType: Prefix
               backend:
                 service:
                   name: user-service
                   port:
-                    number: 8081
+                    number: 8080
 
