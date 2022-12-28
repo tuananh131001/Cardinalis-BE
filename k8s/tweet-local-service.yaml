@@ -42,7 +42,7 @@ spec:
             - name: PASSWORD_DB
               value: postgres
             - name: HOST_DB
-              value: jdbc:postgresql://localhost:3306/cardinalis
+              value: jdbc:postgresql://10.99.4.125:3306/cardinalis # Change ip here
 ---
 apiVersion: v1
 kind: Service
@@ -53,10 +53,10 @@ metadata:
     spring-boot: "true"
 spec:
   ports:
-    - port: 8080
+    - port: 8081
       protocol: TCP
-      targetPort: 8080
+      targetPort: 8081
   selector:
     app: tweet-service
-  type: ClusterIP
+  type: NodePort
 

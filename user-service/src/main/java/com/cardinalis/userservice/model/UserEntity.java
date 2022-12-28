@@ -27,6 +27,9 @@ public class UserEntity implements UserDetails {
     @Column(nullable = false, length = 36)
     private UUID id;
 
+    @Column(name = "avatar")
+    private String avatar;  // store the avatar image as a string
+
     @Column(name = "username", length = 100, unique = true)
     private String username;
 

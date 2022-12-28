@@ -17,6 +17,8 @@ import java.util.UUID;
 public class UserEntityDTO {
     private UUID id;
 
+    private String avatar;
+
     private String username;
 
     private String email;

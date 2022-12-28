@@ -20,7 +20,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @EnableWebSecurity
 @Configuration
 @AllArgsConstructor
-public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
+public class    SecurityConfiguration extends WebSecurityConfigurerAdapter {
     private final AuthenticationService authenticationService;
     private final TokenService tokenService;
     private final UserRepository userRepository;
