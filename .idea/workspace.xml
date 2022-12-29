@@ -5,18 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="916d7a0e-dccb-4e95-8f07-183311752d56" name="Changes" comment="rename to &quot;tweet-service&quot;, change api to &quot;/tweet&quot;">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/Dockerfile" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gateway/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway/target/classes/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/target/classes/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/k8s/local/gateway-local-service.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/k8s/local/gateway-local-service.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/k8s/local/ingress-local.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/k8s/local/ingress-local.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/skaffold.yamlsdsd" beforeDir="false" afterPath="$PROJECT_DIR$/skaffold.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/skaffoldLocayaml" beforeDir="false" afterPath="$PROJECT_DIR$/skaffoldLocal.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tweet-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/tweet-service/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tweet-service/src/main/java/org/cardinalis/tweetservice/TweetServiceApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/tweet-service/src/main/java/org/cardinalis/tweetservice/TweetServiceApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/user-service/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user-service/src/main/java/com/cardinalis/userservice/UserServiceApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/user-service/src/main/java/com/cardinalis/userservice/UserServiceApplication.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -265,9 +254,9 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Docker.gateway/Dockerfile gateway" />
         <item itemvalue="Docker.gateway/Dockerfile" />
         <item itemvalue="Docker.gateway/Dockerfile tweet-service" />
-        <item itemvalue="Docker.gateway/Dockerfile gateway" />
         <item itemvalue="Docker.gateway/Dockerfile gateway" />
       </list>
     </recent_temporary>
@@ -328,7 +317,7 @@
       <workItem from="1672307903128" duration="266000" />
       <workItem from="1672309467416" duration="335000" />
       <workItem from="1672325102742" duration="8394000" />
-      <workItem from="1672333752908" duration="777000" />
+      <workItem from="1672333752908" duration="1225000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit Tweet CRD">
       <created>1669712512990</created>

@@ -17,24 +17,19 @@ spring:
             allowed-origins: "*"
             allowed-methods: "*"
             allowed-headers: "*"
-#      routes:
-#        - id: user-service
-#          uri: lb://user-service
-#          predicates:
-#            - Path=/user/**,/auth/**
-#        - id: tweet-service
-#          uri: lb://tweet-service
-#          predicates:
-#            - Path=/tweet/**
+      routes:
+        - id: user-service
+          uri: lb://user-service
+          predicates:
+            - Path=/user/**
+          filters:
+            - RewritePath=/user/(?<path>.*), /$\{path}
+        - id: tweet-service
+          uri: lb://tweet-service
+          predicates:
+            - Path=/tweet/**'
+          filters:
+            - RewritePath=/tweet/(?<path>.*), /$\{path}
+
 jwt:
   secret: screte-value
-
-management:
-  endpoints:
-    web:
-      exposure:
-        include:
-          - mappings
-          - env
-          - health
-          - info
