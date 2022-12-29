@@ -21,20 +21,15 @@ spring:
         - id: user-service
           uri: lb://user-service
           predicates:
-            - Path=/user/**,/auth/**
+            - Path=/user/**
+          filters:
+            - RewritePath=/user/(?<path>.*), /$\{path}
         - id: tweet-service
           uri: lb://tweet-service
           predicates:
-            - Path=/tweet/**
+            - Path=/tweet/**'
+          filters:
+            - RewritePath=/tweet/(?<path>.*), /$\{path}
+
 jwt:
   secret: screte-value
-
-management:
-  endpoints:
-    web:
-      exposure:
-        include:
-          - mappings
-          - env
-          - health
-          - info

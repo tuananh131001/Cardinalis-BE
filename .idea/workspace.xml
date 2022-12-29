@@ -5,7 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="916d7a0e-dccb-4e95-8f07-183311752d56" name="Changes" comment="rename to &quot;tweet-service&quot;, change api to &quot;/tweet&quot;">
-      <change beforePath="$PROJECT_DIR$/gateway/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway/target/classes/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/target/classes/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway/target/gateway-0.0.1-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/target/gateway-0.0.1-SNAPSHOT.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway/target/gateway-0.0.1-SNAPSHOT.jar.original" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/target/gateway-0.0.1-SNAPSHOT.jar.original" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/run.sh" beforeDir="false" afterPath="$PROJECT_DIR$/run.sh" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -109,7 +113,7 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="Cloud Code: Kubernetes.Local">
+  <component name="RunManager" selected="Docker.gateway/Dockerfile">
     <configuration name="GatewayApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="gateway" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.cardinalis.gateway.GatewayApplication" />
@@ -254,8 +258,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Docker.gateway/Dockerfile gateway" />
         <item itemvalue="Docker.gateway/Dockerfile" />
+        <item itemvalue="Docker.gateway/Dockerfile gateway" />
         <item itemvalue="Docker.gateway/Dockerfile tweet-service" />
         <item itemvalue="Docker.gateway/Dockerfile gateway" />
       </list>
@@ -317,7 +321,7 @@
       <workItem from="1672307903128" duration="266000" />
       <workItem from="1672309467416" duration="335000" />
       <workItem from="1672325102742" duration="8394000" />
-      <workItem from="1672333752908" duration="1225000" />
+      <workItem from="1672333752908" duration="1974000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit Tweet CRD">
       <created>1669712512990</created>
