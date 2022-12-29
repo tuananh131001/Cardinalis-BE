@@ -11,11 +11,6 @@ Docker.
 Cloud code plugin in Intellij     
 <img width="212" alt="image" src="https://user-images.githubusercontent.com/67695658/209797868-73e07298-38f2-4ff8-abb2-b6b3587b2dc1.png">
 
-Google cloud account:
-```
-user: tuananhspotify1@gmail.com
-pass:Helloworld01@
-```
 ## Running
  
 0. Run ```docker-compose up -d --build``` in folder of project
@@ -28,13 +23,6 @@ pass:Helloworld01@
 <img width="1022" alt="image" src="https://user-images.githubusercontent.com/67695658/209799773-2ff3d5bf-2d84-4487-ad1b-a8ee9eb567c4.png"> 
 2.2 run this command in any terminal :   
 
-```` gcloud auth login ````   
-
-then login using login above     
-![image](https://user-images.githubusercontent.com/67695658/209828590-4f590a2b-d919-44b0-aa3f-8028ef5ad906.png)
-1
-![image](https://user-images.githubusercontent.com/67695658/209828651-51debc78-3d78-4fb2-a53b-6ebebae95941.png)
-n
 
 3. Choose Local and run.   
 
