@@ -17,8 +17,7 @@ Cloud code plugin in Intellij
 
 2. Folder structure -> set java 17  
 
-3. Choose Local and run.   
-<img width="121" alt="image" src="https://user-images.githubusercontent.com/67695658/209936790-29aa12c0-bde1-4b1a-82ef-03c04efe12d3.png">
+3. Choose Local and run  <img width="121" alt="image" src="https://user-images.githubusercontent.com/67695658/209936790-29aa12c0-bde1-4b1a-82ef-03c04efe12d3.png">
 
 4. Append ```127.0.0.1 cardinalis-be.com``` to your ```sudo nano /etc/hosts``` file on MacOS (Windows : goto youtube/gg search: how to edit hosts file) (NOTE: Do NOT use the Minikube IP) 
 
