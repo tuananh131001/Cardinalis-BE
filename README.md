@@ -12,7 +12,8 @@ Cloud code plugin in Intellij
 <img width="212" alt="image" src="https://user-images.githubusercontent.com/67695658/209797868-73e07298-38f2-4ff8-abb2-b6b3587b2dc1.png">
 
 ## Running
- 
+
+### First Time Only
 1. Run ```./run.sh``` in folder of project
 
 2. Folder structure -> set java 17  
@@ -23,8 +24,10 @@ Cloud code plugin in Intellij
 
 5. Run ```minikube tunnel``` ( Keep the window open. After you entered the password there will be no more messages, and the cursor just blinks)   
 
+### Later
+1. Choose Local and run  <img width="121" alt="image" src="https://user-images.githubusercontent.com/67695658/209936790-29aa12c0-bde1-4b1a-82ef-03c04efe12d3.png">
+2.  Run ```minikube tunnel``` ( Keep the window open. After you entered the password there will be no more messages, and the cursor just blinks)   
 
-![System Design - Cardinalis](https://user-images.githubusercontent.com/67695658/204201001-31fae380-3132-4845-9307-07b08d4147d5.png)
 
 # 1. User
 
@@ -67,3 +70,6 @@ wrong ip change to asia.gcr.io/
 
 # Ref
 https://dev.to/adafycheng/java-microservice-in-google-could-2nbf#containerize-the-microservice
+
+![System Design - Cardinalis](https://user-images.githubusercontent.com/67695658/204201001-31fae380-3132-4845-9307-07b08d4147d5.png)
+
