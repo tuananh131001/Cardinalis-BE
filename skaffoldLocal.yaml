@@ -14,7 +14,7 @@ build:
       project: com.cardinalis:user-service
 manifests:
   rawYaml:
-  - k8s/ingress-local.yaml
-  - k8s/tweet-local-service.yaml
-  - k8s/user-local-service.yaml
+  - k8s/local/ingress-local.yaml
+  - k8s/local/tweet-local-service.yaml
+  - k8s/local/user-local-service.yaml
 
