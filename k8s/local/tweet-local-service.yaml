@@ -42,7 +42,7 @@ spec:
             - name: PASSWORD_DB
               value: postgres
             - name: HOST_DB
-              value: jdbc:postgresql://10.99.4.125:3306/cardinalis # Change ip here
+              value: jdbc:postgresql://host.minikube.internal:3306/cardinalis # Change ip here
 ---
 apiVersion: v1
 kind: Service

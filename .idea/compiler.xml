@@ -28,6 +28,7 @@
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="Cardinalis-BE" options="-parameters" />
       <module name="Cardinalis-BE (1) (com.example)" options="-parameters" />
+      <module name="cardinalis-microservices" options="-parameters" />
       <module name="eureka-server" options="-parameters" />
       <module name="gateway" options="-parameters" />
       <module name="timeline-service" options="-parameters" />

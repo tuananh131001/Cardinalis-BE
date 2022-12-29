@@ -6,7 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="916d7a0e-dccb-4e95-8f07-183311752d56" name="Changes" comment="rename to &quot;tweet-service&quot;, change api to &quot;/tweet&quot;">
       <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/k8s/local/ingress-local.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/k8s/local/ingress-local.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/k8s/local/tweet-local-service.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/k8s/local/tweet-local-service.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/k8s/local/user-local-service.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/k8s/local/user-local-service.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,24 +48,28 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "com.google.cloudcode.ide_session_index": "20221228_0004",
-    "jdk.selected.JAVA_MODULE": "corretto-17",
-    "last_opened_file_path": "/Users/nguyentuananh/Documents/coding/REACT THANH NN/Cardinalis-BE/k8s",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.73216885",
-    "spring.configuration.checksum": "2ac78d0cc1d1e144b1406212c9f09bf8"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;com.google.cloudcode.ide_session_index&quot;: &quot;20221229_0001&quot;,
+    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;corretto-17&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/nguyentuananh/Documents/coding/REACT THANH NN/Cardinalis-BE/k8s&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.73216885&quot;,
+    &quot;spring.configuration.checksum&quot;: &quot;1ef6aa0c90d4eef3e82caa4dd61fbece&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="ReactorSettings">
     <option name="notificationShown" value="true" />
   </component>
@@ -243,7 +251,7 @@
     <configuration name="Local" type="google-container-tools-skaffold-run-config" factoryName="google-container-tools-skaffold-run-config-dev" show_console_on_std_err="false" show_console_on_std_out="false">
       <option name="allowRunningInParallel" value="false" />
       <option name="buildEnvironment" value="Local" />
-      <option name="cleanupDeployments" value="false" />
+      <option name="cleanupDeployments" value="true" />
       <option name="deployToCurrentContext" value="false" />
       <option name="deployToMinikube" value="true" />
       <option name="envVariables" />
@@ -267,7 +275,7 @@
       <option name="skaffoldNamespace" />
       <option name="skaffoldProfile" />
       <option name="skaffoldWatchMode" value="ON_DEMAND" />
-      <option name="statusCheck" value="true" />
+      <option name="statusCheck" value="false" />
       <option name="verbosity" value="WARN" />
       <method v="2" />
     </configuration>
@@ -346,6 +354,7 @@
       <workItem from="1672148233989" duration="16955000" />
       <workItem from="1672165536540" duration="6092000" />
       <workItem from="1672241925663" duration="296000" />
+      <workItem from="1672302064457" duration="4127000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit Tweet CRD">
       <created>1669712512990</created>
