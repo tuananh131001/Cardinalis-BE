@@ -16,7 +16,7 @@ metadata:
 #    nginx.ingress.kubernetes.io/service-upstream: "true"
 spec:
   rules:
-      - host: host.minikube.internal
+      - host: cardinalis-be.com
         http:
           paths:
             - path: /tweet
