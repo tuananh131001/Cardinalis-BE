@@ -1,18 +1,19 @@
 server:
-  port: 8080
+  port: 8081
 spring:
   application:
     name: tweet-service
   datasource:
     username:  ${USER_DB:postgres}
-    password: ${PASSWORD_DB:131001}
-    url: ${HOST_DB:jdbc:postgresql://localhost:5432/cardinalis}
+    password: ${PASSWORD_DB:postgres}
+    url: ${HOST_DB:jdbc:postgresql://localhost:3306/cardinalis}
     driver-class-name: ${DRIVER_DB:org.postgresql.Driver}
   cloud:
     service-registry:
       auto-registration:
         enabled: false
   jpa:
+    defer-datasource-initialization: true
     hibernate:
       ddl-auto: create-drop
     properties:
@@ -20,11 +21,3 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         format_sql: true
     show-sql: true
-jwt:
-  secret: screte-value
-  expiration: 86400000
-
-eureka:
-  client:
-    service-url:
-      defaultZone: ${EUREKA_URL:http://localhost:9000/eureka}

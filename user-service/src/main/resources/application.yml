@@ -5,7 +5,7 @@ spring:
     name: user-service
   datasource:
     username:  ${USER_DB:postgres}
-    password: ${PASSWORD_DB:131001}
+    password: ${PASSWORD_DB:postgres}
     url: ${HOST_DB:jdbc:postgresql://localhost:3307/cardinalis}
     driver-class-name: ${DRIVER_DB:org.postgresql.Driver}
   cloud:
@@ -39,7 +39,3 @@ admin:
   email: jjeanjacques10@github.com
   password: 12345
   isHotUser: true
-eureka:
-  client:
-    service-url:
-      defaultZone: ${EUREKA_URL:http://localhost:9000/eureka}
