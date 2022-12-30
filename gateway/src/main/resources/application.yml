@@ -4,6 +4,9 @@ spring:
   application:
     name: gateway
   cloud:
+    kubernetes:
+      loadbalancer:
+        mode: service
     gateway:
       discovery:
         locator:
