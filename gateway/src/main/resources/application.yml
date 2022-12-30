@@ -33,3 +33,13 @@ spring:
 
 jwt:
   secret: screte-value
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+          - mappings
+          - env
+          - health
+          - info
