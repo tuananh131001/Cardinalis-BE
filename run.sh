@@ -6,19 +6,6 @@ r=`pwd`
 echo $r
 
 docker-compose up -d --build
+minikube addons enable ingress
+minikube addons enable ingress-dns
 
-# Gateway
-cd "$r/gateway"
-mvn clean install &
-
-# Tweet Service
-cd "$r/tweet-service"
-mvn clean install &
-
-# User Service
-cd "$r/user-service"
-mvn clean install &
-
-cd "$r"
-
-docker-compose -f docker-compose-app.yml up --build -d

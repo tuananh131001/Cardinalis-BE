@@ -23,7 +23,7 @@ spec:
             httpGet:
               path: /actuator/health/liveness
               port: 8080
-            initialDelaySeconds: 150
+            initialDelaySeconds: 180
             periodSeconds: 5
             timeoutSeconds: 5
             failureThreshold: 10
@@ -32,7 +32,7 @@ spec:
             httpGet:
               path: /actuator/health/readiness
               port: 8080
-            initialDelaySeconds: 150
+            initialDelaySeconds: 180
             periodSeconds: 5
             timeoutSeconds: 5
             failureThreshold: 10
@@ -42,7 +42,7 @@ spec:
             - name: PASSWORD_DB
               value: postgres
             - name: HOST_DB
-              value: jdbc:postgresql://10.99.4.125:3306/cardinalis # Change ip here
+              value: jdbc:postgresql://host.minikube.internal:3306/cardinalis # Change ip here
 ---
 apiVersion: v1
 kind: Service
