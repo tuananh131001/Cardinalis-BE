@@ -51,7 +51,7 @@ TimelineService implements TimelineRepository{
         List<Tweet> userTimeline = null;
         List<String> followingList = userService.getFollowingList(username);
         for (String user: followingList) {
-            userTimeline.addAll(tweetService.getTweetByUsername(user));
+            userTimeline.addAll(tweetService.getNewestTweetsFromUser(user, 10));
         }
         Collections.sort(userTimeline);
         Collections.reverse(userTimeline);

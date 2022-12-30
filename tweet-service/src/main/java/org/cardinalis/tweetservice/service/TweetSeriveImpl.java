@@ -6,9 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -42,14 +44,16 @@ public class TweetSeriveImpl implements TweetService{
     }
 
     @Override
-    public List<Tweet> getTweetByUsername(String username) {
-        List<Tweet> tweets = null;
+    public List<Tweet> getNewestTweetsFromUser(String username, int size) {
+        List<Tweet> result = new ArrayList<>();
         try {
-            tweets = tweetRepository.findByUsername(username);
+            Pageable pageable = PageRequest.of(0, size, Sort.Direction.DESC,"createdAt");
+            Page<Tweet> page = tweetRepository.findByUsernameOrderByCreatedAtDesc(username, pageable);
+            result = page.getContent();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return tweets;
+        return result;
     }
 
     @Override
@@ -65,7 +69,7 @@ public class TweetSeriveImpl implements TweetService{
 
     @Override
     public List<Tweet> getTweet(int pageNo, int pageSize) {
-        Pageable pageable = PageRequest.of(pageNo, pageSize);
+        Pageable pageable = PageRequest.of(pageNo, pageSize, Sort.Direction.DESC,"createdAt");
         Page<Tweet> result = tweetRepository.findAll(pageable);
         return result.getContent();
     }
