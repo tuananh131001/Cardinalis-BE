@@ -4,9 +4,6 @@ spring:
   application:
     name: gateway
   cloud:
-    loadbalancer:
-      ribbon:
-        enabled: false
     gateway:
       discovery:
         locator:
