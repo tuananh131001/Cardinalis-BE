@@ -20,10 +20,10 @@ import java.util.List;
 import java.util.function.Predicate;
 
 @Component
-@AllArgsConstructor
 public class JwtAuthenticationFilter implements GatewayFilter {
 
-    private final JwtUtil jwtUtil;
+    @Autowired
+    private JwtUtil jwtUtil;
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {

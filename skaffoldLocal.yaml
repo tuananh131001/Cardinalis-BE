@@ -18,7 +18,6 @@ build:
       project: com.cardinalis:gateway
 manifests:
   rawYaml:
-  - k8s/local/ingress-local.yaml
   - k8s/local/tweet-local-service.yaml
   - k8s/local/user-local-service.yaml
   - k8s/local/gateway-local-service.yaml

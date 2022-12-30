@@ -6,15 +6,16 @@
   <component name="ChangeListManager">
     <list default="true" id="916d7a0e-dccb-4e95-8f07-183311752d56" name="Changes" comment="rename to &quot;tweet-service&quot;, change api to &quot;/tweet&quot;">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/cardinalis/gateway/GatewayApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/java/com/cardinalis/gateway/GatewayApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/cardinalis/gateway/JwtAuthenticationFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/java/com/cardinalis/gateway/JwtAuthenticationFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway/target/classes/com/cardinalis/gateway/JwtAuthenticationFilter.class" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/target/classes/com/cardinalis/gateway/JwtAuthenticationFilter.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gateway/target/gateway-0.0.1-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/target/gateway-0.0.1-SNAPSHOT.jar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gateway/target/gateway-0.0.1-SNAPSHOT.jar.original" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/target/gateway-0.0.1-SNAPSHOT.jar.original" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gateway/target/jib-image.digest" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/target/jib-image.digest" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gateway/target/jib-image.id" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/target/jib-image.id" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gateway/target/jib-image.json" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/target/jib-image.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/k8s/local/ingress-local.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/k8s/local/ingress-local.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/skaffoldLocal.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/skaffoldLocal.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tweet-service/src/main/java/org/cardinalis/tweetservice/TweetServiceApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/tweet-service/src/main/java/org/cardinalis/tweetservice/TweetServiceApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user-service/src/main/java/com/cardinalis/userservice/UserServiceApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/user-service/src/main/java/com/cardinalis/userservice/UserServiceApplication.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -328,7 +329,7 @@
       <workItem from="1672309467416" duration="335000" />
       <workItem from="1672325102742" duration="8394000" />
       <workItem from="1672333752908" duration="2956000" />
-      <workItem from="1672376436922" duration="2515000" />
+      <workItem from="1672376436922" duration="3489000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit Tweet CRD">
       <created>1669712512990</created>
@@ -435,7 +436,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/user-service/src/main/java/com/cardinalis/userservice/UserServiceApplication.java</url>
-          <line>12</line>
+          <line>14</line>
           <option name="timeStamp" value="11" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
