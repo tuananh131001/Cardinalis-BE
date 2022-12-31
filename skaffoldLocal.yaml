@@ -12,9 +12,19 @@ build:
     context: user-service
     jib:
       project: com.cardinalis:user-service
+  - image: us-central1-docker.pkg.dev/proven-solstice-371106/cardinalis/timeline-service
+    context: timeline-service
+    jib:
+      project: com.cardinalis:timeline-service
+  - image: us-central1-docker.pkg.dev/proven-solstice-371106/cardinalis/gateway
+    context: gateway
+    jib:
+      project: com.cardinalis:gateway
 manifests:
   rawYaml:
-  - k8s/local/ingress-local.yaml
+  - k8s/local/timeline-local-service.yaml
   - k8s/local/tweet-local-service.yaml
   - k8s/local/user-local-service.yaml
+  - k8s/local/gateway-local-service.yaml
+  - k8s/local/privileges.yaml
 

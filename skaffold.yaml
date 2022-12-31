@@ -12,8 +12,14 @@ build:
     context: user-service
     jib:
       project: com.cardinalis:user-service
+  - image: us-central1-docker.pkg.dev/proven-solstice-371106/cardinalis/gateway
+    context: gateway
+    jib:
+      project: com.cardinalis:gateway
 manifests:
   rawYaml:
-  - k8s/cloud/ingress.yaml
   - k8s/cloud/tweet-service.yaml
   - k8s/cloud/user-service.yaml
+  - k8s/cloud/privileges.yaml
+  - k8s/cloud/gateway.yaml
+  - k8s/cloud/ingress.yaml

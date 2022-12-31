@@ -3,15 +3,16 @@ package com.cardinalis.timelineservice.model;
 import lombok.Data;
 import org.cardinalis.tweetservice.model.Tweet;
 import org.springframework.data.redis.core.RedisHash;
-import org.springframework.stereotype.Component;
 
 import javax.persistence.Id;
 import java.io.Serializable;
 import java.util.List;
 
 @Data
-@RedisHash("Timeline")
+@RedisHash("TIMELINE")
 public class Timeline implements Serializable {
+    private static final long serialVersionUID = 10L;
+
     @Id
     private String username;
 

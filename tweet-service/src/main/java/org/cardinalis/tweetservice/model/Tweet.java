@@ -7,12 +7,15 @@ import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
 @Table(name="Tweet")
-public class Tweet implements Comparable<Tweet> {
+public class Tweet implements Comparable<Tweet>, Serializable {
+    private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Type(type = "org.hibernate.type.UUIDCharType")

@@ -3,16 +3,14 @@ server:
 spring:
   application:
     name: timeline-service
+
+
   redis:
-    host: ${REDIS_URL:redis://default:bKHo0mmnI1atx5ULubqR@containers-us-west-161.railway.app:6394}
+#    host: ${REDIS_URL:redis://default:bKHo0mmnI1atx5ULubqR@containers-us-west-161.railway.app:6394}
+    host: ${REDIS_URL:localhost}
     port: ${REDIS_PORT:6379}
 
 jwt:
   secret: screte-value
   expiration: 86400000
-
-eureka:
-  client:
-    service-url:
-      defaultZone: ${EUREKA_URL:http://localhost:9000/eureka}
 
