@@ -22,3 +22,4 @@ manifests:
   - k8s/local/user-local-service.yaml
   - k8s/local/gateway-local-service.yaml
   - k8s/local/privileges.yaml
+

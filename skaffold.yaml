@@ -22,3 +22,4 @@ manifests:
   - k8s/cloud/user-service.yaml
   - k8s/cloud/privileges.yaml
   - k8s/cloud/gateway.yaml
+  - k8s/cloud/ingress.yaml

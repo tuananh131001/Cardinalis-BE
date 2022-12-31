@@ -20,6 +20,4 @@ mvn clean install &
 cd "$r"
 
 docker-compose up -d --build
-minikube addons enable ingress
-minikube addons enable ingress-dns
 

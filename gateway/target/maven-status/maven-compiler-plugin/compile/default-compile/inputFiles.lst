@@ -1,6 +1,6 @@
-C:\Users\TA\Documents\coding\gateway\src\main\java\com\cardinalis\gateway\CorsConfiguration.java
-C:\Users\TA\Documents\coding\gateway\src\main\java\com\cardinalis\gateway\util\JwtUtil.java
-C:\Users\TA\Documents\coding\gateway\src\main\java\com\cardinalis\gateway\exception\JwtTokenMalformedException.java
-C:\Users\TA\Documents\coding\gateway\src\main\java\com\cardinalis\gateway\exception\JwtTokenMissingException.java
-C:\Users\TA\Documents\coding\gateway\src\main\java\com\cardinalis\gateway\JwtAuthenticationFilter.java
-C:\Users\TA\Documents\coding\gateway\src\main\java\com\cardinalis\gateway\GatewayApplication.java
+/Users/nguyentuananh/Documents/coding/REACT THANH NN/Cardinalis-BE/gateway/src/main/java/com/cardinalis/gateway/JwtAuthenticationFilter.java
+/Users/nguyentuananh/Documents/coding/REACT THANH NN/Cardinalis-BE/gateway/src/main/java/com/cardinalis/gateway/exception/JwtTokenMissingException.java
+/Users/nguyentuananh/Documents/coding/REACT THANH NN/Cardinalis-BE/gateway/src/main/java/com/cardinalis/gateway/exception/JwtTokenMalformedException.java
+/Users/nguyentuananh/Documents/coding/REACT THANH NN/Cardinalis-BE/gateway/src/main/java/com/cardinalis/gateway/CorsConfiguration.java
+/Users/nguyentuananh/Documents/coding/REACT THANH NN/Cardinalis-BE/gateway/src/main/java/com/cardinalis/gateway/GatewayApplication.java
+/Users/nguyentuananh/Documents/coding/REACT THANH NN/Cardinalis-BE/gateway/src/main/java/com/cardinalis/gateway/util/JwtUtil.java
