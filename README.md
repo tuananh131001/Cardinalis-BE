@@ -30,9 +30,10 @@ Cloud code plugin in Intellij
 3.  Run ```minikube tunnel``` ( Keep the window open. After you entered the password there will be no more messages, and the cursor just blinks)   
 
 
-# 1. User
+# API
+## User
 
-## 1.1 POST ```/user/register```
+### POST ```/user/register```
 Request:
 ```{
     "username": "jjeanjacques11",
@@ -41,27 +42,52 @@ Request:
 }
 ```
 
-## 1.2 ```/fetch/{username}```
+### GET ```/fetch/{username}```
 
-Reponse: 
-```
-{
-    "data": {
-        "id": "ccdd61fc-4034-460b-95bf-5fd8180f3e6f",
-        "username": "jjeanjacques11",
-        "email": "jjeanjacques11@gmail.com",
-        "created_at": "2022-11-28T17:45:13.2486779",
-        "last_login_time": "2022-11-28T17:45:13.2496875",
-        "is_hot_user": true
-    }
-}
-```
-## 1.3 POST ```/user/login```
+### POST ```/user/login```
 Request:
 ```
 {
     "username": "jjeanjacques11",
     "password": "1234225"
+}
+```
+
+### PUT ```/{id}```
+JSON nha ( tự hiểu lười viết) 
+```
+{
+    private UUID id;
+    private String avatar;
+    private String username;
+    private String email;
+    private String password;
+    private LocalDateTime createdAt;
+    private LocalDateTime lastLoginTime;
+    private Boolean isHotUser;
+}
+```
+### GET ```/search?username=jjeanjacques10``` 
+
+## Following
+
+### GET ```{{base_url}}/user/follow/00cc8485-e281-4faf-b37b-0c34ed33da4e/following```
+
+### GET ```{{base_url}}/user/follow/00cc8485-e281-4faf-b37b-0c34ed33da4e/followers```
+
+### POST ```{{base_url}}/user/follow```
+```{
+{
+    "followerId": "401d1f45-8a24-407c-b93e-05eeab1282d6",
+    "followedId": "a3423720-e87f-4002-bde4-525dd3320b36"
+}
+}```
+
+### DELETE ```{{base_url}}/user/follow```
+```
+{
+    "followerId": "00cc8485-e281-4faf-b37b-0c34ed33da4e",
+    "followedId": "2dd48fa5-c953-4546-8671-6448caa1b764"
 }
 ```
 
