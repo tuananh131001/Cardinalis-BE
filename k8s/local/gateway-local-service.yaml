@@ -18,7 +18,7 @@ spec:
         - name: gateway
           image: us-central1-docker.pkg.dev/proven-solstice-371106/cardinalis/gateway
           ports:
-            - containerPort: 80
+            - containerPort: 8080
 ---
 apiVersion: v1
 kind: Service
@@ -28,9 +28,9 @@ metadata:
     app: gateway
 spec:
   ports:
-    - port: 80
+    - port: 9002
       protocol: TCP
-      targetPort: 80
+      targetPort: 8080
   selector:
     app: gateway
   type: LoadBalancer
