@@ -6,7 +6,6 @@ import com.cardinalis.userservice.service.TokenService;
 import com.cardinalis.userservice.service.UserRegistrationRequest;
 import com.cardinalis.userservice.service.UserService;
 import lombok.AllArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -20,9 +19,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.net.URI;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 @RestController
 @RequestMapping("/user")
@@ -37,12 +34,10 @@ public class UserController {
         try {
             UserEntity userCreated = userService.save(register);
             UserEntityDTO userDTO = mapper.map(userCreated, UserEntityDTO.class);
-
             Map<String, Object> response = createResponse(
                     HttpStatus.CREATED,
                     userDTO
             );
-
             return ResponseEntity
                     .status(HttpStatus.CREATED)
                     .body(response);
@@ -106,7 +101,25 @@ public class UserController {
         }
     }
 
-
+    @PutMapping("/{id}")
+    public ResponseEntity<Object> updateUser(@PathVariable UUID id,
+                                     @RequestBody UserEntityDTO requestDTO) {
+        try {
+            UserEntity user = userService.updateUser(id, requestDTO);
+            return ResponseEntity.ok(SuccessResponseDTO.builder()
+                    .data(mapper.map(user, UserEntityDTO.class))
+                    .code("200")
+                    .success(true)
+                    .build());
+        } catch ( Exception e) {
+        return ResponseEntity.badRequest().body(FailResponseDTO.builder()
+                            .data(null)
+                            .code("400")
+                            .success(false)
+                            .errors_message("Error : " + e.getMessage())
+                            .build());
+        }
+    }
 
     @GetMapping("/fetch/{username}")
     public ResponseEntity<Map<String, Object>> fetchByUsername(@PathVariable("username") String username) {
@@ -150,6 +163,23 @@ public class UserController {
     @GetMapping
     public String test() {
         return "test";
+    }
+    @GetMapping("/search")
+    public ResponseEntity<Object> search(@RequestParam(name = "username", defaultValue = "") String username) {
+        try {
+            var users = userService.searchByUserName(username.toLowerCase(Locale.ROOT));
+            var usersDto = users.stream().map(u -> mapper.map(u, UserEntityDTO.class));
+            return ResponseEntity.ok(SuccessResponseDTO.builder()
+                    .data(usersDto)
+                    .build());
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(FailResponseDTO.builder()
+                    .data(null)
+                    .code("400")
+                    .success(false)
+                    .errors_message("Error : " + e.getMessage())
+                    .build());
+        }
     }
     private Map<String, Object> createResponse(HttpStatus status, Object data, String errorMessage) {
         Map<String, Object> response = new HashMap<>();
