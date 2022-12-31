@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Value;
 @Builder
 @AllArgsConstructor
 public class SuccessResponseDTO {
-    private UserEntityDTO data;
+    private Object data;
     private String code;
     private boolean success;
     private String errors_message;
