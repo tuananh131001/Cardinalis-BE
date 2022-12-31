@@ -1,6 +1,0 @@
-com/cardinalis/gateway/JwtAuthenticationFilter.class
-com/cardinalis/gateway/exception/JwtTokenMissingException.class
-com/cardinalis/gateway/util/JwtUtil.class
-com/cardinalis/gateway/CorsConfiguration.class
-com/cardinalis/gateway/GatewayApplication.class
-com/cardinalis/gateway/exception/JwtTokenMalformedException.class
