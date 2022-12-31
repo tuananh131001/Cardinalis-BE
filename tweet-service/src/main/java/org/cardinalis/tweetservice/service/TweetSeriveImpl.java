@@ -1,5 +1,6 @@
 package org.cardinalis.tweetservice.service;
 
+import org.cardinalis.tweetservice.exception.NoContentFoundException;
 import org.cardinalis.tweetservice.model.Tweet;
 import org.cardinalis.tweetservice.repository.TweetRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,26 +22,20 @@ public class TweetSeriveImpl implements TweetService{
     TweetRepository tweetRepository;
 
     @Override
-    public String saveTweet(Tweet tweet) {
+    public Tweet saveTweet(Tweet tweet) {
         try {
             tweetRepository.save(tweet);
-            return "saved tweet";
-        } catch (Exception e) {
-            e.printStackTrace();
-            return "failed to save tweet";
-        }
-    }
-
-    @Override
-    public Tweet getTweetById(UUID id) {
-        Tweet tweet = null;
-        try {
-            tweet = tweetRepository.findById(id)
-                    .orElseThrow(() -> new Exception("Tweet not found for id: " + id));
         } catch (Exception e) {
             e.printStackTrace();
         }
         return tweet;
+
+    }
+
+    @Override
+    public Tweet getTweetById(UUID id) {
+        return tweetRepository.findById(id)
+                    .orElseThrow(() -> new NoContentFoundException("Tweet not found for id = " + id));
     }
 
     @Override
@@ -57,18 +52,19 @@ public class TweetSeriveImpl implements TweetService{
     }
 
     @Override
-    public String deleteTweet(UUID id) {
+    public Tweet deleteTweet(UUID id) {
         try {
             Tweet tweet = getTweetById(id);
             tweetRepository.delete(tweet);
-            return "deleted tweet";
+            return tweet;
         } catch (Exception e) {
-            return "failed to delete tweet";
+            e.printStackTrace();
+            return null;
         }
     }
 
     @Override
-    public List<Tweet> getTweet(int pageNo, int pageSize) {
+    public List<Tweet> getAll(int pageNo, int pageSize) {
         Pageable pageable = PageRequest.of(pageNo, pageSize, Sort.Direction.DESC,"createdAt");
         Page<Tweet> result = tweetRepository.findAll(pageable);
         return result.getContent();

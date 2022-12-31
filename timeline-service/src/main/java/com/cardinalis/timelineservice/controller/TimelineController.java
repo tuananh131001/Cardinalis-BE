@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Map;
 
 @RestController
-@RequestMapping(value = "/redis/timeline")
+@RequestMapping(value = "/timeline")
 public class TimelineController {
 
     private static final Logger LOG = LoggerFactory.getLogger(TimelineController.class);

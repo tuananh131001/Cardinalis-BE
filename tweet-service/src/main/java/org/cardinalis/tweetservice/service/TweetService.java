@@ -6,10 +6,10 @@ import java.util.List;
 import java.util.UUID;
 
 public interface TweetService {
-    public String saveTweet(Tweet tweet);
+    public Tweet saveTweet(Tweet tweet);
     public Tweet getTweetById(UUID id);
     public List<Tweet> getNewestTweetsFromUser(String username, int size);
-    public String deleteTweet(UUID id);
-    public List<Tweet> getTweet(int pageNo, int pageSize);
+    public Tweet deleteTweet(UUID id);
+    public List<Tweet> getAll(int pageNo, int pageSize);
 
 }
