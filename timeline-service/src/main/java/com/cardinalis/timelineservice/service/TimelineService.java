@@ -6,18 +6,20 @@ import com.cardinalis.userservice.service.UserService;
 import org.cardinalis.tweetservice.model.Tweet;
 import org.cardinalis.tweetservice.service.TweetSeriveImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Import;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 //@Transactional
+@Repository
 @Service
-@Import(value = {UserService.class, TweetSeriveImpl.class})
 public class
 TimelineService implements TimelineRepository{
     private final String TIMELINE_CACHE = "TIMELINE";
@@ -32,40 +34,54 @@ TimelineService implements TimelineRepository{
     @Autowired
     TweetSeriveImpl tweetService;
 
-    // This annotation makes sure that the method needs to be executed after
-    // dependency injection is done to perform any initialization.
     @PostConstruct
     private void intializeHashOperations() {
         hashOperations = redisTemplate.opsForHash();
     }
 
     @Override
+    @Cacheable(value = "TIMELINE")
     public void saveTimeline(Timeline timeline) {
         hashOperations.put(TIMELINE_CACHE, timeline.getUsername(), timeline);
     }
 
     @Override
+    @Cacheable(value = "TIMELINE")
     public void updateTimeline(String username) {
-        Timeline timeline = getTimelineByUsername(username);
+        Timeline timeline = getTimeline(username);
         if (timeline == null) {timeline.setUsername(username);}
         List<Tweet> userTimeline = null;
         List<String> followingList = userService.getFollowingList(username);
-        for (String user: followingList) {
-            userTimeline.addAll(tweetService.getTweetByUsername(user));
+        if (followingList == null || followingList.size() ==0) {
+            userTimeline.addAll(tweetService.getTweet(0, 20));
         }
-        Collections.sort(userTimeline);
-        Collections.reverse(userTimeline);
+        else {
+            for (String user : followingList) {
+                userTimeline.addAll(tweetService.getNewestTweetsFromUser(user, 10));
+            }
+            Collections.sort(userTimeline);
+            Collections.reverse(userTimeline);
+        }
         timeline.setUserTimeline(userTimeline);
         saveTimeline(timeline);
     }
 
-    public Timeline getTimelineByUsername(String username) {
-        return (Timeline) hashOperations.get(TIMELINE_CACHE, username);
+    @Override
+    @Cacheable(value = "TIMELINE")
+    public Timeline getTimeline(String username) {
+        return hashOperations.get(TIMELINE_CACHE, username);
     }
 
     @Override
+    @Cacheable(value = "TIMELINE")
     public void deleteTimeline(String username) {
         hashOperations.delete(TIMELINE_CACHE, username);
+    }
+
+    @Override
+    @Cacheable(value = "TIMELINE")
+    public Map<String, Timeline> getAll() {
+        return hashOperations.entries(TIMELINE_CACHE);
     }
 
 }

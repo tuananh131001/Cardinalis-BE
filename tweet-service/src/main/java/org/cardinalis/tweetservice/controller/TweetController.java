@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -39,8 +40,15 @@ public class TweetController {
     }
 
     @RequestMapping(path = "/search", method = RequestMethod.GET)
-    public List<Tweet> findTweetByUsername(@RequestParam String username) {
-        List<Tweet> result = tweetService.getTweetByUsername(username);
+    public List<Tweet> getNewestTweetsFromUser(
+            @RequestParam String username,
+            @RequestParam(defaultValue = "2") int size) {
+        List<Tweet> result = new ArrayList<>();
+        try {
+            result = tweetService.getNewestTweetsFromUser(username, size);
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
         return result;
     }
 

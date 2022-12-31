@@ -3,8 +3,24 @@ server:
 spring:
   application:
     name: timeline-service
+  datasource:
+    username: ${USER_DB:postgres}
+    password: ${PASSWORD_DB:131001}
+    url: ${HOST_DB:jdbc:postgresql://localhost:5432/cardinalis}
+    driver-class-name: ${DRIVER_DB:org.postgresql.Driver}
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+    show-sql: true
+
   redis:
-    host: ${REDIS_URL:redis://default:bKHo0mmnI1atx5ULubqR@containers-us-west-161.railway.app:6394}
+#    host: ${REDIS_URL:redis://default:bKHo0mmnI1atx5ULubqR@containers-us-west-161.railway.app:6394}
+    host: ${REDIS_URL:localhost}
     port: ${REDIS_PORT:6379}
 
 jwt:
