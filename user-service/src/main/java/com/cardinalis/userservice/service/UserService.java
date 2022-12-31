@@ -1,5 +1,6 @@
 package com.cardinalis.userservice.service;
 import com.cardinalis.userservice.dao.RegisterDTO;
+import com.cardinalis.userservice.dao.UserEntityDTO;
 import com.cardinalis.userservice.exception.NoContentFoundException;
 import com.cardinalis.userservice.model.Relationship;
 import com.cardinalis.userservice.model.Role;
@@ -71,5 +72,8 @@ public class UserService {
             result.add(u.getUsername());
         }
         return result;
+    }
+
+    public UserEntity updateUser(UUID id, UserEntityDTO requestDTO) {
     }
 }

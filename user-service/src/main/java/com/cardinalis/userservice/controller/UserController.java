@@ -23,6 +23,7 @@ import java.net.URI;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/user")
@@ -106,7 +107,25 @@ public class UserController {
         }
     }
 
-
+    @PutMapping("/{id}")
+    public ResponseEntity<Object> updateUser(@PathVariable UUID id,
+                                     @RequestBody UserEntityDTO requestDTO) {
+        try {
+            UserEntity user = userService.updateUser(id, requestDTO);
+            return ResponseEntity.ok(SuccessResponseDTO.builder()
+                    .data(mapper.map(user, UserEntityDTO.class))
+                    .code("200")
+                    .success(true)
+                    .build());
+        } catch ( Exception e) {
+        return ResponseEntity.badRequest().body(FailResponseDTO.builder()
+                            .data(null)
+                            .code("400")
+                            .success(false)
+                            .errors_message("Error : " + e.getMessage())
+                            .build());
+        }
+    }
 
     @GetMapping("/fetch/{username}")
     public ResponseEntity<Map<String, Object>> fetchByUsername(@PathVariable("username") String username) {
@@ -140,6 +159,7 @@ public class UserController {
                     HttpStatus.UNAUTHORIZED,
                     null,
                     "Login Failed: Your user ID or password is incorrect"
+
             );
 
             return ResponseEntity
