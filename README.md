@@ -76,12 +76,14 @@ JSON nha ( tự hiểu lười viết)
 ### GET ```{{base_url}}/user/follow/00cc8485-e281-4faf-b37b-0c34ed33da4e/followers```
 
 ### POST ```{{base_url}}/user/follow```
-```{
+```
+
 {
     "followerId": "401d1f45-8a24-407c-b93e-05eeab1282d6",
     "followedId": "a3423720-e87f-4002-bde4-525dd3320b36"
 }
-}```
+
+```
 
 ### DELETE ```{{base_url}}/user/follow```
 ```
