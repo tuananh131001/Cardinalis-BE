@@ -1,0 +1,62 @@
+#apiVersion: apps/v1
+#kind: Deployment
+#metadata:
+#  name: timeline-service
+#  labels:
+#    app: timeline-service
+#spec:
+#  replicas: 1
+#  selector:
+#    matchLabels:
+#      app: timeline-service
+#  template:
+#    metadata:
+#      labels:
+#        app: timeline-service
+#    spec:
+#      containers:
+#        - name: timeline-service
+#          image: us-central1-docker.pkg.dev/proven-solstice-371106/cardinalis/timeline-service
+#          ports:
+#            - containerPort: 8080
+#          livenessProbe:
+#            httpGet:
+#              path: /actuator/health/liveness
+#              port: 8080
+#            initialDelaySeconds: 180
+#            periodSeconds: 5
+#            timeoutSeconds: 5
+#            failureThreshold: 10
+#          # Configure the readiness probe
+#          readinessProbe:
+#            httpGet:
+#              path: /actuator/health/readiness
+#              port: 8080
+#            initialDelaySeconds: 180
+#            periodSeconds: 5
+#            timeoutSeconds: 5
+#            failureThreshold: 10
+#          env:
+#            - name: USER_DB
+#              value: postgres
+#            - name: PASSWORD_DB
+#              value: postgres
+#            - name: HOST_DB
+#              value: jdbc:postgresql://host.minikube.internal:3306/cardinalis # Change ip here
+#---
+#apiVersion: v1
+#kind: Service
+#metadata:
+#  name: timeline-service
+#  labels:
+#    app: timeline-service
+#    spring-boot: "true"
+#spec:
+#  ports:
+#    - port: 8081
+#      protocol: TCP
+#      targetPort: 8081
+#  selector:
+#    app: timeline-service
+#  type: NodePort
+#

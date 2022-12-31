@@ -1,4 +1,4 @@
-FROM amazoncorretto:17 as tweet-service
+FROM amazoncorretto:17 as user-service
 ARG JAR_FILE=target/user-service-0.0.1-SNAPSHOT.jar
 
 WORKDIR /opt/app

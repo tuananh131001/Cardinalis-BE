@@ -1,6 +1,10 @@
 package com.cardinalis.userservice.model;
 
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import lombok.*;
 import org.hibernate.Hibernate;
 import org.hibernate.annotations.Type;
@@ -31,6 +35,8 @@ public class Relationship implements Serializable {
     @Column(name = "followed_id", length = 36)
     private UUID followedId;
 
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
+    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
