@@ -17,6 +17,10 @@ mvn clean install &
 cd "$r/user-service"
 mvn clean install &
 
+# Timeline Service
+cd "$r/timeline-service"
+mvn clean install &
+
 cd "$r"
 
 docker-compose up -d --build
