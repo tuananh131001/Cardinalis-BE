@@ -35,6 +35,14 @@ public class UserEntity implements UserDetails {
 
     @Column(name = "email", length = 200, unique = true)
     private String email;
+    @Column(name = "bio")
+    private String bio;
+    @Column(name = "date_of_birth")
+    private LocalDateTime dateOfBirth;
+    @Column(name = "location")
+    private String location;
+    @Column(name = "banner")
+    private String banner;
 
     @Column(name = "password")
     private String password;
@@ -47,6 +55,8 @@ public class UserEntity implements UserDetails {
 
     @Column(name = "is_hot_user")
     private Boolean isHotUser;
+
+
 
     @ManyToMany(fetch = FetchType.EAGER)
     //@Builder.Default

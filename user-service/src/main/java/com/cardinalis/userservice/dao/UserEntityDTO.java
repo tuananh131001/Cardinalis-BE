@@ -22,7 +22,10 @@ public class UserEntityDTO {
     private String username;
 
     private String email;
-
+    private String bio;
+    private LocalDateTime dateOfBirth;
+    private String location;
+    private String thumbnail = "";
     @JsonIgnore
     private String password;
 
@@ -34,5 +37,6 @@ public class UserEntityDTO {
 
     @JsonProperty("is_hot_user")
     private Boolean isHotUser;
+
 
 }
