@@ -13,6 +13,8 @@ Cloud code plugin in Intellij
 
 ## Running
 
+API : localhost:9002
+
 ### First Time Only
 1. Run ```./run.sh``` in folder of project
 
@@ -20,14 +22,6 @@ Cloud code plugin in Intellij
 
 3. Choose Local and run  <img width="121" alt="image" src="https://user-images.githubusercontent.com/67695658/209936790-29aa12c0-bde1-4b1a-82ef-03c04efe12d3.png">
 
-4. Append ```127.0.0.1 cardinalis-be.com``` to your ```sudo nano /etc/hosts``` file on MacOS (Windows : goto youtube/gg search: how to edit hosts file) (NOTE: Do NOT use the Minikube IP) 
-
-5. Run ```minikube tunnel``` ( Keep the window open. After you entered the password there will be no more messages, and the cursor just blinks)   
-
-### Later
-1. Run ```./run.sh``` in folder of project
-2. Choose Local and run  <img width="121" alt="image" src="https://user-images.githubusercontent.com/67695658/209936790-29aa12c0-bde1-4b1a-82ef-03c04efe12d3.png">
-3.  Run ```minikube tunnel``` ( Keep the window open. After you entered the password there will be no more messages, and the cursor just blinks)   
 
 
 # API
