@@ -22,10 +22,10 @@ public class UserEntityDTO {
     private String username;
 
     private String email;
-    private String bio;
-    private LocalDateTime dateOfBirth;
-    private String location;
-    private String thumbnail = "";
+    private String bio = "";
+    private LocalDateTime dateOfBirth = LocalDateTime.now();
+    private String location= "";
+    private String banner = "";
     @JsonIgnore
     private String password;
 
