@@ -53,7 +53,7 @@ TimelineService implements TimelineRepository{
         List<Tweet> userTimeline = null;
         List<String> followingList = userService.getFollowingList(username);
         if (followingList == null || followingList.size() ==0) {
-            userTimeline.addAll(tweetService.getTweet(0, 20));
+            userTimeline.addAll(tweetService.getAll(0, 20));
         }
         else {
             for (String user : followingList) {
