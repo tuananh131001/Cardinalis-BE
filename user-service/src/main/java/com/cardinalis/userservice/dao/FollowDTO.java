@@ -17,5 +17,6 @@ public class FollowDTO {
 
     private UUID followedId;
 
+
 }
 
