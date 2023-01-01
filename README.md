@@ -13,7 +13,7 @@ Cloud code plugin in Intellij
 
 ## Running
 
-API : localhost:9002
+API : localhost:9002 or 4803 or 4804 or check service url find gateway port
 
 ### First Time Only
 1. Run ```./run.sh``` in folder of project
