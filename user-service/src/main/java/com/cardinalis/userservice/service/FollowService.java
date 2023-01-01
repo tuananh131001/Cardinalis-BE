@@ -1,8 +1,6 @@
 package com.cardinalis.userservice.service;
 import com.cardinalis.userservice.dao.UserEntityDTO;
-import com.cardinalis.userservice.dao.UserShortInfoDTO;
 import com.cardinalis.userservice.model.Relationship;
-import com.cardinalis.userservice.model.UserEntity;
 
 import java.util.List;
 import java.util.UUID;

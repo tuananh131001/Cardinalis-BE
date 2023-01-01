@@ -1,7 +1,6 @@
 package com.cardinalis.userservice.service.impl;
 
 import com.cardinalis.userservice.dao.UserEntityDTO;
-import com.cardinalis.userservice.dao.UserShortInfoDTO;
 import com.cardinalis.userservice.model.Relationship;
 import com.cardinalis.userservice.model.UserEntity;
 import com.cardinalis.userservice.repository.RelationshipRepository;
@@ -9,7 +8,6 @@ import com.cardinalis.userservice.repository.UserRepository;
 import com.cardinalis.userservice.service.FollowService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.catalina.User;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
