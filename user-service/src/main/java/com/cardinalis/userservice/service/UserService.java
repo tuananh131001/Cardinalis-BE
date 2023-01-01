@@ -1,5 +1,6 @@
 package com.cardinalis.userservice.service;
 import com.cardinalis.userservice.dao.RegisterDTO;
+import com.cardinalis.userservice.dao.UserEntityDTO;
 import com.cardinalis.userservice.exception.NoContentFoundException;
 import com.cardinalis.userservice.model.Relationship;
 import com.cardinalis.userservice.model.Role;
@@ -7,6 +8,7 @@ import com.cardinalis.userservice.repository.RelationshipRepository;
 import com.cardinalis.userservice.repository.UserRepository;
 import com.cardinalis.userservice.model.UserEntity;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCrypt;
@@ -19,6 +21,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Service
+@Slf4j
 @AllArgsConstructor
 public class UserService {
 
@@ -52,6 +55,13 @@ public class UserService {
         user.setPassword(BCrypt.hashpw(user.getPassword(), BCrypt.gensalt()));
         return userRepository.save(user);
     }
+    public List<UserEntity> searchByUserName(String username) {
+        var users = userRepository.findByUsernameContaining(username);
+        if (users.isEmpty()) {
+            throw new NoContentFoundException("User not found");
+        }
+        return users;
+    }
 
 
     public UserEntity fetchByUsername(String username) {
@@ -71,5 +81,15 @@ public class UserService {
             result.add(u.getUsername());
         }
         return result;
+    }
+
+    @Transactional
+    public UserEntity updateUser(UUID id, UserEntityDTO requestDTO) {
+        log.info("Update user {}", id);
+        var userFound = userRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("User " + id + " not found"));
+        userFound.setEmail(requestDTO.getEmail());
+        userFound.setIsHotUser(requestDTO.getIsHotUser());
+        return userRepository.save(userFound);
     }
 }

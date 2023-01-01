@@ -1,6 +1,7 @@
 package com.cardinalis.gateway;
 
 
+import com.cardinalis.gateway.exception.FailResponseDTO;
 import com.cardinalis.gateway.exception.JwtTokenMalformedException;
 import com.cardinalis.gateway.exception.JwtTokenMissingException;
 import com.cardinalis.gateway.util.JwtUtil;
@@ -9,13 +10,18 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
+import org.springframework.core.io.buffer.DataBuffer;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -37,9 +43,10 @@ public class JwtAuthenticationFilter implements GatewayFilter {
         if (isApiSecured.test(request)) {
             if (!request.getHeaders().containsKey("Authorization")) {
                 ServerHttpResponse response = exchange.getResponse();
+                response.getHeaders().add("Content-Type", "application/json");
                 response.setStatusCode(HttpStatus.UNAUTHORIZED);
-
-                return response.setComplete();
+                return response.writeWith(Mono.just(response.bufferFactory().wrap(
+                        "{\"data\":null,\"code\":401,\"success\":false,\"errors_message\":\"Unauthorized\"}".getBytes())));
             }
 
             final String token = request.getHeaders().getOrEmpty("Authorization").get(0).replace("Bearer ", "");
@@ -48,9 +55,10 @@ public class JwtAuthenticationFilter implements GatewayFilter {
                 jwtUtil.validateToken(token);
             } catch (JwtTokenMalformedException | JwtTokenMissingException e) {
                 ServerHttpResponse response = exchange.getResponse();
+                response.getHeaders().add("Content-Type", "application/json");
                 response.setStatusCode(HttpStatus.BAD_REQUEST);
-
-                return response.setComplete();
+                return response.writeWith(Mono.just(response.bufferFactory().wrap(
+                        "{\"data\":null,\"code\":400,\"success\":false,\"errors_message\":\"Bad request\"}".getBytes())));
             }
 
             Claims claims = jwtUtil.getClaims(token);

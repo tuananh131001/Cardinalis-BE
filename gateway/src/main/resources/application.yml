@@ -30,6 +30,12 @@ spring:
             - Path=/tweet/**'
           filters:
             - RewritePath=/tweet/(?<path>.*), /$\{path}
+        - id: tweet-service
+          uri: lb://timeline-service
+          predicates:
+            - Path=/timeline/**'
+          filters:
+            - RewritePath=/timeline/(?<path>.*), /$\{path}
 
 jwt:
   secret: screte-value
