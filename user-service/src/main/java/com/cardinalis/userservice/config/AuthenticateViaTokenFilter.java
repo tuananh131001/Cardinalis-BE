@@ -25,6 +25,7 @@ public class AuthenticateViaTokenFilter extends OncePerRequestFilter {
         String token = getToken(request);
         boolean valid = tokenService.isTokenValid(token);
 
+        // Check token for every endpoints
         if (valid) {
             authenticateClient(token);
         }

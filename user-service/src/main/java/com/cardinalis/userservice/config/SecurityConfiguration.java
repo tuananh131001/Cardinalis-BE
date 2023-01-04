@@ -25,6 +25,8 @@ public class    SecurityConfiguration extends WebSecurityConfigurerAdapter {
     private final TokenService tokenService;
     private final UserRepository userRepository;
 
+    private final CustomOAuth2UserService userService;
+
     @Override
     @Bean
     protected AuthenticationManager authenticationManager() throws Exception {
@@ -41,9 +43,19 @@ public class    SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers(HttpMethod.POST, "/auth/*").permitAll()
                 .antMatchers(HttpMethod.GET, "/actuator/*").permitAll()
-                .anyRequest().permitAll()
-                .and().csrf().disable()
+                .antMatchers( "/user/*").permitAll()
+                .and()
+                .csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
+
+                .oauth2Login()
+                    .loginPage("/user")
+                    .userInfoEndpoint()
+                        .userService(userService)
+
+
+
                ;
 //        http.authorizeRequests()
 //                .anyRequest().authenticated()

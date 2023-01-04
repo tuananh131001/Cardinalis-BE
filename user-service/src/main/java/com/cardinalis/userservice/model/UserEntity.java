@@ -56,6 +56,10 @@ public class UserEntity implements UserDetails {
     @Column(name = "is_hot_user")
     private Boolean isHotUser;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "auth_provider")
+    private AuthenticationProvider authProvider;
+
 
 
     @ManyToMany(fetch = FetchType.EAGER)
