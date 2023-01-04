@@ -1,5 +1,7 @@
 package com.cardinalis.userservice.config;
 
+import com.cardinalis.userservice.oauth.CustomOAuth2UserService;
+import com.cardinalis.userservice.oauth.OAuth2LoginSuccessHandler;
 import com.cardinalis.userservice.repository.UserRepository;
 import com.cardinalis.userservice.service.AuthenticationService;
 import com.cardinalis.userservice.service.TokenService;
@@ -24,8 +26,11 @@ public class    SecurityConfiguration extends WebSecurityConfigurerAdapter {
     private final AuthenticationService authenticationService;
     private final TokenService tokenService;
     private final UserRepository userRepository;
+    @Autowired
+    private final OAuth2LoginSuccessHandler oAuth2LoginSuccessHandler;
 
-    private final CustomOAuth2UserService userService;
+    @Autowired
+    private final CustomOAuth2UserService customUserService;
 
     @Override
     @Bean
@@ -43,16 +48,19 @@ public class    SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers(HttpMethod.POST, "/auth/*").permitAll()
                 .antMatchers(HttpMethod.GET, "/actuator/*").permitAll()
-                .antMatchers( "/user/*").permitAll()
+                .antMatchers( "/oath2/*").permitAll()
                 .and()
                 .csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-
                 .oauth2Login()
-                    .loginPage("/user")
                     .userInfoEndpoint()
-                        .userService(userService)
+                        .userService(customUserService)
+                    .and()
+                    .successHandler(oAuth2LoginSuccessHandler)
+                .and()
+                .logout().logoutSuccessUrl("/").permitAll()
+
 
 
 

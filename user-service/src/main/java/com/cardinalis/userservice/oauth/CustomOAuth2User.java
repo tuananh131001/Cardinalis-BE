@@ -1,4 +1,4 @@
-package com.cardinalis.userservice.config;
+package com.cardinalis.userservice.oauth;
 
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
