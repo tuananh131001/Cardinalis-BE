@@ -11,7 +11,7 @@ import java.util.Map;
 public interface TimelineRepository {
     void saveTimeline(Timeline timeline);
 
-    void updateTimeline(String username);
+    Timeline updateTimeline(String username);
 
     Timeline getTimeline(String username);
 

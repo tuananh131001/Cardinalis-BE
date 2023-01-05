@@ -1,5 +1,6 @@
 package org.cardinalis.tweetservice.service;
 
+import lombok.AllArgsConstructor;
 import org.cardinalis.tweetservice.exception.NoContentFoundException;
 import org.cardinalis.tweetservice.model.Tweet;
 import org.cardinalis.tweetservice.repository.TweetRepository;
@@ -17,19 +18,18 @@ import java.util.UUID;
 
 @Transactional
 @Service
+@AllArgsConstructor
 public class TweetSeriveImpl implements TweetService{
     @Autowired
     TweetRepository tweetRepository;
 
     @Override
-    public Tweet saveTweet(Tweet tweet) {
+    public void saveTweet(Tweet tweet) {
         try {
             tweetRepository.save(tweet);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return tweet;
-
     }
 
     @Override
@@ -40,15 +40,16 @@ public class TweetSeriveImpl implements TweetService{
 
     @Override
     public List<Tweet> getNewestTweetsFromUser(String username, int size) {
-        List<Tweet> result = new ArrayList<>();
+        List<Tweet> result;
         try {
             Pageable pageable = PageRequest.of(0, size, Sort.Direction.DESC,"createdAt");
             Page<Tweet> page = tweetRepository.findByUsernameOrderByCreatedAtDesc(username, pageable);
             result = page.getContent();
+            return result;
         } catch (Exception e) {
             e.printStackTrace();
+            throw e;
         }
-        return result;
     }
 
     @Override
@@ -59,7 +60,7 @@ public class TweetSeriveImpl implements TweetService{
             return tweet;
         } catch (Exception e) {
             e.printStackTrace();
-            return null;
+            throw e;
         }
     }
 

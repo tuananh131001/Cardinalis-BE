@@ -47,23 +47,30 @@ TimelineService implements TimelineRepository{
 
     @Override
     @Cacheable(value = "TIMELINE")
-    public void updateTimeline(String username) {
-        Timeline timeline = getTimeline(username);
-        if (timeline == null) {timeline.setUsername(username);}
-        List<Tweet> userTimeline = null;
-        List<String> followingList = userService.getFollowingList(username);
-        if (followingList == null || followingList.size() ==0) {
-            userTimeline.addAll(tweetService.getAll(0, 20));
-        }
-        else {
-            for (String user : followingList) {
-                userTimeline.addAll(tweetService.getNewestTweetsFromUser(user, 10));
+    public Timeline updateTimeline(String username) {
+        try {
+            Timeline timeline = getTimeline(username);
+            if (timeline == null) {
+                timeline.setUsername(username);
             }
-            Collections.sort(userTimeline);
-            Collections.reverse(userTimeline);
+            List<Tweet> userTimeline = null;
+            List<String> followingList = userService.getFollowingList(username);
+            if (followingList == null || followingList.size() == 0) {
+                userTimeline.addAll(tweetService.getAll(0, 20));
+            } else {
+                for (String user : followingList) {
+                    userTimeline.addAll(tweetService.getNewestTweetsFromUser(user, 10));
+                }
+                Collections.sort(userTimeline);
+                Collections.reverse(userTimeline);
+            }
+            timeline.setUserTimeline(userTimeline);
+            saveTimeline(timeline);
+            return timeline;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
         }
-        timeline.setUserTimeline(userTimeline);
-        saveTimeline(timeline);
     }
 
     @Override
