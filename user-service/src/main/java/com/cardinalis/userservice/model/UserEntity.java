@@ -8,6 +8,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -56,11 +57,11 @@ public class UserEntity implements UserDetails {
     @Column(name = "is_hot_user")
     private Boolean isHotUser;
 
+    @NotNull
     @Enumerated(EnumType.STRING)
-    @Column(name = "auth_provider")
     private AuthenticationProvider authProvider;
 
-
+    private String providerId;
 
     @ManyToMany(fetch = FetchType.EAGER)
     //@Builder.Default

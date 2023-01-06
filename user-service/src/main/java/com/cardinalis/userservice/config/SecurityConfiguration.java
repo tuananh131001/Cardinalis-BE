@@ -1,8 +1,10 @@
 package com.cardinalis.userservice.config;
 
 import com.cardinalis.userservice.oauth.CustomOAuth2UserService;
+import com.cardinalis.userservice.oauth.HttpCookieOAuth2AuthorizationRequestRepository;
 import com.cardinalis.userservice.oauth.OAuth2LoginSuccessHandler;
 import com.cardinalis.userservice.repository.UserRepository;
+import com.cardinalis.userservice.security.RestAuthenticationEntryPoint;
 import com.cardinalis.userservice.service.AuthenticationService;
 import com.cardinalis.userservice.service.TokenService;
 import lombok.AllArgsConstructor;
@@ -21,16 +23,20 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @EnableWebSecurity
 @Configuration
-@AllArgsConstructor
 public class    SecurityConfiguration extends WebSecurityConfigurerAdapter {
-    private final AuthenticationService authenticationService;
-    private final TokenService tokenService;
-    private final UserRepository userRepository;
     @Autowired
-    private final OAuth2LoginSuccessHandler oAuth2LoginSuccessHandler;
+    private AuthenticationService authenticationService;
+    @Autowired
+    private TokenService tokenService;
+    @Autowired
+    private  UserRepository userRepository;
+    @Autowired
+    private OAuth2LoginSuccessHandler oAuth2LoginSuccessHandler;
 
     @Autowired
-    private final CustomOAuth2UserService customUserService;
+    private CustomOAuth2UserService customUserService;
+    @Autowired
+    private HttpCookieOAuth2AuthorizationRequestRepository httpCookieOAuth2AuthorizationRequestRepository;
 
     @Override
     @Bean
@@ -42,27 +48,56 @@ public class    SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(authenticationService).passwordEncoder(new BCryptPasswordEncoder());
     }
+    @Bean
+    public HttpCookieOAuth2AuthorizationRequestRepository cookieAuthorizationRequestRepository() {
+        return new HttpCookieOAuth2AuthorizationRequestRepository();
+    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
-                .antMatchers(HttpMethod.POST, "/auth/*").permitAll()
-                .antMatchers(HttpMethod.GET, "/actuator/*").permitAll()
-                .antMatchers( "/oath2/*").permitAll()
+        http .cors()
                 .and()
-                .csrf().disable()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
+                .csrf()
+                .disable()
+                .formLogin()
+                .disable()
+                .httpBasic()
+                .disable()
+                .exceptionHandling()
+                .authenticationEntryPoint(new RestAuthenticationEntryPoint())
+                .and()
+                .authorizeRequests()
+                .antMatchers("/",
+                        "/error",
+                        "/favicon.ico",
+                        "/**/*.png",
+                        "/**/*.gif",
+                        "/**/*.svg",
+                        "/**/*.jpg",
+                        "/**/*.html",
+                        "/**/*.css",
+                        "/**/*.js")
+                .permitAll()
+                .antMatchers("/user/**", "/oauth2/**")
+                .permitAll()
+                .anyRequest()
+                .authenticated()
                 .and()
                 .oauth2Login()
+                    .authorizationEndpoint()
+                        .baseUri("/oauth2/authorize")
+                        .authorizationRequestRepository(cookieAuthorizationRequestRepository())
+                        .and()
+                    .redirectionEndpoint()
+                        .baseUri("/oauth2/callback/*")
+                        .and()
                     .userInfoEndpoint()
                         .userService(customUserService)
-                    .and()
-                    .successHandler(oAuth2LoginSuccessHandler)
-                .and()
-                .logout().logoutSuccessUrl("/").permitAll()
-
-
-
+                        .and()
+                        .successHandler(oAuth2LoginSuccessHandler)
 
                ;
 //        http.authorizeRequests()

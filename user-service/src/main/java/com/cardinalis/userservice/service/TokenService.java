@@ -1,6 +1,8 @@
 package com.cardinalis.userservice.service;
 
+import com.cardinalis.userservice.config.AppProperties;
 import com.cardinalis.userservice.model.UserEntity;
+import com.cardinalis.userservice.oauth.CustomOAuth2User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -20,8 +22,9 @@ public class TokenService {
     @Value("${jwt.secret}")
     private String secret;
 
+    private AppProperties appProperties;
     public String generateToken(Authentication authentication) {
-        UserEntity logado = (UserEntity) authentication.getPrincipal();
+        CustomOAuth2User logado = (CustomOAuth2User) authentication.getPrincipal();
         Date today = new Date();
         Date expirationDate = new Date(today.getTime() + Long.parseLong(expiration));
 
