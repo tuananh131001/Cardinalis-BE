@@ -8,11 +8,18 @@ import java.util.UUID;
 
 @Transactional
 public interface FavoriteTweetService {
-    FavoriteTweet favoriteTweetAction(String username, UUID tweeId) ;
+
+    FavoriteTweet saveFavorite(FavoriteTweet favoriteTweet);
+
+    FavoriteTweet deleteFavorite(UUID tweeId, String username);
 
     List<FavoriteTweet> listFavoritesByTweet(UUID tweetId) ;
 
     List<FavoriteTweet> listFavoritesByUser(String username) ;
 
-    void deleteFavoriteByTweetId(UUID tweetId) ;
+    FavoriteTweet findFavorite(UUID tweetId, String username);
+
+    void deleteFavoritesByTweetId(UUID tweetId) ;
+
+
 }

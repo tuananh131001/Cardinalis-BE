@@ -17,8 +17,8 @@ import java.util.List;
 public class Timeline implements Serializable {
     private static final long serialVersionUID = 10L;
 
-    @Id
-    private String username;
+//    @Id
+//    private String username;
 
     private List<Tweet> userTimeline;
 }

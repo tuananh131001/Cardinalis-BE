@@ -17,19 +17,15 @@ public class FavoriteTweetServiceImpl implements FavoriteTweetService {
     FavoriteTweetRepository favoriteTweetRepository;
 
     @Override
-    public FavoriteTweet favoriteTweetAction(String username, UUID tweeId) {
-        try {
-            FavoriteTweet favoriteTweet = favoriteTweetRepository.findFavoriteTweetByTweetIdAndAndUsername(tweeId, username);
+    public FavoriteTweet saveFavorite(FavoriteTweet favoriteTweet) {
+        return favoriteTweetRepository.save(favoriteTweet);
+    }
 
-            if (favoriteTweet == null) {
-                favoriteTweet = new FavoriteTweet(tweeId, username, true);
-                favoriteTweetRepository.save(favoriteTweet);
-            }
-            else favoriteTweet.setFavState(!favoriteTweet.getFavState());
-            return favoriteTweet;
-        } catch (Exception e) {
-            throw e;
-        }
+    @Override
+    public FavoriteTweet deleteFavorite(UUID tweeId, String username) {
+        FavoriteTweet found = findFavorite(tweeId, username);
+        favoriteTweetRepository.delete(found);
+        return found;
     }
 
     @Override
@@ -51,7 +47,12 @@ public class FavoriteTweetServiceImpl implements FavoriteTweetService {
     }
 
     @Override
-    public void deleteFavoriteByTweetId(UUID tweetId) {
+    public FavoriteTweet findFavorite(UUID tweetId, String username) {
+        return favoriteTweetRepository.findByTweetIdAndUsername(tweetId, username);
+    }
+
+    @Override
+    public void deleteFavoritesByTweetId(UUID tweetId) {
         try {
             List<FavoriteTweet> favoriteTweets = listFavoritesByTweet(tweetId);
             favoriteTweetRepository.deleteAll(favoriteTweets);

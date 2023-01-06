@@ -2,6 +2,7 @@ package com.cardinalis.timelineservice.controller;
 
 import com.cardinalis.timelineservice.model.Timeline;
 import com.cardinalis.timelineservice.service.TimelineService;
+import org.cardinalis.tweetservice.model.Tweet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -20,10 +22,10 @@ public class TimelineController {
     @Autowired
     TimelineService timelineService;
 
-    @PostMapping("/update/{username}")
-    public ResponseEntity<Map<String, Object>> updateTimeline(@PathVariable("username") final String username){
+    @GetMapping("/get")
+    public ResponseEntity<Map<String, Object>> getUserTimeline(@RequestParam("username") final String username){
         try {
-            Timeline timeline = timelineService.updateTimeline(username);
+            List<Tweet> timeline= timelineService.createTimelineForUser(username);
             Map<String, Object> response = createResponse(
                     HttpStatus.OK,
                     timeline
@@ -49,41 +51,41 @@ public class TimelineController {
         }
     }
 
-    @GetMapping("/get/{username}")
-    public ResponseEntity<Map<String, Object>> getTimeline(@PathVariable("username") final String username) {
-        LOG.info("Fetching timeline with username = " + username);
-        try {
-            Timeline timeline = timelineService.getTimeline(username);
-            Map<String, Object> response = createResponse(
-                    HttpStatus.OK,
-                    timeline
-            );
-            return ResponseEntity.ok(response);
-        } catch (IllegalArgumentException e) {
-            Map<String, Object> response = createResponse(HttpStatus.BAD_REQUEST);
-
-            return ResponseEntity
-                    .status(HttpStatus.BAD_REQUEST)
-                    .body(response);
-        }  catch (Exception e) {
-            e.printStackTrace();
-            Map<String, Object> response = createResponse(
-                    HttpStatus.INTERNAL_SERVER_ERROR,
-                    null,
-                    "an error occurs - cannot get timeline"
-            );
-
-            return ResponseEntity
-                    .status(HttpStatus.BAD_REQUEST)
-                    .body(response);
-        }
-    }
+//    @GetMapping("/get/{username}")
+//    public ResponseEntity<Map<String, Object>> getTimeline(@PathVariable("username") final String username) {
+//        LOG.info("Fetching timeline with username = " + username);
+//        try {
+//            Timeline timeline = timelineService.getTimeline(username);
+//            Map<String, Object> response = createResponse(
+//                    HttpStatus.OK,
+//                    timeline
+//            );
+//            return ResponseEntity.ok(response);
+//        } catch (IllegalArgumentException e) {
+//            Map<String, Object> response = createResponse(HttpStatus.BAD_REQUEST);
+//
+//            return ResponseEntity
+//                    .status(HttpStatus.BAD_REQUEST)
+//                    .body(response);
+//        }  catch (Exception e) {
+//            e.printStackTrace();
+//            Map<String, Object> response = createResponse(
+//                    HttpStatus.INTERNAL_SERVER_ERROR,
+//                    null,
+//                    "an error occurs - cannot get timeline"
+//            );
+//
+//            return ResponseEntity
+//                    .status(HttpStatus.BAD_REQUEST)
+//                    .body(response);
+//        }
+//    }
 
     @DeleteMapping("/delete/{username}")
     public ResponseEntity<Map<String, Object>> deleteTimeline(@PathVariable("username") final String username) {
         LOG.info("Deleting timeline with username = " + username);
         try {
-            timelineService.deleteTimeline(username);
+//            timelineService.deleteTimeline(username);
             Map<String, Object> response = createResponse(HttpStatus.OK);
             return ResponseEntity.ok(response);
         } catch (IllegalArgumentException e) {
@@ -108,7 +110,7 @@ public class TimelineController {
     @GetMapping("")
     public ResponseEntity<Map<String, Object>> getAll() {
         try {
-            Map<String, Timeline> allTimeline = timelineService.getAll();
+            Map<String, Tweet> allTimeline = timelineService.getAll();
             Map<java.lang.String, Object> response = createResponse(
                     HttpStatus.OK,
                     allTimeline

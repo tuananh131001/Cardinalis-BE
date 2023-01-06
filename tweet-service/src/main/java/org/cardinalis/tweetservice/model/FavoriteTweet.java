@@ -15,25 +15,25 @@ import java.util.UUID;
 
 @Data
 @Builder
-//@Entity
+@Entity
 @NoArgsConstructor
 @AllArgsConstructor
+@IdClass(FavoriteTweetId.class)
+@Table(name = "FavoriteTweet")
 public class FavoriteTweet {
-
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.AUTO)
-//    @Type(type = "org.hibernate.type.UUIDCharType")
-//    @Column(nullable = false, length = 36)
-//    private UUID id;
-
+    @Id
+    @Type(type = "org.hibernate.type.UUIDCharType")
+    @Column(name = "tweetId")
     private UUID tweetId;
 
+    @Id
+    @Type(type = "org.hibernate.type.StringType")
+    @Column(name = "username", length = 36)
     private String username;
 
-//    @JsonSerialize(using = LocalDateTimeSerializer.class)
-//    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
-//    private LocalDateTime likedAt;
-
-    private Boolean favState = null;
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
+    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
+    @Column(name = "created_at")
+    private LocalDateTime createdAt;
 
 }

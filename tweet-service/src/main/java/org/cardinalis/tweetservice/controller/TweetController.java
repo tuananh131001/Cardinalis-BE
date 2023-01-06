@@ -1,6 +1,7 @@
 package org.cardinalis.tweetservice.controller;
 
 import lombok.AllArgsConstructor;
+//import org.cardinalis.tweetservice.engine.Producer;
 import org.cardinalis.tweetservice.exception.NoContentFoundException;
 import org.cardinalis.tweetservice.model.Tweet;
 import org.cardinalis.tweetservice.model.TweetDTO;
@@ -13,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/tweet")
@@ -21,13 +21,17 @@ import java.util.stream.Collectors;
 public class TweetController {
     @Autowired
     private TweetService tweetService;
+
+    @Autowired
+//    private Producer producer;
     private final ModelMapper mapper;
 
     @RequestMapping(path = "", method = RequestMethod.POST)
     public ResponseEntity<Map<String, Object>> addTweet(@RequestBody Tweet tweet){
         try {
             if (tweet.getCreatedAt() == null) tweet.setCreatedAt(LocalDateTime.now());
-            tweetService.saveTweet(tweet);
+//            producer.send("saveTweet", tweet);
+            tweet = tweetService.saveTweet(tweet);
             TweetDTO tweetDTO = mapper.map(tweet, TweetDTO.class);
             Map<String, Object> response = createResponse(HttpStatus.OK, tweetDTO, "saved tweet");
             return ResponseEntity.ok(response);
@@ -56,13 +60,9 @@ public class TweetController {
             @RequestParam(defaultValue = "0") int pageNo,
             @RequestParam(defaultValue = "20") int pageSize)
     {
-        List<Tweet> result;
         try {
-            result = tweetService.getAll(pageNo, pageSize);
-            List<TweetDTO> resultDTO = result.stream()
-                    .map(tweet -> mapper.map(tweet, TweetDTO.class))
-                    .collect(Collectors.toList());
-            Map<String, Object> response = createResponse(HttpStatus.OK, resultDTO);
+            Map<String, Object> result = tweetService.getAll(pageNo, pageSize);
+            Map<String, Object> response = createResponse(HttpStatus.OK, result);
             return ResponseEntity.ok(response);
         } catch (IllegalArgumentException e) {
             Map<String, Object> response = createResponse(HttpStatus.BAD_REQUEST);
@@ -157,13 +157,9 @@ public class TweetController {
             @RequestParam String username,
             @RequestParam(defaultValue = "0") int pageNo,
             @RequestParam(defaultValue = "10") int pageSize) {
-        List<Tweet> result;
         try {
-            result = tweetService.getNewestTweetsFromUser(username, pageNo, pageSize);
-            List<TweetDTO> resultDTO = result.stream()
-                    .map(tweet -> mapper.map(tweet, TweetDTO.class))
-                    .collect(Collectors.toList());
-            Map<String, Object> response = createResponse(HttpStatus.OK, resultDTO);
+            Map<String, Object> result = tweetService.getNewestTweetsFromUser(username, pageNo, pageSize);
+            Map<String, Object> response = createResponse(HttpStatus.OK, result);
             return ResponseEntity.ok(response);
         } catch (Exception e) {
             e.printStackTrace();

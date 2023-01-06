@@ -12,7 +12,9 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @Transactional
@@ -23,12 +25,13 @@ public class TweetServiceImpl implements TweetService{
     TweetRepository tweetRepository;
 
     @Override
-    public void saveTweet(Tweet tweet) {
+    public Tweet saveTweet(Tweet tweet) {
         try {
-            tweetRepository.save(tweet);
+            return tweetRepository.save(tweet);
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return tweet;
     }
 
     @Override
@@ -38,13 +41,11 @@ public class TweetServiceImpl implements TweetService{
     }
 
     @Override
-    public List<Tweet> getNewestTweetsFromUser(String username, int pageNo, int pageSize) {
-        List<Tweet> result;
+    public Map<String, Object> getNewestTweetsFromUser(String username, int pageNo, int pageSize) {
         try {
             Pageable pageable = PageRequest.of(pageNo, pageSize, Sort.Direction.DESC,"createdAt");
-            Page<Tweet> page = tweetRepository.findByUsernameOrderByCreatedAtDesc(username, pageable);
-            result = page.getContent();
-            return result;
+            Page<Tweet> result = tweetRepository.findByUsernameOrderByCreatedAtDesc(username, pageable);
+            return createResponse(result.getContent(), result.getNumber(), result.getTotalPages(), result.getNumberOfElements(), result.getTotalElements());
         } catch (Exception e) {
             e.printStackTrace();
             throw e;
@@ -64,9 +65,19 @@ public class TweetServiceImpl implements TweetService{
     }
 
     @Override
-    public List<Tweet> getAll(int pageNo, int pageSize) {
+    public Map<String, Object> getAll(int pageNo, int pageSize) {
         Pageable pageable = PageRequest.of(pageNo, pageSize, Sort.Direction.DESC,"createdAt");
         Page<Tweet> result = tweetRepository.findAll(pageable);
-        return result.getContent();
+        return createResponse(result.getContent(), result.getNumber(), result.getTotalPages(), result.getNumberOfElements(), result.getTotalElements());
+    }
+
+    public Map<String, Object> createResponse(Object data, int currentPage, int totalPage, long currentPageTotalElement, long totalElement) {
+        Map<String, Object> response = new HashMap<>();
+        response.put("data",data);
+        response.put("current_page",currentPage);
+        response.put("total_page", totalPage);
+        response.put("current_page_total_element", currentPageTotalElement);
+        response.put("total_element", totalElement);
+        return response;
     }
 }
