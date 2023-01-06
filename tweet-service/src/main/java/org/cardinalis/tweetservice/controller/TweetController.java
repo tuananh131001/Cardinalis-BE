@@ -155,10 +155,11 @@ public class TweetController {
     @RequestMapping(path = "/search", method = RequestMethod.GET)
     public ResponseEntity<Map<String, Object>> getNewestTweetsFromUser(
             @RequestParam String username,
-            @RequestParam(defaultValue = "10") int size) {
+            @RequestParam(defaultValue = "0") int pageNo,
+            @RequestParam(defaultValue = "10") int pageSize) {
         List<Tweet> result;
         try {
-            result = tweetService.getNewestTweetsFromUser(username, size);
+            result = tweetService.getNewestTweetsFromUser(username, pageNo, pageSize);
             List<TweetDTO> resultDTO = result.stream()
                     .map(tweet -> mapper.map(tweet, TweetDTO.class))
                     .collect(Collectors.toList());

@@ -12,14 +12,13 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
 @Transactional
 @Service
 @AllArgsConstructor
-public class TweetSeriveImpl implements TweetService{
+public class TweetServiceImpl implements TweetService{
     @Autowired
     TweetRepository tweetRepository;
 
@@ -39,10 +38,10 @@ public class TweetSeriveImpl implements TweetService{
     }
 
     @Override
-    public List<Tweet> getNewestTweetsFromUser(String username, int size) {
+    public List<Tweet> getNewestTweetsFromUser(String username, int pageNo, int pageSize) {
         List<Tweet> result;
         try {
-            Pageable pageable = PageRequest.of(0, size, Sort.Direction.DESC,"createdAt");
+            Pageable pageable = PageRequest.of(pageNo, pageSize, Sort.Direction.DESC,"createdAt");
             Page<Tweet> page = tweetRepository.findByUsernameOrderByCreatedAtDesc(username, pageable);
             result = page.getContent();
             return result;

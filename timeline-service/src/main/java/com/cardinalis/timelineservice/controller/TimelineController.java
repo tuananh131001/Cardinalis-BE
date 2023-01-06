@@ -105,7 +105,7 @@ public class TimelineController {
         }
     }
 
-    @GetMapping("/getAll")
+    @GetMapping("")
     public ResponseEntity<Map<String, Object>> getAll() {
         try {
             Map<String, Timeline> allTimeline = timelineService.getAll();

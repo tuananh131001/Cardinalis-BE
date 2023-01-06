@@ -10,13 +10,13 @@ import org.hibernate.annotations.Type;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
+@Builder
 @Data
 @Entity
 @Table(name="Tweet")
-@Getter
-@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class Tweet implements Comparable<Tweet>, Serializable {
@@ -37,6 +37,9 @@ public class Tweet implements Comparable<Tweet>, Serializable {
 
     @Column(name = "content")
     private String content = "";
+
+//    @OneToMany(cascade = CascadeType.ALL)
+//    private List<FavoriteTweet> fav;
 
     @Override
     public int compareTo(Tweet tweet) {

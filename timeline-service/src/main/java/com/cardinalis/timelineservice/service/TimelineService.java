@@ -4,7 +4,7 @@ import com.cardinalis.timelineservice.model.Timeline;
 import com.cardinalis.timelineservice.repository.TimelineRepository;
 import com.cardinalis.userservice.service.UserService;
 import org.cardinalis.tweetservice.model.Tweet;
-import org.cardinalis.tweetservice.service.TweetSeriveImpl;
+import org.cardinalis.tweetservice.service.TweetServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.redis.core.HashOperations;
@@ -32,7 +32,7 @@ TimelineService implements TimelineRepository{
     UserService userService;
 
     @Autowired
-    TweetSeriveImpl tweetService;
+    TweetServiceImpl tweetService;
 
     @PostConstruct
     private void intializeHashOperations() {
@@ -59,7 +59,7 @@ TimelineService implements TimelineRepository{
                 userTimeline.addAll(tweetService.getAll(0, 20));
             } else {
                 for (String user : followingList) {
-                    userTimeline.addAll(tweetService.getNewestTweetsFromUser(user, 10));
+                    userTimeline.addAll(tweetService.getNewestTweetsFromUser(user, 0, 20));
                 }
                 Collections.sort(userTimeline);
                 Collections.reverse(userTimeline);
