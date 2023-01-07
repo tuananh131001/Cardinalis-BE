@@ -57,7 +57,6 @@ public class UserEntity implements UserDetails {
     @Column(name = "is_hot_user")
     private Boolean isHotUser;
 
-    @NotNull
     @Enumerated(EnumType.STRING)
     private AuthenticationProvider authProvider;
 

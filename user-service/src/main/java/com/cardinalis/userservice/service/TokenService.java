@@ -1,8 +1,7 @@
 package com.cardinalis.userservice.service;
 
 import com.cardinalis.userservice.config.AppProperties;
-import com.cardinalis.userservice.model.UserEntity;
-import com.cardinalis.userservice.oauth.CustomOAuth2User;
+import com.cardinalis.userservice.security.oauth.CustomOAuth2User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;

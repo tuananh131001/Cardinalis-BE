@@ -1,18 +1,12 @@
-package com.cardinalis.userservice.oauth;
+package com.cardinalis.userservice.security.oauth;
 
 import com.cardinalis.userservice.config.AppProperties;
-import com.cardinalis.userservice.exception.BadRequestException;
-import com.cardinalis.userservice.model.UserEntity;
 import com.cardinalis.userservice.service.TokenService;
-import com.cardinalis.userservice.service.impl.UserServiceImpl;
 import com.cardinalis.userservice.util.CookieUtils;
 import lombok.AllArgsConstructor;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
-import org.springframework.stereotype.Component;
 import org.springframework.web.util.UriComponentsBuilder;
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
@@ -21,8 +15,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.net.URI;
 import java.util.Optional;
-
-import static com.cardinalis.userservice.oauth.HttpCookieOAuth2AuthorizationRequestRepository.REDIRECT_URI_PARAM_COOKIE_NAME;
 
 @Component
 @AllArgsConstructor
@@ -46,7 +38,7 @@ public class OAuth2LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
         httpCookieOAuth2AuthorizationRequestRepository.removeAuthorizationRequestCookies(request, response);
     }
     protected String determineTargetUrl(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
-        Optional<String> redirectUri = CookieUtils.getCookie(request, REDIRECT_URI_PARAM_COOKIE_NAME)
+        Optional<String> redirectUri = CookieUtils.getCookie(request, HttpCookieOAuth2AuthorizationRequestRepository.REDIRECT_URI_PARAM_COOKIE_NAME)
                 .map(Cookie::getValue);
         System.out.println("redirectUri = " + redirectUri);
 //        if(redirectUri.isPresent() && !isAuthorizedRedirectUri(redirectUri.get())) {

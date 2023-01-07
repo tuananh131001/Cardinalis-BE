@@ -1,7 +1,6 @@
-package com.cardinalis.userservice.oauth;
+package com.cardinalis.userservice.security.oauth;
 
 import com.cardinalis.userservice.model.UserEntity;
-import lombok.AllArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

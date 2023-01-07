@@ -1,4 +1,4 @@
-package com.cardinalis.userservice.oauth;
+package com.cardinalis.userservice.security.oauth;
 import com.cardinalis.userservice.util.CookieUtils;
 import com.nimbusds.oauth2.sdk.util.StringUtils;
 import org.springframework.security.oauth2.client.web.AuthorizationRequestRepository;

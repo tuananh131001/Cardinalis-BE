@@ -1,4 +1,4 @@
-package com.cardinalis.userservice.oauth.user;
+package com.cardinalis.userservice.security.oauth.user;
 
 import java.util.Map;
 
