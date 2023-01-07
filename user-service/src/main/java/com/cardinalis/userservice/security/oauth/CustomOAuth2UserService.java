@@ -1,7 +1,7 @@
 package com.cardinalis.userservice.security.oauth;
 
 import com.cardinalis.userservice.exception.OAuth2AuthenticationProcessingException;
-import com.cardinalis.userservice.model.AuthenticationProvider;
+import com.cardinalis.userservice.enums.AuthenticationProvider;
 import com.cardinalis.userservice.model.UserEntity;
 import com.cardinalis.userservice.security.oauth.user.OAuth2UserInfo;
 import com.cardinalis.userservice.security.oauth.user.OAuth2UserInfoFactory;
@@ -17,7 +17,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.security.core.AuthenticationException;
 
 import java.util.Optional;
-import java.util.UUID;
 
 @Service
 @Slf4j

@@ -1,5 +1,6 @@
 package com.cardinalis.userservice.model;
 
+import com.cardinalis.userservice.enums.AuthenticationProvider;
 import lombok.*;
 import org.hibernate.Hibernate;
 import org.hibernate.annotations.GenericGenerator;
@@ -8,7 +9,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -26,7 +26,7 @@ public class UserEntity implements UserDetails {
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     @Type(type = "org.hibernate.type.UUIDCharType")
     @Column(nullable = false, length = 36)
-    private UUID id;
+    private Long id;
 
     @Column(name = "avatar")
     private String avatar;  // store the avatar image as a string
@@ -66,9 +66,28 @@ public class UserEntity implements UserDetails {
     //@Builder.Default
     private List<Role> roles = new ArrayList();
 
-    @OneToMany(mappedBy = "followerId")
-    @ToString.Exclude
-    private List<Relationship> follows;
+    @ManyToMany
+    @JoinTable(name = "user_subscriptions",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "subscriber_id"))
+    private List<UserEntity> followers;
+
+    @ManyToMany
+    @JoinTable(name = "user_subscriptions",
+            joinColumns = @JoinColumn(name = "subscriber_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id"))
+    private List<UserEntity> following;
+    @ManyToMany
+    @JoinTable(name = "user_follower_requests",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "follower_id"))
+    private List<UserEntity> followerRequests;
+
+    @ManyToMany
+    @JoinTable(name = "subscribers",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "subscriber_id"))
+    private List<UserEntity> subscribers;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

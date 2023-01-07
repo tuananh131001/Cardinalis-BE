@@ -1,23 +1,30 @@
 package com.cardinalis.userservice.service.impl;
 import com.cardinalis.userservice.dao.RegisterDTO;
 import com.cardinalis.userservice.dao.UserEntityDTO;
+import com.cardinalis.userservice.enums.NotificationType;
+import com.cardinalis.userservice.exception.ApiRequestException;
 import com.cardinalis.userservice.exception.NoContentFoundException;
+import com.cardinalis.userservice.model.Notification;
 import com.cardinalis.userservice.model.Relationship;
 import com.cardinalis.userservice.model.Role;
+import com.cardinalis.userservice.repository.NotificationRepository;
 import com.cardinalis.userservice.repository.RelationshipRepository;
 import com.cardinalis.userservice.repository.UserRepository;
 import com.cardinalis.userservice.model.UserEntity;
+import com.cardinalis.userservice.service.AuthenticationService;
 import com.cardinalis.userservice.service.UserService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -29,7 +36,8 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
 
     private final RelationshipRepository relationshipRepository;
-
+    private final AuthenticationService authenticationService;
+    private final NotificationRepository notificationRepository;
     @Autowired
     private final ModelMapper mapper;
     @Transactional
@@ -92,5 +100,52 @@ public class UserServiceImpl implements UserService {
         userFound.setEmail(requestDTO.getEmail());
         userFound.setIsHotUser(requestDTO.getIsHotUser());
         return userRepository.save(userFound);
+    }
+    @Override
+    @Transactional
+    public Map<String, Object> processFollow(Long userId) {
+        UserEntity user = authenticationService.getAuthenticatedUser();
+        UserEntity currentUser = userRepository.findById(userId)
+                .orElseThrow(() -> new ApiRequestException("User not found", HttpStatus.NOT_FOUND));
+        List<UserEntity> followers = user.getFollowers();
+        Optional<UserEntity> follower = followers.stream()
+                .filter(f -> f.getId().equals(currentUser.getId()))
+                .findFirst();
+        boolean isFollower;
+
+        if (follower.isPresent()) {
+            followers.remove(follower.get());
+            List<UserEntity> subscribers = currentUser.getSubscribers();
+            Optional<UserEntity> subscriber = subscribers.stream()
+                    .filter(s -> s.getId().equals(user.getId()))
+                    .findFirst();
+            subscriber.ifPresent(subscribers::remove);
+            isFollower = false;
+        } else {
+            followers.add(currentUser);
+            isFollower = true;
+        }
+
+        Notification notification = new Notification();
+        notification.setNotificationType(NotificationType.FOLLOW);
+        notification.setUser(user);
+        notification.setUserToFollow(currentUser);
+        notification.setNotifiedUser(currentUser);
+
+        if (!currentUser.getId().equals(user.getId())) {
+            Optional<Notification> userNotification = currentUser.getNotifications().stream()
+                    .filter(n -> n.getNotificationType().equals(NotificationType.FOLLOW)
+                            && n.getUser().getId().equals(user.getId()))
+                    .findFirst();
+
+            if (userNotification.isEmpty()) {
+                Notification newNotification = notificationRepository.save(notification);
+                currentUser.setNotificationsCount(currentUser.getNotificationsCount() + 1);
+                List<Notification> notifications = currentUser.getNotifications();
+                notifications.add(newNotification);
+                return Map.of("notification", newNotification, "isFollower", isFollower);
+            }
+        }
+        return Map.of("notification", notification, "isFollower", isFollower);
     }
 }

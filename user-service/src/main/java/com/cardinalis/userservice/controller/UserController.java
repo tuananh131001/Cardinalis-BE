@@ -1,12 +1,14 @@
 package com.cardinalis.userservice.controller;
 
 import com.cardinalis.userservice.dao.*;
+import com.cardinalis.userservice.mapper.UserMapper;
 import com.cardinalis.userservice.model.UserEntity;
 import com.cardinalis.userservice.service.TokenService;
 import com.cardinalis.userservice.service.UserService;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.dao.DataAccessException;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -24,6 +26,7 @@ import java.util.*;
 @RequestMapping("/user")
 @AllArgsConstructor
 public class UserController {
+    private final UserMapper userMapper;
     private final AuthenticationManager authManager;
     private final TokenService tokenService;
     private final UserService userService;
@@ -99,7 +102,43 @@ public class UserController {
                     .body(response);
         }
     }
+    @GetMapping("/followers/{userId}")
+    public ResponseEntity<List<UserResponse>> getFollowers(@PathVariable Long userId, @PageableDefault(size = 15) Pageable pageable) {
+        HeaderResponse<UserResponse> response = userMapper.getFollowers(userId, pageable);
+        return ResponseEntity.ok().headers(response.getHeaders()).body(response.getItems());
+    }
 
+    @GetMapping("/following/{userId}")
+    public ResponseEntity<List<UserResponse>> getFollowing(@PathVariable Long userId, @PageableDefault(size = 15) Pageable pageable) {
+        HeaderResponse<UserResponse> response = userMapper.getFollowing(userId, pageable);
+        return ResponseEntity.ok().headers(response.getHeaders()).body(response.getItems());
+    }
+
+    @GetMapping("/follower-requests")
+    public ResponseEntity<List<FollowerUserResponse>> getFollowerRequests(@PageableDefault(size = 10) Pageable pageable) {
+        HeaderResponse<FollowerUserResponse> response = userMapper.getFollowerRequests(pageable);
+        return ResponseEntity.ok().headers(response.getHeaders()).body(response.getItems());
+    }
+
+    @GetMapping("/follow/{userId}")
+    public ResponseEntity<NotificationUserResponse> processFollow(@PathVariable Long userId) {
+        NotificationResponse notification = userMapper.processFollow(userId);
+
+        if (notification.getId() != null) {
+            messagingTemplate.convertAndSend("/topic/notifications/" + notification.getUserToFollow().getId(), notification);
+        }
+        return ResponseEntity.ok(notification.getUserToFollow());
+    }
+
+    @GetMapping("/follow/accept/{userId}")
+    public ResponseEntity<String> acceptFollowRequest(@PathVariable Long userId) {
+        return ResponseEntity.ok(userMapper.acceptFollowRequest(userId));
+    }
+
+    @GetMapping("/follow/decline/{userId}")
+    public ResponseEntity<String> declineFollowRequest(@PathVariable Long userId) {
+        return ResponseEntity.ok(userMapper.declineFollowRequest(userId));
+    }
     @PutMapping("/{id}")
     public ResponseEntity<Object> updateUser(@PathVariable UUID id,
                                      @RequestBody UserEntityDTO requestDTO) {
