@@ -31,7 +31,7 @@ public class UserEntity implements UserDetails {
     @Column(name = "avatar")
     private String avatar;  // store the avatar image as a string
 
-    @Column(name = "fullName")
+    @Column(name = "full_name")
     private String fullName;  // store the avatar image as a string
     @Column(name = "username", length = 100, unique = true)
     private String username;
@@ -40,8 +40,23 @@ public class UserEntity implements UserDetails {
     private String email;
     @Column(name = "bio")
     private String bio;
+
+    @Column(name = "website")
+    private String website;
+
+    @Column(name = "country_code")
+    private String countryCode;
+
+    @Column(name = "phone")
+    private Long phone;
     @Column(name = "date_of_birth")
     private LocalDateTime dateOfBirth;
+
+    @Column(name = "country")
+    private String country;
+
+    @Column(name = "gender")
+    private String gender;
     @Column(name = "location")
     private String location;
     @Column(name = "banner")
