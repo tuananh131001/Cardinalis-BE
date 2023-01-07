@@ -13,8 +13,10 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.oauth2.core.OAuth2AccessToken;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.*;
 
@@ -130,6 +132,26 @@ public class UserController {
 
         return ResponseEntity.ok(response);
     }
+//    @PostMapping("/logout")
+//    public ResponseEntity<String> revoke(HttpServletRequest request) {
+//        try {
+//            String authorization = request.getHeader("Authorization");
+//            if (authorization != null && authorization.contains("Bearer")) {
+//                String tokenValue = authorization.replace("Bearer", "").trim();
+//
+//                OAuth2AccessToken accessToken = tokenStore.readAccessToken(tokenValue);
+//                tokenStore.removeAccessToken(accessToken);
+//
+//                //OAuth2RefreshToken refreshToken = tokenStore.readRefreshToken(tokenValue);
+//                OAuth2RefreshToken refreshToken = accessToken.getRefreshToken();
+//                tokenStore.removeRefreshToken(refreshToken);
+//            }
+//        } catch (Exception e) {
+//            return ResponseEntity.badRequest().body("Invalid access token");
+//        }
+
+//        return ResponseEntity.ok().body("Access token invalidated successfully");
+//    }
 
     @PostMapping("/login")
     public ResponseEntity<Map<String, Object>> authenticate(@RequestBody @Valid LoginDTO form) {
