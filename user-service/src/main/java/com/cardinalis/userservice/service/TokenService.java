@@ -1,6 +1,8 @@
 package com.cardinalis.userservice.service;
 
+import com.cardinalis.userservice.config.AppProperties;
 import com.cardinalis.userservice.model.UserEntity;
+import com.cardinalis.userservice.security.oauth.CustomOAuth2User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -20,6 +22,7 @@ public class TokenService {
     @Value("${jwt.secret}")
     private String secret;
 
+    private AppProperties appProperties;
     public String generateToken(Authentication authentication) {
         UserEntity logado = (UserEntity) authentication.getPrincipal();
         Date today = new Date();
@@ -30,6 +33,36 @@ public class TokenService {
 
         return Jwts.builder()
                 .setIssuer("API Twitter")
+                .setClaims(claims)
+                .setIssuedAt(today)
+                .setExpiration(expirationDate)
+                .signWith(SignatureAlgorithm.HS256, secret)
+                .compact();
+    }
+    public String generateTokenForGithub(Authentication authentication) {
+//        UserEntity logado = (UserEntity) authentication.getPrincipal();
+//        Date today = new Date();
+//        Date expirationDate = new Date(today.getTime() + Long.parseLong(expiration));
+//
+//        Claims claims = Jwts.claims()
+//                .setId(logado.getId().toString());
+//
+//        return Jwts.builder()
+//                .setIssuer("API Twitter")
+//                .setClaims(claims)
+//                .setIssuedAt(today)
+//                .setExpiration(expirationDate)
+//                .signWith(SignatureAlgorithm.HS256, secret)
+//                .compact();
+        CustomOAuth2User userPrincipal = (CustomOAuth2User) authentication.getPrincipal();
+
+        Date today = new Date();
+        Date expirationDate = new Date(today.getTime() + Long.parseLong(expiration));
+        Claims claims = Jwts.claims()
+                .setId(userPrincipal.getId().toString());
+        return Jwts.builder()
+                .setIssuer("API Twitter")
+                .setSubject(userPrincipal.getId().toString())
                 .setClaims(claims)
                 .setIssuedAt(today)
                 .setExpiration(expirationDate)
