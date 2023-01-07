@@ -1,5 +1,7 @@
 package org.cardinalis.tweetservice.model;
 
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
@@ -8,44 +10,30 @@ import lombok.*;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.UUID;
 
-@Builder
 @Data
+@Builder
 @Entity
-@Table(name="Tweet")
 @NoArgsConstructor
 @AllArgsConstructor
-public class Tweet implements Comparable<Tweet>, Serializable {
-    private static final long serialVersionUID = 1L;
+@IdClass(FavoriteTweetId.class)
+@Table(name = "FavoriteTweet")
+public class FavoriteTweet {
+    @Id
+    @Type(type = "org.hibernate.type.UUIDCharType")
+    @Column(name = "tweetId")
+    private UUID tweetId;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Type(type = "org.hibernate.type.UUIDCharType")
-    @Column(nullable = false, length = 36)
-    private UUID id;
-
-    @Column(nullable = false, length = 36)
+    @Type(type = "org.hibernate.type.StringType")
+    @Column(name = "username", length = 36)
     private String username;
 
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
+    @Column(name = "created_at")
     private LocalDateTime createdAt;
 
-    @Column(name = "content")
-    private String content = "";
-
-//    @OneToMany(cascade = CascadeType.ALL)
-//    private List<FavoriteTweet> fav;
-
-    @Override
-    public int compareTo(Tweet tweet) {
-        if (this.createdAt == null || tweet.createdAt == null) {
-            return 0;
-        }
-        return this.createdAt.compareTo(tweet.createdAt);
-    }
 }

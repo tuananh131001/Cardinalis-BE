@@ -3,11 +3,9 @@ package com.cardinalis.userservice.controller;
 import com.cardinalis.userservice.dao.*;
 import com.cardinalis.userservice.model.UserEntity;
 import com.cardinalis.userservice.service.TokenService;
-import com.cardinalis.userservice.service.UserRegistrationRequest;
 import com.cardinalis.userservice.service.UserService;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +16,6 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.net.URI;
 import java.util.*;
 
 @RestController

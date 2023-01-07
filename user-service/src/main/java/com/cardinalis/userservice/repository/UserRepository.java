@@ -13,7 +13,11 @@ import java.util.UUID;
 public interface UserRepository extends JpaRepository<UserEntity, UUID> {
     Optional<UserEntity> findById(UUID id);
 
+    // sort by created_at DESC findById
+
+
     Optional<UserEntity> findByUsername(String username);
+
 
     Optional<UserEntity> findByEmail(String email);
 

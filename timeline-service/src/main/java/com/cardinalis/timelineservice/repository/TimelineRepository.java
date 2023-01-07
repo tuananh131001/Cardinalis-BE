@@ -1,6 +1,7 @@
 package com.cardinalis.timelineservice.repository;
 
 import com.cardinalis.timelineservice.model.Timeline;
+import org.cardinalis.tweetservice.model.Tweet;
 
 import java.util.Map;
 
@@ -9,9 +10,10 @@ import java.util.Map;
 //}
 
 public interface TimelineRepository {
+    void saveTweet(Tweet tweet);
     void saveTimeline(Timeline timeline);
 
-    void updateTimeline(String username);
+    Timeline updateTimeline(String username);
 
     Timeline getTimeline(String username);
 
