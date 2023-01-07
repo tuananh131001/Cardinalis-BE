@@ -59,6 +59,8 @@ public class FollowController {
                     .followerId(followDataContract.getFollowerId())
                     .createdAt(LocalDateTime.now())
                     .build();
+            // check duplicate
+
             var followed = followService.follow(relationship);
             return ResponseEntity.created(URI.create("")).body(SuccessResponseDTO.builder()
                     .data(followed)
