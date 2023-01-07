@@ -31,6 +31,8 @@ public class UserEntity implements UserDetails {
     @Column(name = "avatar")
     private String avatar;  // store the avatar image as a string
 
+    @Column(name = "fullName")
+    private String fullName;  // store the avatar image as a string
     @Column(name = "username", length = 100, unique = true)
     private String username;
 
@@ -47,6 +49,7 @@ public class UserEntity implements UserDetails {
 
     @Column(name = "password")
     private String password;
+
 
     @Column(name = "created_at")
     private LocalDateTime createdAt;
@@ -88,6 +91,12 @@ public class UserEntity implements UserDetails {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "subscriber_id"))
     private List<UserEntity> subscribers;
+
+    @OneToMany
+    private List<Notification> notifications;
+
+    @Column(name = "notifications_count", columnDefinition = "int8 default 0")
+    private Long notificationsCount;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

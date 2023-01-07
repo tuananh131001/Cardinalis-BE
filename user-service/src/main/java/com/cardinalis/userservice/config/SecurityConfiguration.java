@@ -1,5 +1,6 @@
 package com.cardinalis.userservice.config;
 
+import com.cardinalis.userservice.security.JwtConfigurer;
 import com.cardinalis.userservice.security.oauth.CustomOAuth2UserService;
 //import com.cardinalis.userservice.security.oauth.HttpCookieOAuth2AuthorizationRequestRepository;
 import com.cardinalis.userservice.security.oauth.OAuth2LoginSuccessHandler;
@@ -7,6 +8,7 @@ import com.cardinalis.userservice.repository.UserRepository;
 import com.cardinalis.userservice.security.RestAuthenticationEntryPoint;
 import com.cardinalis.userservice.service.AuthenticationService;
 import com.cardinalis.userservice.service.TokenService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,19 +22,12 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @EnableWebSecurity
+@RequiredArgsConstructor
 @Configuration
-public class    SecurityConfiguration extends WebSecurityConfigurerAdapter {
-    @Autowired
-    private AuthenticationService authenticationService;
-    @Autowired
-    private TokenService tokenService;
-    @Autowired
-    private  UserRepository userRepository;
+public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
+    private final JwtConfigurer jwtConfigurer;
     @Autowired
     private OAuth2LoginSuccessHandler oAuth2LoginSuccessHandler;
-
-
-
     @Autowired
     private CustomOAuth2UserService customUserService;
     @Autowired
@@ -43,11 +38,11 @@ public class    SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected AuthenticationManager authenticationManager() throws Exception {
         return super.authenticationManager();
     }
-
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(authenticationService).passwordEncoder(new BCryptPasswordEncoder());
-    }
+//
+//    @Override
+//    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+//        auth.userDetailsService(authenticationService).passwordEncoder(new BCryptPasswordEncoder());
+//    }
 //    @Bean
 //    public HttpCookieOAuth2AuthorizationRequestRepository cookieAuthorizationRequestRepository() {
 //        return new HttpCookieOAuth2AuthorizationRequestRepository();
@@ -85,6 +80,7 @@ public class    SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .anyRequest()
                 .authenticated()
+
                 .and()
                 .oauth2Login()
 //                    .authorizationEndpoint()
@@ -98,6 +94,8 @@ public class    SecurityConfiguration extends WebSecurityConfigurerAdapter {
                         .userService(customUserService)
                         .and()
                         .successHandler(oAuth2LoginSuccessHandler)
+                .and()
+                .apply(jwtConfigurer);
 
                ;
 //        http.authorizeRequests()

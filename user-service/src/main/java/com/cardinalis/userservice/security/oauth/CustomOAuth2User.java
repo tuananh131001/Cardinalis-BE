@@ -30,7 +30,7 @@ public class CustomOAuth2User implements OAuth2User {
 
         return new CustomOAuth2User(
                 // to uuid
-                user.getId().getMostSignificantBits() & Long.MAX_VALUE,
+                user.getId(),
                 user.getEmail(),
                 user.getPassword(),
                 authorities

@@ -1,6 +1,9 @@
 package com.cardinalis.userservice.controller;
 
 import com.cardinalis.userservice.dao.*;
+import com.cardinalis.userservice.dao.response.FollowerUserResponse;
+import com.cardinalis.userservice.dao.response.notification.NotificationResponse;
+import com.cardinalis.userservice.dao.response.notification.NotificationUserResponse;
 import com.cardinalis.userservice.mapper.UserMapper;
 import com.cardinalis.userservice.model.UserEntity;
 import com.cardinalis.userservice.service.TokenService;
@@ -8,9 +11,11 @@ import com.cardinalis.userservice.service.UserService;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.dao.DataAccessException;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -27,6 +32,7 @@ import java.util.*;
 @AllArgsConstructor
 public class UserController {
     private final UserMapper userMapper;
+    private final SimpMessagingTemplate messagingTemplate;
     private final AuthenticationManager authManager;
     private final TokenService tokenService;
     private final UserService userService;
@@ -140,7 +146,7 @@ public class UserController {
         return ResponseEntity.ok(userMapper.declineFollowRequest(userId));
     }
     @PutMapping("/{id}")
-    public ResponseEntity<Object> updateUser(@PathVariable UUID id,
+    public ResponseEntity<Object> updateUser(@PathVariable Long id,
                                      @RequestBody UserEntityDTO requestDTO) {
         try {
             UserEntity user = userService.updateUser(id, requestDTO);

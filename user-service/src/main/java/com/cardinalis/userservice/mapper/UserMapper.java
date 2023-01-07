@@ -2,6 +2,12 @@ package com.cardinalis.userservice.mapper;
 
 import com.cardinalis.userservice.dao.HeaderResponse;
 import com.cardinalis.userservice.dao.UserResponse;
+import com.cardinalis.userservice.dao.response.FollowerUserResponse;
+import com.cardinalis.userservice.dao.response.notification.NotificationResponse;
+import com.cardinalis.userservice.model.Notification;
+import com.cardinalis.userservice.model.UserEntity;
+import com.cardinalis.userservice.repository.UserRepository;
+import com.cardinalis.userservice.repository.projection.user.FollowerUserProjection;
 import com.cardinalis.userservice.repository.projection.user.UserProjection;
 import com.cardinalis.userservice.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -9,6 +15,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
+import javax.transaction.Transactional;
 import java.util.Map;
 
 @Component
@@ -16,6 +23,7 @@ import java.util.Map;
 public class UserMapper {
     private final BasicMapper basicMapper;
     private final UserService userService;
+    private final UserRepository userRepository;
 
 
 
@@ -66,6 +74,7 @@ public class UserMapper {
     public Boolean processSubscribeToNotifications(Long userId) {
         return userService.processSubscribeToNotifications(userId);
     }
+
 
 
 }

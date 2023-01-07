@@ -11,12 +11,16 @@ import com.cardinalis.userservice.repository.NotificationRepository;
 import com.cardinalis.userservice.repository.RelationshipRepository;
 import com.cardinalis.userservice.repository.UserRepository;
 import com.cardinalis.userservice.model.UserEntity;
+import com.cardinalis.userservice.repository.projection.user.FollowerUserProjection;
+import com.cardinalis.userservice.repository.projection.user.UserProjection;
 import com.cardinalis.userservice.service.AuthenticationService;
 import com.cardinalis.userservice.service.UserService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
@@ -78,22 +82,10 @@ public class UserServiceImpl implements UserService {
                 .orElseThrow(() -> new NoContentFoundException("User not found"));
     }
 
-    public List<String> getFollowingList(String username) {
-        UserEntity user = fetchByUsername(username);
-        List<Relationship> relationships = user.getFollows();
-        if (relationships == null) return null;
-
-        List<String> result = null;
-        for (Relationship r: relationships) {
-            UserEntity u = userRepository.findById(r.getFollowedId())
-                    .orElseThrow(()  -> new NoContentFoundException("User not found"));
-            result.add(u.getUsername());
-        }
-        return result;
-    }
 
     @Transactional
-    public UserEntity updateUser(UUID id, UserEntityDTO requestDTO) {
+    @Override
+    public UserEntity updateUser(Long id, UserEntityDTO requestDTO) {
         log.info("Update user {}", id);
         var userFound = userRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("User " + id + " not found"));
@@ -148,4 +140,73 @@ public class UserServiceImpl implements UserService {
         }
         return Map.of("notification", notification, "isFollower", isFollower);
     }
+    @Override
+    public Page<UserProjection> getFollowers(Long userId, Pageable pageable) {
+        checkIsUserExist(userId);
+        return userRepository.getFollowersById(userId, pageable);
+    }
+
+    @Override
+    public Page<UserProjection> getFollowing(Long userId, Pageable pageable) {
+        checkIsUserExist(userId);
+        return userRepository.getFollowingById(userId, pageable);
+    }
+    private void checkIsUserExist(Long userId) {
+        boolean userExist = userRepository.isUserExist(userId);
+
+        if (!userExist) {
+            throw new ApiRequestException("User (id:" + userId + ") not found", HttpStatus.NOT_FOUND);
+        }
+
+    }
+    public boolean isUserFollowByOtherUser(Long userId) {
+        Long authUserId = authenticationService.getAuthenticatedUserId();
+        return userRepository.isUserFollowByOtherUser(authUserId, userId);
+    }
+    @Override
+    public Page<FollowerUserProjection> getFollowerRequests(Pageable pageable) {
+        Long authUserId = authenticationService.getAuthenticatedUserId();
+        return userRepository.getFollowerRequests(authUserId, pageable);
+    }
+    @Override
+    @Transactional
+    public String acceptFollowRequest(Long userId) {
+        UserEntity user = authenticationService.getAuthenticatedUser();
+        UserEntity currentUser = userRepository.findById(userId)
+                .orElseThrow(() -> new ApiRequestException("User not found", HttpStatus.NOT_FOUND));
+        user.getFollowerRequests().remove(currentUser);
+        user.getFollowers().add(currentUser);
+        return "User (id:" + userId + ") accepted.";
+    }
+    @Override
+    @Transactional
+    public String declineFollowRequest(Long userId) {
+        UserEntity user = authenticationService.getAuthenticatedUser();
+        UserEntity currentUser = userRepository.findById(userId)
+                .orElseThrow(() -> new ApiRequestException("User not found", HttpStatus.NOT_FOUND));
+        user.getFollowerRequests().remove(currentUser);
+        return "User (id:" + userId + ") declined.";
+    }
+    @Override
+    @Transactional
+    public Boolean processSubscribeToNotifications(Long userId) {
+        UserEntity user = authenticationService.getAuthenticatedUser();
+        UserEntity currentUser = userRepository.findById(userId)
+                .orElseThrow(() -> new ApiRequestException("User not found", HttpStatus.NOT_FOUND));
+        return processUserList(user, currentUser.getSubscribers());
+    }
+    public Boolean processUserList(UserEntity currentUser, List<UserEntity> userLists) {
+        Optional<UserEntity> userFromList = userLists.stream()
+                .filter(user -> user.getId().equals(currentUser.getId()))
+                .findFirst();
+
+        if (userFromList.isPresent()) {
+            userLists.remove(userFromList.get());
+            return false;
+        } else {
+            userLists.add(currentUser);
+            return true;
+        }
+    }
+
 }
