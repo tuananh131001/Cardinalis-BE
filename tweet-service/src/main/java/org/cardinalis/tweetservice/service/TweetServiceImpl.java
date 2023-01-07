@@ -45,7 +45,7 @@ public class TweetServiceImpl implements TweetService{
         try {
             Pageable pageable = PageRequest.of(pageNo, pageSize, Sort.Direction.DESC,"createdAt");
             Page<Tweet> result = tweetRepository.findByUsernameOrderByCreatedAtDesc(username, pageable);
-            return createResponse(result.getContent(), result.getNumber(), result.getTotalPages(), result.getNumberOfElements(), result.getTotalElements());
+            return createResponse(result.getContent(), result.getNumber(), result.hasNext(), result.getTotalPages(), result.getNumberOfElements(), result.getTotalElements());
         } catch (Exception e) {
             e.printStackTrace();
             throw e;
@@ -68,16 +68,17 @@ public class TweetServiceImpl implements TweetService{
     public Map<String, Object> getAll(int pageNo, int pageSize) {
         Pageable pageable = PageRequest.of(pageNo, pageSize, Sort.Direction.DESC,"createdAt");
         Page<Tweet> result = tweetRepository.findAll(pageable);
-        return createResponse(result.getContent(), result.getNumber(), result.getTotalPages(), result.getNumberOfElements(), result.getTotalElements());
+        return createResponse(result.getContent(), result.getNumber(), result.hasNext(), result.getTotalPages(), result.getNumberOfElements(), result.getTotalElements());
     }
 
-    public Map<String, Object> createResponse(Object data, int currentPage, int totalPage, long currentPageTotalElement, long totalElement) {
+    public Map<String, Object> createResponse(Object data, int currentPage, boolean hasNext, int totalPage, long currentPageTotalElement, long totalElement) {
         Map<String, Object> response = new HashMap<>();
         response.put("data",data);
-        response.put("current_page",currentPage);
-        response.put("total_page", totalPage);
-        response.put("current_page_total_element", currentPageTotalElement);
-        response.put("total_element", totalElement);
+        response.put("currentPage",currentPage);
+        response.put("hasNext",hasNext);
+        response.put("totalPage", totalPage);
+//        response.put("current_page_total_element", currentPageTotalElement);
+//        response.put("total_element", totalElement);
         return response;
     }
 }

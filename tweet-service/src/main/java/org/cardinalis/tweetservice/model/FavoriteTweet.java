@@ -2,6 +2,9 @@ package org.cardinalis.tweetservice.model;
 
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
@@ -10,30 +13,40 @@ import lombok.*;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-@Data
 @Builder
+//@Data
+@Getter
+@Setter
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@IdClass(FavoriteTweetId.class)
-@Table(name = "FavoriteTweet")
-public class FavoriteTweet {
+@Table(name = "Favoritetweet")
+//@JsonIdentityInfo(
+//        generator = ObjectIdGenerators.PropertyGenerator.class,
+//        property = "id")
+public class FavoriteTweet implements Serializable {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Type(type = "org.hibernate.type.UUIDCharType")
-    @Column(name = "tweetId")
-    private UUID tweetId;
+    @Column(nullable = false, length = 36)
+    private UUID id;
 
-    @Id
-    @Type(type = "org.hibernate.type.StringType")
-    @Column(name = "username", length = 36)
+    @ManyToOne()
+    @JsonBackReference
+    private Tweet tweet;
+
+    @Column(nullable = false)
+    private String tweetuuid;
+
     private String username;
 
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     @Column(name = "created_at")
-    private LocalDateTime createdAt;
+    private LocalDateTime createdAt = LocalDateTime.now();
 
 }

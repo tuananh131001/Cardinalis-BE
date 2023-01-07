@@ -6,20 +6,14 @@ import javax.transaction.Transactional;
 import java.util.List;
 import java.util.UUID;
 
-@Transactional
 public interface FavoriteTweetService {
 
     FavoriteTweet saveFavorite(FavoriteTweet favoriteTweet);
 
-    FavoriteTweet deleteFavorite(UUID tweeId, String username);
-
-    List<FavoriteTweet> listFavoritesByTweet(UUID tweetId) ;
-
-    List<FavoriteTweet> listFavoritesByUser(String username) ;
+    FavoriteTweet deleteFavorite(UUID tweetId, String username);
 
     FavoriteTweet findFavorite(UUID tweetId, String username);
 
-    void deleteFavoritesByTweetId(UUID tweetId) ;
-
+    public FavoriteTweet findFavoriteById(UUID id);
 
 }
