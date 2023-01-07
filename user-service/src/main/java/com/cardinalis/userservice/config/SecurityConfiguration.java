@@ -1,7 +1,7 @@
 package com.cardinalis.userservice.config;
 
 import com.cardinalis.userservice.security.oauth.CustomOAuth2UserService;
-import com.cardinalis.userservice.security.oauth.HttpCookieOAuth2AuthorizationRequestRepository;
+//import com.cardinalis.userservice.security.oauth.HttpCookieOAuth2AuthorizationRequestRepository;
 import com.cardinalis.userservice.security.oauth.OAuth2LoginSuccessHandler;
 import com.cardinalis.userservice.repository.UserRepository;
 import com.cardinalis.userservice.security.RestAuthenticationEntryPoint;
@@ -34,7 +34,7 @@ public class    SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
     private CustomOAuth2UserService customUserService;
     @Autowired
-    private HttpCookieOAuth2AuthorizationRequestRepository httpCookieOAuth2AuthorizationRequestRepository;
+//    private HttpCookieOAuth2AuthorizationRequestRepository httpCookieOAuth2AuthorizationRequestRepository;
 
     @Override
     @Bean
@@ -46,10 +46,10 @@ public class    SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(authenticationService).passwordEncoder(new BCryptPasswordEncoder());
     }
-    @Bean
-    public HttpCookieOAuth2AuthorizationRequestRepository cookieAuthorizationRequestRepository() {
-        return new HttpCookieOAuth2AuthorizationRequestRepository();
-    }
+//    @Bean
+//    public HttpCookieOAuth2AuthorizationRequestRepository cookieAuthorizationRequestRepository() {
+//        return new HttpCookieOAuth2AuthorizationRequestRepository();
+//    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -85,10 +85,10 @@ public class    SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .authenticated()
                 .and()
                 .oauth2Login()
-                    .authorizationEndpoint()
-                        .baseUri("/oauth2/authorize")
-                        .authorizationRequestRepository(cookieAuthorizationRequestRepository())
-                        .and()
+//                    .authorizationEndpoint()
+//                        .baseUri("/oauth2/authorize")
+////                        .authorizationRequestRepository(cookieAuthorizationRequestRepository())
+//                        .and()
                     .redirectionEndpoint()
                         .baseUri("/oauth2/callback/*")
                         .and()

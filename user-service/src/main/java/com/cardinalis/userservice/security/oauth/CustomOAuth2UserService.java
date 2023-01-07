@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.security.core.AuthenticationException;
 
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @Slf4j
@@ -25,19 +26,25 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
     private UserRepository userRepository;
     @Override
     public OAuth2User loadUser(OAuth2UserRequest oAuth2UserRequest) throws OAuth2AuthenticationException {
-        OAuth2User oAuth2User = super.loadUser(oAuth2UserRequest);
-
-        try {
-            return processOAuth2User(oAuth2UserRequest, oAuth2User);
-        } catch (AuthenticationException ex) {
-            throw ex;
-        } catch (Exception ex) {
-            // Throwing an instance of AuthenticationException will trigger the OAuth2AuthenticationFailureHandler
-            throw new InternalAuthenticationServiceException(ex.getMessage(), ex.getCause());
-        }
+//        System.out.println("CustomOAuth2UserService.loadUser here");
+//        OAuth2User oAuth2User = super.loadUser(oAuth2UserRequest);
+//
+//        try {
+//            return processOAuth2User(oAuth2UserRequest, oAuth2User);
+//        } catch (AuthenticationException ex) {
+//            throw ex;
+//        } catch (Exception ex) {
+//            // Throwing an instance of AuthenticationException will trigger the OAuth2AuthenticationFailureHandler
+//            throw new InternalAuthenticationServiceException(ex.getMessage(), ex.getCause());
+//        }
+        // create UUID
+        UUID uuid = UUID.randomUUID();
+        UserEntity userE;
+        OAuth2User user =  super.loadUser(oAuth2UserRequest);
+        return new CustomOAuth2User(uuid, user);
     }
 
-    private OAuth2User processOAuth2User(OAuth2UserRequest oAuth2UserRequest, OAuth2User oAuth2User) {
+    private void processOAuth2User(OAuth2UserRequest oAuth2UserRequest, OAuth2User oAuth2User) {
         OAuth2UserInfo oAuth2UserInfo = OAuth2UserInfoFactory.getOAuth2UserInfo(oAuth2UserRequest.getClientRegistration().getRegistrationId(), oAuth2User.getAttributes());
 //        if(StringUtils.isEmpty(oAuth2UserInfo.getEmail())) {
 //            throw new OAuth2AuthenticationProcessingException("Email not found from OAuth2 provider");
@@ -57,7 +64,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
             user = registerNewUser(oAuth2UserRequest, oAuth2UserInfo);
         }
 
-        return CustomOAuth2User.create(user, oAuth2User.getAttributes());
+//        return CustomOAuth2User.create(user, oAuth2User.getAttributes());
     }
 
     private UserEntity registerNewUser(OAuth2UserRequest oAuth2UserRequest, OAuth2UserInfo oAuth2UserInfo) {
