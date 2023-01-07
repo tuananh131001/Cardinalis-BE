@@ -15,12 +15,6 @@ import java.util.UUID;
 @Repository
 public interface FavoriteTweetRepository extends JpaRepository<FavoriteTweet, UUID> {
 
-    List<FavoriteTweet> findAllByTweetId(UUID tweetId);
-
-    List<FavoriteTweet> findAllByUsername(String username);
-
-    FavoriteTweet findByTweetIdAndUsername(UUID tweetId, String username);
-
-
+    FavoriteTweet findByUsernameAndTweetuuid(String username, String tweet_id);
 
 }

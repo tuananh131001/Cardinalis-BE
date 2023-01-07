@@ -1,5 +1,9 @@
 package org.cardinalis.tweetservice.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
@@ -10,11 +14,14 @@ import org.hibernate.annotations.Type;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
 @Builder
-@Data
+//@Data
+@Getter
+@Setter
 @Entity
 @Table(name="Tweet")
 @NoArgsConstructor
@@ -33,13 +40,14 @@ public class Tweet implements Comparable<Tweet>, Serializable {
 
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
-    private LocalDateTime createdAt;
+    private LocalDateTime createdAt = LocalDateTime.now();
 
     @Column(name = "content")
     private String content = "";
 
-//    @OneToMany(cascade = CascadeType.ALL)
-//    private List<FavoriteTweet> fav;
+    @OneToMany(mappedBy = "tweet", cascade = CascadeType.ALL)
+    private List<FavoriteTweet> fav = new ArrayList<>();
+
 
     @Override
     public int compareTo(Tweet tweet) {
