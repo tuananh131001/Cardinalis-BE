@@ -1,5 +1,6 @@
 package org.cardinalis.tweetservice.service;
 
+import lombok.AllArgsConstructor;
 import org.cardinalis.tweetservice.exception.NoContentFoundException;
 import org.cardinalis.tweetservice.model.Tweet;
 import org.cardinalis.tweetservice.repository.TweetRepository;
@@ -11,25 +12,26 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @Transactional
 @Service
-public class TweetSeriveImpl implements TweetService{
+@AllArgsConstructor
+public class TweetServiceImpl implements TweetService{
     @Autowired
     TweetRepository tweetRepository;
 
     @Override
     public Tweet saveTweet(Tweet tweet) {
         try {
-            tweetRepository.save(tweet);
+            return tweetRepository.save(tweet);
         } catch (Exception e) {
             e.printStackTrace();
         }
         return tweet;
-
     }
 
     @Override
@@ -39,16 +41,15 @@ public class TweetSeriveImpl implements TweetService{
     }
 
     @Override
-    public List<Tweet> getNewestTweetsFromUser(String username, int size) {
-        List<Tweet> result = new ArrayList<>();
+    public Map<String, Object> getNewestTweetsFromUser(String username, int pageNo, int pageSize) {
         try {
-            Pageable pageable = PageRequest.of(0, size, Sort.Direction.DESC,"createdAt");
-            Page<Tweet> page = tweetRepository.findByUsernameOrderByCreatedAtDesc(username, pageable);
-            result = page.getContent();
+            Pageable pageable = PageRequest.of(pageNo, pageSize, Sort.Direction.DESC,"createdAt");
+            Page<Tweet> result = tweetRepository.findByUsernameOrderByCreatedAtDesc(username, pageable);
+            return createResponse(result.getContent(), result.getNumber(), result.getTotalPages(), result.getNumberOfElements(), result.getTotalElements());
         } catch (Exception e) {
             e.printStackTrace();
+            throw e;
         }
-        return result;
     }
 
     @Override
@@ -59,14 +60,24 @@ public class TweetSeriveImpl implements TweetService{
             return tweet;
         } catch (Exception e) {
             e.printStackTrace();
-            return null;
+            throw e;
         }
     }
 
     @Override
-    public List<Tweet> getAll(int pageNo, int pageSize) {
+    public Map<String, Object> getAll(int pageNo, int pageSize) {
         Pageable pageable = PageRequest.of(pageNo, pageSize, Sort.Direction.DESC,"createdAt");
         Page<Tweet> result = tweetRepository.findAll(pageable);
-        return result.getContent();
+        return createResponse(result.getContent(), result.getNumber(), result.getTotalPages(), result.getNumberOfElements(), result.getTotalElements());
+    }
+
+    public Map<String, Object> createResponse(Object data, int currentPage, int totalPage, long currentPageTotalElement, long totalElement) {
+        Map<String, Object> response = new HashMap<>();
+        response.put("data",data);
+        response.put("current_page",currentPage);
+        response.put("total_page", totalPage);
+        response.put("current_page_total_element", currentPageTotalElement);
+        response.put("total_element", totalElement);
+        return response;
     }
 }
