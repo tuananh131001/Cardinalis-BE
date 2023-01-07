@@ -31,6 +31,8 @@ public class    SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
     private OAuth2LoginSuccessHandler oAuth2LoginSuccessHandler;
 
+
+
     @Autowired
     private CustomOAuth2UserService customUserService;
     @Autowired

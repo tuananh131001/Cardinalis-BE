@@ -10,6 +10,7 @@ import lombok.*;
 //import javax.persistence.*;
 //import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 @Data
@@ -25,4 +26,7 @@ public class TweetDTO {
     private LocalDateTime createdAt;
 
     private String content = "";
+
+    private List<FavoriteTweet> fav;
+
 }
