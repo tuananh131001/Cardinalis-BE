@@ -1,7 +1,7 @@
 package com.cardinalis.timelineservice.repository;
 
 import com.cardinalis.timelineservice.model.Timeline;
-import org.cardinalis.tweetservice.model.Tweet;
+import org.cardinalis.tweetservice.Tweet.Tweet;
 
 import java.util.Map;
 

@@ -1,7 +1,7 @@
 package com.cardinalis.timelineservice.model;
 
 import lombok.*;
-import org.cardinalis.tweetservice.model.Tweet;
+import org.cardinalis.tweetservice.Tweet.Tweet;
 import org.springframework.data.redis.core.RedisHash;
 
 import javax.persistence.Id;

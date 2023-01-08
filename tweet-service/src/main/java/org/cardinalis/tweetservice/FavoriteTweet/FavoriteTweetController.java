@@ -13,7 +13,7 @@ import static org.cardinalis.tweetservice.Ultilities.Reusable.*;
 
 
 @RestController
-@RequestMapping("/favoritetweet")
+@RequestMapping("/tweet/favoritetweet")
 public class FavoriteTweetController {
     @Autowired
     FavoriteTweetService favoriteTweetService;

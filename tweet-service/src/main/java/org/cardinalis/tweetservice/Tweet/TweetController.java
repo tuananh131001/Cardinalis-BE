@@ -17,7 +17,7 @@ import static org.cardinalis.tweetservice.Ultilities.Reusable.*;
 
 
 @RestController
-@RequestMapping("")
+@RequestMapping("/tweet")
 @AllArgsConstructor
 public class TweetController {
     @Autowired
