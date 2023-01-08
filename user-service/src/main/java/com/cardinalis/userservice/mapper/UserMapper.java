@@ -66,7 +66,7 @@ public class UserMapper {
 
     public AuthenticationResponse login(AuthenticationRequest request, BindingResult bindingResult) {
         processInputErrors(bindingResult);
-        return getAuthenticationResponse(userService.login(request.getUsername(), request.getPassword()));
+        return getAuthenticationResponse(userService.login(request.getEmail(), request.getPassword()));
     }
 //    public List<UserResponse> overallFollowers(Long userId) {
 //        List<BaseUserProjection> users = userService.overallFollowers(userId);

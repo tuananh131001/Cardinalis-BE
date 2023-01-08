@@ -4,22 +4,17 @@ import com.cardinalis.userservice.security.JwtConfigurer;
 import com.cardinalis.userservice.security.oauth.CustomOAuth2UserService;
 //import com.cardinalis.userservice.security.oauth.HttpCookieOAuth2AuthorizationRequestRepository;
 import com.cardinalis.userservice.security.oauth.OAuth2LoginSuccessHandler;
-import com.cardinalis.userservice.repository.UserRepository;
 import com.cardinalis.userservice.security.RestAuthenticationEntryPoint;
-import com.cardinalis.userservice.service.AuthenticationService;
-import com.cardinalis.userservice.service.TokenService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @EnableWebSecurity
 @RequiredArgsConstructor

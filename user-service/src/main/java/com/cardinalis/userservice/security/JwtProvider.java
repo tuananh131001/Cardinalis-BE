@@ -22,8 +22,6 @@ public class JwtProvider {
     @Qualifier("userDetailsServiceImpl") @Lazy
     private final UserDetailsService userDetailsService;
 
-    @Value("${jwt.header}")
-    private String authorizationHeader;
 
     @Value("${jwt.secret}")
     private String secretKey;
@@ -68,7 +66,7 @@ public class JwtProvider {
         return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody().getSubject();
     }
 
-    public String resolveToken(HttpServletRequest request) {
-        return request.getHeader(authorizationHeader);
-    }
+//    public String resolveToken(HttpServletRequest request) {
+//        return request.getHeader(authorizationHeader);
+//    }
 }

@@ -70,6 +70,9 @@ public class UserServiceImpl implements UserService {
         String token = jwtProvider.createToken(register.getEmail(), "USER");
         user.setAvatar("https://i.pinimg.com/736x/d4/15/95/d415956c03d9ca8783bfb3c5cc984dde.jpg");
         user.setIsHotUser(true);
+        // set 0 as Long type
+
+        user.setNotificationsCount(0L);
         user.setCreatedAt(LocalDateTime.now());
         user.setLastLoginTime(LocalDateTime.now());
         user.setRoles(List.of(Role.builder().id(2L).name("USER").build()));
@@ -222,12 +225,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Map<String, Object> login(String username, String password) {
+    public Map<String, Object> login(String email, String password) {
         try {
-            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
-            AuthUserProjection user = userRepository.findAuthUserByUsername(username)
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(email, password));
+            AuthUserProjection user = userRepository.findAuthUserByEmail(email)
                     .orElseThrow(() -> new ApiRequestException("User not found", HttpStatus.NOT_FOUND));
-            String token = jwtProvider.createToken(username, "USER");
+            String token = jwtProvider.createToken(email, "USER");
             Map<String, Object> response = new HashMap<>();
             response.put("user", user);
             response.put("token", token);

@@ -8,7 +8,6 @@ import com.cardinalis.userservice.dao.response.notification.NotificationResponse
 import com.cardinalis.userservice.dao.response.notification.NotificationUserResponse;
 import com.cardinalis.userservice.mapper.UserMapper;
 import com.cardinalis.userservice.model.UserEntity;
-import com.cardinalis.userservice.service.TokenService;
 import com.cardinalis.userservice.service.UserService;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -18,14 +17,9 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.oauth2.core.OAuth2AccessToken;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.*;
 
@@ -35,7 +29,6 @@ import java.util.*;
 public class UserController {
     private final UserMapper userMapper;
     private final AuthenticationManager authManager;
-    private final TokenService tokenService;
     private final UserService userService;
     private final ModelMapper mapper;
     @PostMapping("/register")

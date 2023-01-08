@@ -59,7 +59,7 @@ public class ApplicationStartUp {
                 .email(startupProperties.getEmail())
                 .password(BCrypt.hashpw(startupProperties.getPassword(), BCrypt.gensalt()))
 //                .password("9999")
-
+                .notificationsCount(0L)
                 .createdAt(LocalDateTime.now())
                 .lastLoginTime(LocalDateTime.now())
                 .isHotUser(true)

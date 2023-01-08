@@ -34,8 +34,8 @@ spring:
               - read:user
 jwt:
   header: Authorization
-  secret: screte-value
-  expiration: 86400000
+  secret: dejavu
+  expiration: 6048000
 # Default user
 admin:
   id: 1b2fe584-19b4-4173-9d3d-02acf970faa6
