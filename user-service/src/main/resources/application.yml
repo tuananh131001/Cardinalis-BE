@@ -33,6 +33,7 @@ spring:
               - user:email
               - read:user
 jwt:
+  header: Authorization
   secret: screte-value
   expiration: 86400000
 # Default user

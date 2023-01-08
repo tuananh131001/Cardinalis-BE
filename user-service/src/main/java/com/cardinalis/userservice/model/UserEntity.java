@@ -22,10 +22,8 @@ import java.util.*;
 @Table(name = "Users")
 public class UserEntity implements UserDetails {
     @Id
-    @GeneratedValue(generator = "UUID")
-    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
-    @Type(type = "org.hibernate.type.UUIDCharType")
-    @Column(nullable = false, length = 36)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "users_seq")
+    @SequenceGenerator(name = "users_seq", sequenceName = "users_seq", initialValue = 100, allocationSize = 1)
     private Long id;
 
     @Column(name = "avatar")
@@ -74,6 +72,8 @@ public class UserEntity implements UserDetails {
 
     @Column(name = "is_hot_user")
     private Boolean isHotUser;
+    @Column(name = "activation_code")
+    private String activationCode;
 
     @Enumerated(EnumType.STRING)
     private AuthenticationProvider authProvider;

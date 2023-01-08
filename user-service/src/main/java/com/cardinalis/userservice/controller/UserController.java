@@ -1,6 +1,8 @@
 package com.cardinalis.userservice.controller;
 
 import com.cardinalis.userservice.dao.*;
+import com.cardinalis.userservice.dao.request.AuthenticationRequest;
+import com.cardinalis.userservice.dao.response.AuthenticationResponse;
 import com.cardinalis.userservice.dao.response.FollowerUserResponse;
 import com.cardinalis.userservice.dao.response.notification.NotificationResponse;
 import com.cardinalis.userservice.dao.response.notification.NotificationUserResponse;
@@ -15,12 +17,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.oauth2.core.OAuth2AccessToken;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -32,7 +34,6 @@ import java.util.*;
 @AllArgsConstructor
 public class UserController {
     private final UserMapper userMapper;
-    private final SimpMessagingTemplate messagingTemplate;
     private final AuthenticationManager authManager;
     private final TokenService tokenService;
     private final UserService userService;
@@ -40,11 +41,10 @@ public class UserController {
     @PostMapping("/register")
     public ResponseEntity<Map<String, Object>> createUser(@RequestBody RegisterDTO register) {
         try {
-            UserEntity userCreated = userService.save(register);
-            UserEntityDTO userDTO = mapper.map(userCreated, UserEntityDTO.class);
+            Map<String, Object> userCreated = userService.save(register);
             Map<String, Object> response = createResponse(
                     HttpStatus.CREATED,
-                    userDTO
+                    userCreated
             );
             return ResponseEntity
                     .status(HttpStatus.CREATED)
@@ -130,9 +130,9 @@ public class UserController {
     public ResponseEntity<NotificationUserResponse> processFollow(@PathVariable Long userId) {
         NotificationResponse notification = userMapper.processFollow(userId);
 
-        if (notification.getId() != null) {
-            messagingTemplate.convertAndSend("/topic/notifications/" + notification.getUserToFollow().getId(), notification);
-        }
+//        if (notification.getId() != null) {
+//            messagingTemplate.convertAndSend("/topic/notifications/" + notification.getUserToFollow().getId(), notification);
+//        }
         return ResponseEntity.ok(notification.getUserToFollow());
     }
 
@@ -199,30 +199,8 @@ public class UserController {
 //    }
 
     @PostMapping("/login")
-    public ResponseEntity<Map<String, Object>> authenticate(@RequestBody @Valid LoginDTO form) {
-        try {
-            UsernamePasswordAuthenticationToken login = form.converter();
-            Authentication authentication = authManager.authenticate(login);
-            String token = tokenService.generateToken(authentication);
-
-            Map<String, Object> response = createResponse(
-                    HttpStatus.OK,
-                    new TokenDTO(token, "Bearer")
-            );
-
-            return ResponseEntity.ok(response);
-        } catch (AuthenticationException e) {
-            // return "Login Failed: Your user ID or password is incorrect" with 401
-            Map<String, Object> response = createResponse(
-                    HttpStatus.UNAUTHORIZED,
-                    null,
-                    "Login Failed: Your user ID or password is incorrect"
-            );
-
-            return ResponseEntity
-                    .status(HttpStatus.UNAUTHORIZED)
-                    .body(response);
-        }
+    public ResponseEntity<AuthenticationResponse> authenticate(@Valid @RequestBody AuthenticationRequest request, BindingResult bindingResult) {
+        return ResponseEntity.ok(userMapper.login(request, bindingResult));
     }
     @GetMapping
     public String test() {

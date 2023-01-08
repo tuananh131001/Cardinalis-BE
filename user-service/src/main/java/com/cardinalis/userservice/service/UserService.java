@@ -13,7 +13,7 @@ import java.util.Map;
 import java.util.UUID;
 
 public interface UserService {
-    public UserEntity save(RegisterDTO register);
+    Map<String, Object> save(RegisterDTO register);
     public List<UserEntity> searchByUserName(String username);
     public UserEntity fetchByUsername(String username);
 //    public List<String> getFollowingList(String username);
@@ -27,4 +27,5 @@ public interface UserService {
 
     Map<String, Object> processFollow(Long userId);
     String declineFollowRequest(Long userId);
+    Map<String, Object> login(String email, String password);
 }
