@@ -1,4 +1,4 @@
-package org.cardinalis.tweetservice.Tweet.model;
+package org.cardinalis.tweetservice.Tweet;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;

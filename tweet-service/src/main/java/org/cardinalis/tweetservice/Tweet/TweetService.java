@@ -1,6 +1,6 @@
-package org.cardinalis.tweetservice.Tweet.service;
+package org.cardinalis.tweetservice.Tweet;
 
-import org.cardinalis.tweetservice.Tweet.model.Tweet;
+import org.cardinalis.tweetservice.Tweet.Tweet;
 
 import java.util.Map;
 public interface TweetService {

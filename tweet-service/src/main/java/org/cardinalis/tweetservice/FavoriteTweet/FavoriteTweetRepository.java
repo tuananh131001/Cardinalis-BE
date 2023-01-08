@@ -1,6 +1,6 @@
-package org.cardinalis.tweetservice.FavoriteTweet.repository;
+package org.cardinalis.tweetservice.FavoriteTweet;
 
-import org.cardinalis.tweetservice.FavoriteTweet.model.FavoriteTweet;
+import org.cardinalis.tweetservice.FavoriteTweet.FavoriteTweet;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

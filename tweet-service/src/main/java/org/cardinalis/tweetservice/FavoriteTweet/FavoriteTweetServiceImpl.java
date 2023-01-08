@@ -1,8 +1,6 @@
-package org.cardinalis.tweetservice.FavoriteTweet.service;
+package org.cardinalis.tweetservice.FavoriteTweet;
 
 import lombok.extern.slf4j.Slf4j;
-import org.cardinalis.tweetservice.FavoriteTweet.model.FavoriteTweet;
-import org.cardinalis.tweetservice.FavoriteTweet.repository.FavoriteTweetRepository;
 import org.cardinalis.tweetservice.Ultilities.NoContentFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -1,7 +1,7 @@
-package org.cardinalis.tweetservice.FavoriteTweet.service;
+package org.cardinalis.tweetservice.FavoriteTweet;
 
 
-import org.cardinalis.tweetservice.FavoriteTweet.model.FavoriteTweet;
+import org.cardinalis.tweetservice.FavoriteTweet.FavoriteTweet;
 
 public interface FavoriteTweetService {
 
