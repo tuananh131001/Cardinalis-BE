@@ -7,17 +7,25 @@ import io.jsonwebtoken.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 import java.security.SignatureException;
+import java.util.Base64;
+import java.util.Date;
 
 @Component
 public class JwtUtil {
 
     @Value("${jwt.secret}")
-    private String jwtSecret;
-
+    private String secretKey;
+    @PostConstruct
+    protected void init() {
+        secretKey = Base64.getEncoder().encodeToString(secretKey.getBytes());
+    }
     public Claims getClaims(final String token) {
         try {
-            return Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody();
+            Jws<Claims> claimsJws = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token);
+//            return !claimsJws.getBody().getExpiration().before(new Date());
+            return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody();
         } catch (Exception e) {
             System.out.println(e.getMessage() + " => " + e);
         }
@@ -26,7 +34,8 @@ public class JwtUtil {
 
     public void validateToken(final String token) throws JwtTokenMalformedException, JwtTokenMissingException {
         try {
-            Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token);
+           Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token);
+//            Jwts.parser().setSigningKey(jwtSecret.getBytes()).parseClaimsJws(token);
         } catch (MalformedJwtException ex) {
             throw new JwtTokenMalformedException("Invalid JWT token");
         } catch (ExpiredJwtException ex) {

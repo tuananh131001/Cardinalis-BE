@@ -227,8 +227,13 @@ public class UserController {
 //    }
 
     @PostMapping("/login")
-    public ResponseEntity<AuthenticationResponse> authenticate(@Valid @RequestBody AuthenticationRequest request, BindingResult bindingResult) {
-        return ResponseEntity.ok(userMapper.login(request, bindingResult));
+    public ResponseEntity<SuccessResponseDTO> authenticate(@Valid @RequestBody AuthenticationRequest request, BindingResult bindingResult) {
+        SuccessResponseDTO successResponseDTO = SuccessResponseDTO.builder()
+                .data(userMapper.login(request, bindingResult))
+                .code("200")
+                .success(true)
+                .build();
+        return ResponseEntity.ok(successResponseDTO);
     }
 
     @GetMapping
