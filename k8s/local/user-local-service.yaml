@@ -18,7 +18,7 @@ spec:
         - name: user-service
           image: us-central1-docker.pkg.dev/proven-solstice-371106/cardinalis/user-service
           ports:
-            - containerPort: 8080
+            - containerPort: 3003
           env:
             - name: USER_DB
               value: postgres
@@ -37,9 +37,9 @@ metadata:
     spring-boot: "true"
 spec:
   ports:
-    - port: 8080
+    - port: 3003
       protocol: TCP
-      targetPort: 8080
+      targetPort: 3003
   selector:
     app: user-service
   type: NodePort
