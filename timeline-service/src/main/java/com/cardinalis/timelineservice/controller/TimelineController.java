@@ -2,7 +2,7 @@ package com.cardinalis.timelineservice.controller;
 
 import com.cardinalis.timelineservice.model.Timeline;
 import com.cardinalis.timelineservice.service.TimelineService;
-import org.cardinalis.tweetservice.model.Tweet;
+import org.cardinalis.tweetservice.Tweet.Tweet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

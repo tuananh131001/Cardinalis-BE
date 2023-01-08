@@ -4,8 +4,8 @@ import com.cardinalis.timelineservice.exception.NoContentFoundException;
 import com.cardinalis.timelineservice.model.Timeline;
 import com.cardinalis.timelineservice.repository.TimelineRepository;
 import com.cardinalis.userservice.service.UserService;
-import org.cardinalis.tweetservice.model.Tweet;
-import org.cardinalis.tweetservice.service.TweetServiceImpl;
+import org.cardinalis.tweetservice.Tweet.Tweet;
+import org.cardinalis.tweetservice.Tweet.TweetServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.redis.core.Cursor;
@@ -91,7 +91,8 @@ TimelineService{
     @Cacheable(value = "TIMELINE")
     public List<Tweet> createTimelineForUser(String username) {
         List<Tweet> userTimeline = new ArrayList<>();
-        List<String> followingList = userService.getFollowingList(username);
+        List<String> followingList = new ArrayList<>();
+//        List<String> followingList = userService.getFollowingList(username);
         if (followingList == null || followingList.size() == 0) {
             return userTimeline;
         }
