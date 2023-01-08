@@ -1,5 +1,5 @@
 server:
-  port: 9002
+  port: 3003
 spring:
   application:
     name: user-service
@@ -15,7 +15,7 @@ spring:
   jpa:
     defer-datasource-initialization: true
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
@@ -41,7 +41,7 @@ admin:
   id: 1b2fe584-19b4-4173-9d3d-02acf970faa6
   username: jjeanjacques10
   email: jjeanjacques10@github.com
-  password: 12345
+  password: 123456789
   isHotUser: true
 app:
   auth:

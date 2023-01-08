@@ -1,11 +1,10 @@
 package com.cardinalis.userservice.service.impl;
 import com.cardinalis.userservice.dao.RegisterDTO;
-import com.cardinalis.userservice.dao.UserEntityDTO;
+import com.cardinalis.userservice.dao.response.AuthUserResponse;
 import com.cardinalis.userservice.enums.NotificationType;
 import com.cardinalis.userservice.exception.ApiRequestException;
 import com.cardinalis.userservice.exception.NoContentFoundException;
 import com.cardinalis.userservice.model.Notification;
-import com.cardinalis.userservice.model.Relationship;
 import com.cardinalis.userservice.model.Role;
 import com.cardinalis.userservice.repository.NotificationRepository;
 import com.cardinalis.userservice.repository.RelationshipRepository;
@@ -27,7 +26,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -100,12 +98,11 @@ public class UserServiceImpl implements UserService {
 
     @Transactional
     @Override
-    public UserEntity updateUser(Long id, UserEntityDTO requestDTO) {
+    public UserEntity updateUser(Long id, AuthUserResponse requestDTO) {
         log.info("Update user {}", id);
         var userFound = userRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("User " + id + " not found"));
         userFound.setEmail(requestDTO.getEmail());
-        userFound.setIsHotUser(requestDTO.getIsHotUser());
         return userRepository.save(userFound);
     }
     @Override
@@ -236,7 +233,7 @@ public class UserServiceImpl implements UserService {
             response.put("token", token);
             return response;
         } catch (AuthenticationException e) {
-            throw new ApiRequestException("Incorrect password or email", HttpStatus.FORBIDDEN);
+            throw new ApiRequestException("Incorrect password or email.", HttpStatus.FORBIDDEN);
         }
     }
 }
