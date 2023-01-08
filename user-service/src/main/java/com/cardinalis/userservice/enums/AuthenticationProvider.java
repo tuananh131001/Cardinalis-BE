@@ -1,4 +1,4 @@
-package com.cardinalis.userservice.model;
+package com.cardinalis.userservice.enums;
 
 public enum AuthenticationProvider {
     local, github

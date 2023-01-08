@@ -1,5 +1,6 @@
 package com.cardinalis.userservice.model;
 
+import com.cardinalis.userservice.enums.AuthenticationProvider;
 import lombok.*;
 import org.hibernate.Hibernate;
 import org.hibernate.annotations.GenericGenerator;
@@ -8,7 +9,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -22,15 +22,15 @@ import java.util.*;
 @Table(name = "Users")
 public class UserEntity implements UserDetails {
     @Id
-    @GeneratedValue(generator = "UUID")
-    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
-    @Type(type = "org.hibernate.type.UUIDCharType")
-    @Column(nullable = false, length = 36)
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "users_seq")
+    @SequenceGenerator(name = "users_seq", sequenceName = "users_seq", initialValue = 100, allocationSize = 1)
+    private Long id;
 
     @Column(name = "avatar")
     private String avatar;  // store the avatar image as a string
 
+    @Column(name = "full_name")
+    private String fullName;  // store the avatar image as a string
     @Column(name = "username", length = 100, unique = true)
     private String username;
 
@@ -38,8 +38,23 @@ public class UserEntity implements UserDetails {
     private String email;
     @Column(name = "bio")
     private String bio;
+
+    @Column(name = "website")
+    private String website;
+
+    @Column(name = "country_code")
+    private String countryCode;
+
+    @Column(name = "phone")
+    private Long phone;
     @Column(name = "date_of_birth")
     private LocalDateTime dateOfBirth;
+
+    @Column(name = "country")
+    private String country;
+
+    @Column(name = "gender")
+    private String gender;
     @Column(name = "location")
     private String location;
     @Column(name = "banner")
@@ -47,6 +62,7 @@ public class UserEntity implements UserDetails {
 
     @Column(name = "password")
     private String password;
+
 
     @Column(name = "created_at")
     private LocalDateTime createdAt;
@@ -56,6 +72,8 @@ public class UserEntity implements UserDetails {
 
     @Column(name = "is_hot_user")
     private Boolean isHotUser;
+    @Column(name = "activation_code")
+    private String activationCode;
 
     @Enumerated(EnumType.STRING)
     private AuthenticationProvider authProvider;
@@ -66,9 +84,34 @@ public class UserEntity implements UserDetails {
     //@Builder.Default
     private List<Role> roles = new ArrayList();
 
-    @OneToMany(mappedBy = "followerId")
-    @ToString.Exclude
-    private List<Relationship> follows;
+    @ManyToMany
+    @JoinTable(name = "user_subscriptions",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "subscriber_id"))
+    private List<UserEntity> followers;
+
+    @ManyToMany
+    @JoinTable(name = "user_subscriptions",
+            joinColumns = @JoinColumn(name = "subscriber_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id"))
+    private List<UserEntity> following;
+    @ManyToMany
+    @JoinTable(name = "user_follower_requests",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "follower_id"))
+    private List<UserEntity> followerRequests;
+
+    @ManyToMany
+    @JoinTable(name = "subscribers",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "subscriber_id"))
+    private List<UserEntity> subscribers;
+
+    @OneToMany
+    private List<Notification> notifications;
+
+    @Column(name = "notifications_count", columnDefinition = "int8 default 0")
+    private Long notificationsCount;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

@@ -1,7 +1,7 @@
 package com.cardinalis.userservice.security.oauth.user;
 
 import com.cardinalis.userservice.exception.OAuth2AuthenticationProcessingException;
-import com.cardinalis.userservice.model.AuthenticationProvider;
+import com.cardinalis.userservice.enums.AuthenticationProvider;
 
 import java.util.Map;
 

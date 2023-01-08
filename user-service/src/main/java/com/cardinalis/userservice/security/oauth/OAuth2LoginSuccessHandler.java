@@ -1,9 +1,7 @@
 package com.cardinalis.userservice.security.oauth;
 
 import com.cardinalis.userservice.config.AppProperties;
-import com.cardinalis.userservice.service.TokenService;
-import com.cardinalis.userservice.util.CookieUtils;
-import lombok.AllArgsConstructor;
+import com.cardinalis.userservice.security.JwtProvider;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -12,12 +10,10 @@ import org.springframework.stereotype.Component;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.util.UriComponentsBuilder;
 import javax.servlet.ServletException;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.net.URI;
-import java.util.Optional;
 
 @Component
 @NoArgsConstructor
@@ -28,22 +24,20 @@ public class OAuth2LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
     @Value("${app.oauth2.authorizedRedirectUris}")
     private String authorizedRedirectUris;
 
-    @Autowired
-    private TokenService tokenService;
 
 //    private HttpCookieOAuth2AuthorizationRequestRepository httpCookieOAuth2AuthorizationRequestRepository;
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
-        String token = tokenService.generateTokenForGithub(authentication);
-        System.out.println(token);
-        String targetUrl = determineTargetUrl(token);
+//        String token = JwtProvider.gene(authentication);
+//        System.out.println(token);
+//        String targetUrl = determineTargetUrl(token);
 //        System.out.println("here");
 //        if (response.isCommitted()) {
 //            logger.debug("Response has already been committed. Unable to redirect to " + targetUrl);
 //            return;
 //        }
 //        clearAuthenticationAttributes(request, response);
-        getRedirectStrategy().sendRedirect(request, response, targetUrl);
+//        getRedirectStrategy().sendRedirect(request, response, targetUrl);
     }
     protected void clearAuthenticationAttributes(HttpServletRequest request, HttpServletResponse response) {
         super.clearAuthenticationAttributes(request);
