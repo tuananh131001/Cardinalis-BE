@@ -1,4 +1,4 @@
-//package org.cardinalis.tweetservice.engine;
+package org.cardinalis.tweetservice.engine;//package org.cardinalis.tweetservice.engine;
 //
 //import org.cardinalis.tweetservice.model.FavoriteTweet;
 //import org.cardinalis.tweetservice.model.Tweet;
@@ -8,7 +8,7 @@
 //import org.springframework.kafka.annotation.KafkaListener;
 //import org.springframework.stereotype.Service;
 //
-//import java.util.UUID;
+//import java.util.Long;
 //
 //@Service
 //public class Consumer {
@@ -25,7 +25,7 @@
 //    }
 //
 //    @KafkaListener(topics = "deleteTweet", groupId = "group_id")
-//    public Tweet deleteTweet(UUID id) throws Exception  {
+//    public Tweet deleteTweet(Long id) throws Exception  {
 //        return tweetService.deleteTweet(id);
 //    }
 //
@@ -35,12 +35,12 @@
 //    }
 //
 //    @KafkaListener(topics = "deleteFav", groupId = "group_id")
-//    public FavoriteTweet deleteFav(UUID tweetId, String username) {
+//    public FavoriteTweet deleteFav(Long tweetId, String username) {
 //        return favoriteTweetService.deleteFavorite(tweetId, username);
 //    }
 //
 ////    @KafkaListener(topics = "getTweetById", groupId = "group_id")
-////    public Tweet getTweetById(UUID id) throws Exception {
+////    public Tweet getTweetById(Long id) throws Exception {
 ////        return tweetService.getTweetById(id);
 ////    }
 ////
