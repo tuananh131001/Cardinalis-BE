@@ -3,6 +3,7 @@ package com.cardinalis.userservice.service.impl;
 import com.cardinalis.userservice.exception.ApiRequestException;
 import com.cardinalis.userservice.model.UserEntity;
 import com.cardinalis.userservice.repository.UserRepository;
+import com.cardinalis.userservice.security.UserPrincipal;
 import com.cardinalis.userservice.security.oauth.CustomOAuth2User;
 import com.cardinalis.userservice.service.AuthenticationService;
 import lombok.RequiredArgsConstructor;
@@ -29,7 +30,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     private final UserRepository userRepository;
     @Override
     public Long getAuthenticatedUserId() {
-        return ((CustomOAuth2User) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getId();
+        return ((UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getId();
     }
 
     @Override

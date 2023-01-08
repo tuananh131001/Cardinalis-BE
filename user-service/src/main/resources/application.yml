@@ -15,7 +15,7 @@ spring:
   jpa:
     defer-datasource-initialization: true
     hibernate:
-      ddl-auto: update
+      ddl-auto: create-drop
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
@@ -33,8 +33,9 @@ spring:
               - user:email
               - read:user
 jwt:
-  secret: screte-value
-  expiration: 86400000
+  header: Authorization
+  secret: dejavu
+  expiration: 6048000
 # Default user
 admin:
   id: 1b2fe584-19b4-4173-9d3d-02acf970faa6

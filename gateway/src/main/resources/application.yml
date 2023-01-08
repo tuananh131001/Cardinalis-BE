@@ -38,7 +38,7 @@ spring:
             - RewritePath=/timeline/(?<path>.*), /$\{path}
 
 jwt:
-  secret: screte-value
+  secret: dejavu
 
 management:
   endpoints:
