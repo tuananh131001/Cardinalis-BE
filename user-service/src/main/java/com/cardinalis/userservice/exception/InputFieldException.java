@@ -28,8 +28,10 @@ public class InputFieldException extends RuntimeException {
     }
 
     private Map<String, String> handleErrors(BindingResult bindingResult) {
-        Map<String, String> errors = new HashMap<>();
-        bindingResult.getFieldErrors().forEach(fieldError -> errors.put(fieldError.getField(), fieldError.getDefaultMessage()));
+            Map<String, String> errors = new HashMap<>();
+            bindingResult.getFieldErrors().forEach(fieldError -> errors.put(fieldError.getField(), fieldError.getDefaultMessage()));
         return errors;
+
+
     }
 }

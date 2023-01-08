@@ -1,6 +1,5 @@
 package com.cardinalis.userservice.repository;
 
-import com.cardinalis.userservice.dao.UserEntityDTO;
 import com.cardinalis.userservice.model.UserEntity;
 import com.cardinalis.userservice.repository.projection.UserPrincipalProjection;
 import com.cardinalis.userservice.repository.projection.user.AuthUserProjection;
@@ -9,13 +8,11 @@ import com.cardinalis.userservice.repository.projection.user.UserProjection;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 @Repository
 public interface UserRepository extends JpaRepository<UserEntity, Long> {

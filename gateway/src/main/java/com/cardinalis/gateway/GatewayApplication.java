@@ -27,7 +27,7 @@ public class GatewayApplication {
                         .filters(f -> f.filter(filter))
                         .uri("lb://user-service"))
                 .route(p -> p
-                        .path("/tweet/**")
+                        .path("/tweet/**","/tweets/**")
                         .filters(f -> f.filter(filter))
                         .uri("lb://tweet-service"))
                 .route(p -> p
