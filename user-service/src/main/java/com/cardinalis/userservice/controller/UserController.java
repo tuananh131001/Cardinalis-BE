@@ -7,6 +7,7 @@ import com.cardinalis.userservice.dao.response.AuthenticationResponse;
 import com.cardinalis.userservice.dao.response.FollowerUserResponse;
 import com.cardinalis.userservice.dao.response.notification.NotificationResponse;
 import com.cardinalis.userservice.dao.response.notification.NotificationUserResponse;
+import com.cardinalis.userservice.exception.ApiRequestException;
 import com.cardinalis.userservice.mapper.UserMapper;
 import com.cardinalis.userservice.model.UserEntity;
 import com.cardinalis.userservice.service.UserService;
@@ -34,6 +35,9 @@ public class UserController {
     private final ModelMapper mapper;
     @PostMapping("/register")
     public ResponseEntity<Map<String, Object>> createUser(@RequestBody RegisterDTO register) {
+        if (register.getPassword().length() < 8) {
+            throw new ApiRequestException("Your password needs to be at least 8 characters", HttpStatus.BAD_REQUEST);
+        }
         try {
             Map<String, Object> userCreated = userService.save(register);
             Map<String, Object> response = createResponse(
@@ -226,6 +230,7 @@ public class UserController {
     public ResponseEntity<AuthenticationResponse> authenticate(@Valid @RequestBody AuthenticationRequest request, BindingResult bindingResult) {
         return ResponseEntity.ok(userMapper.login(request, bindingResult));
     }
+
     @GetMapping
     public String test() {
         return "test";
