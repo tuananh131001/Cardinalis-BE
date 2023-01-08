@@ -34,7 +34,7 @@ public class TweetController {
 
     private final ModelMapper mapper;
 
-    @PostMapping(path = "")
+    @PostMapping(path = "/tweet")
     public ResponseEntity<Map<String, Object>> addTweet(@RequestBody Tweet tweet) {
         try {
             System.out.println(tweet);
@@ -54,7 +54,7 @@ public class TweetController {
         }
     }
 
-    @GetMapping(path = "")
+    @GetMapping(path = "/tweet")
     public ResponseEntity<Map<String, Object>> getTweetById(
             @RequestParam Long id,
             @RequestParam(defaultValue = "true") Boolean needCount) {
@@ -80,7 +80,7 @@ public class TweetController {
         }
     }
 
-    @DeleteMapping(path = "")
+    @DeleteMapping(path = "/tweet")
     public ResponseEntity<Map<String, Object>> deleteTweet(@RequestParam Long id) {
         try {
             Tweet tweet = tweetService.deleteTweet(id);
