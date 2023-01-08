@@ -1,7 +1,5 @@
-package org.cardinalis.tweetservice.FavoriteTweet.controller;
+package org.cardinalis.tweetservice.FavoriteTweet;
 //import org.cardinalis.tweetservice.engine.Producer;
-import org.cardinalis.tweetservice.FavoriteTweet.model.FavoriteTweet;
-import org.cardinalis.tweetservice.FavoriteTweet.service.FavoriteTweetService;
 import org.cardinalis.tweetservice.Ultilities.NoContentFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;

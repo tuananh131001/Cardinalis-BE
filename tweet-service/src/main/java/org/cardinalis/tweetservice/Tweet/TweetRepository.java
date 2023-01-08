@@ -1,5 +1,5 @@
-package org.cardinalis.tweetservice.Tweet.repository;
-import org.cardinalis.tweetservice.Tweet.model.Tweet;
+package org.cardinalis.tweetservice.Tweet;
+import org.cardinalis.tweetservice.Tweet.Tweet;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -1,11 +1,8 @@
-package org.cardinalis.tweetservice.Tweet.controller;
+package org.cardinalis.tweetservice.Tweet;
 
 import lombok.AllArgsConstructor;
 import org.cardinalis.tweetservice.Comment.CommentRepository;
-import org.cardinalis.tweetservice.FavoriteTweet.repository.FavoriteTweetRepository;
-import org.cardinalis.tweetservice.Tweet.model.Tweet;
-import org.cardinalis.tweetservice.Tweet.model.TweetDTO;
-import org.cardinalis.tweetservice.Tweet.service.TweetService;
+import org.cardinalis.tweetservice.FavoriteTweet.FavoriteTweetRepository;
 import org.cardinalis.tweetservice.Ultilities.NoContentFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;

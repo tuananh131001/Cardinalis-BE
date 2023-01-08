@@ -1,7 +1,6 @@
 package org.cardinalis.tweetservice.Comment;
 
 import lombok.extern.slf4j.Slf4j;
-import org.cardinalis.tweetservice.Tweet.model.Tweet;
 import org.cardinalis.tweetservice.Ultilities.NoContentFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
