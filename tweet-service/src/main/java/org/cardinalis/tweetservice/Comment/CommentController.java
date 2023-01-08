@@ -16,7 +16,7 @@ import static org.cardinalis.tweetservice.Ultilities.Reusable.*;
 
 
 @RestController
-@RequestMapping("/tweet")
+@RequestMapping("/tweetservice")
 public class CommentController {
     @Autowired
     CommentService commentService;
