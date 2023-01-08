@@ -37,6 +37,7 @@ public class ApplicationStartUp {
                 roleRepository.save(saveRole(1L, "ADMIN"));
                 roleRepository.save(saveRole(2L, "USER"));
                 userRepository.save(saveUser());
+                userRepository.save(saveUser2());
             }
         };
     }
@@ -59,10 +60,49 @@ public class ApplicationStartUp {
                 .email(startupProperties.getEmail())
                 .password(BCrypt.hashpw(startupProperties.getPassword(), BCrypt.gensalt()))
 //                .password("9999")
+                .fullName("Thanh NN")
+                .location("HCM")
+                .bio("Teacher at RMIT")
+                .website("https://www.rmit.edu.vn")
+                .countryCode("84")
+                .phone(123456789L)
+                .country("Vietnam")
+                .gender("Male")
+                .dateOfBirth(LocalDateTime.parse("1990-01-01"))
+                .avatar("https://i.pinimg.com/736x/d4/15/95/d415956c03d9ca8783bfb3c5cc984dde.jpg")
                 .notificationsCount(0L)
                 .createdAt(LocalDateTime.now())
                 .lastLoginTime(LocalDateTime.now())
                 .isHotUser(true)
                 .roles(Arrays.asList(role)).build();
     }
+    // add 5 more people
+    public UserEntity saveUser2() {
+        Role role = new Role().builder()
+                .id(2L)
+                .name("USER")
+                .build();
+
+        return UserEntity.builder()
+                .username(startupProperties.getUsername())
+                .email(startupProperties.getEmail())
+                .password(BCrypt.hashpw(startupProperties.getPassword(), BCrypt.gensalt()))
+//                .password("9999")
+                .fullName("Thanh PA")
+                .location("HCM")
+                .bio("Teacher 2 at RMIT")
+                .website("https://www.rmit.edu.vn")
+                .countryCode("84")
+                .phone(123456789L)
+                .country("Vietnam")
+                .gender("Male")
+                .dateOfBirth(LocalDateTime.parse("1990-01-01"))
+                .avatar("https://i.pinimg.com/736x/d4/15/95/d415956c03d9ca8783bfb3c5cc984dde.jpg")
+                .notificationsCount(0L)
+                .createdAt(LocalDateTime.now())
+                .lastLoginTime(LocalDateTime.now())
+                .isHotUser(true)
+                .roles(Arrays.asList(role)).build();
+    }
+
 }
