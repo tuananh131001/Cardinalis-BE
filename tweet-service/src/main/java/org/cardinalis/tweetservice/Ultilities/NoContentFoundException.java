@@ -1,4 +1,4 @@
-package org.cardinalis.tweetservice.exception;
+package org.cardinalis.tweetservice.Ultilities;
 
 public class NoContentFoundException extends RuntimeException {
     public NoContentFoundException(String message) {
