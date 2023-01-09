@@ -1,4 +1,4 @@
-package org.cardinalis.tweetservice.Comment;
+package org.cardinalis.tweetservice.ReplyComment;
 
 //import org.cardinalis.tweetservice.engine.Producer;
 import org.cardinalis.tweetservice.Ultilities.NoContentFoundException;
@@ -15,45 +15,45 @@ import static org.cardinalis.tweetservice.Ultilities.Reusable.*;
 
 @RestController
 @RequestMapping("/tweet")
-public class CommentController {
+public class ReplyController {
     @Autowired
-    CommentService commentService;
+    ReplyService replyService;
 
 //    @Autowired
 //    Producer producer;
 
-    @PostMapping("/comment")
-    public ResponseEntity<Map<String, Object>> saveComment(@RequestBody Comment comment) {
+    @PostMapping("/reply")
+    public ResponseEntity<Map<String, Object>> saveReplyComment(@RequestBody Reply reply) {
 //        producer.send("saveComment", comment);
         try {
-            Comment commented = commentService.saveComment(comment);
-            Map<String, Object> response = createResponse(HttpStatus.OK, commented, "saved comment");
+            Reply commented = replyService.saveReply(reply);
+            Map<String, Object> response = createResponse(HttpStatus.OK, commented, "saved replyComment");
             return ResponseEntity.ok(response);
         } catch (IllegalArgumentException e) {
-            System.out.println("cannot saveComment IllegalArgumentException: " + e.getMessage());
+            System.out.println("cannot saveReplyComment IllegalArgumentException: " + e.getMessage());
             return illegalArgResponse(e);
         } catch (DataIntegrityViolationException e) {
-            Map<String, Object> response = createResponse(HttpStatus.NOT_IMPLEMENTED, null, "no tweet with this id");
+            Map<String, Object> response = createResponse(HttpStatus.NOT_IMPLEMENTED, null, "no comment with this id");
             return ResponseEntity
                     .status(HttpStatus.NOT_IMPLEMENTED)
                     .body(response);
         } catch (Exception e) {
-            System.out.println("cannot saveComment Exception: " + e.getMessage());
+            System.out.println("cannot saveReplyComment Exception: " + e.getMessage());
             return internalErrorResponse(e);
         }
     }
 
-    @PutMapping("/comment")
-    public ResponseEntity<Map<String, Object>> editComment(@RequestBody Comment comment) {
+    @PutMapping("/reply")
+    public ResponseEntity<Map<String, Object>> editReply(@RequestBody Reply reply) {
         try {
-            Comment commentEdited = commentService.editComment(comment);
-            Map<String, Object> response = createResponse(HttpStatus.OK, commentEdited, "saved comment");
+            Reply replyEdited = replyService.editReply(reply);
+            Map<String, Object> response = createResponse(HttpStatus.OK, replyEdited, "saved replyComment");
             return ResponseEntity.ok(response);
         } catch (IllegalArgumentException e) {
-            System.out.println("cannot saveComment IllegalArgumentException: " + e.getMessage());
+            System.out.println("cannot editReply IllegalArgumentException: " + e.getMessage());
             return illegalArgResponse(e);
         } catch (DataIntegrityViolationException e) {
-            Map<String, Object> response = createResponse(HttpStatus.NOT_IMPLEMENTED, null, "no tweet with this id");
+            Map<String, Object> response = createResponse(HttpStatus.NOT_IMPLEMENTED, null, "no comment with this id");
             return ResponseEntity
                     .status(HttpStatus.NOT_IMPLEMENTED)
                     .body(response);
@@ -63,20 +63,20 @@ public class CommentController {
                     .status(HttpStatus.NOT_IMPLEMENTED)
                     .body(response);
         } catch (Exception e) {
-            System.out.println("cannot saveComment Exception: " + e.getMessage());
+            System.out.println("cannot editReply Exception: " + e.getMessage());
             return internalErrorResponse(e);
         }
     }
 
-    @DeleteMapping("/comment")
-    public ResponseEntity<Map<String, Object>> deleteComment(@RequestParam Long id) {
+    @DeleteMapping("/reply")
+    public ResponseEntity<Map<String, Object>> deleteReplyComment(@RequestParam Long id) {
         try {
 //            Map<String, Object> message = new HashMap<>();
-//            message.put("tweetId", tweetId);
+//            message.put("commentId", commentId);
 //            message.put("username", username);
 //            producer.send("deleteComment", message);
-            Comment comment = commentService.deleteCommentById(id);
-            Map<String, Object> response = createResponse(HttpStatus.OK, comment, "deleted comment");
+            Reply reply = replyService.deleteReplyById(id);
+            Map<String, Object> response = createResponse(HttpStatus.OK, reply, "deleted replyComment");
             return ResponseEntity.ok(response);
         } catch (NoContentFoundException e) {
             Map<String, Object> response = createResponse(HttpStatus.NOT_IMPLEMENTED, null, "comment not found");
@@ -84,20 +84,21 @@ public class CommentController {
                     .status(HttpStatus.NOT_IMPLEMENTED)
                     .body(response);
         } catch (IllegalArgumentException e) {
-            System.out.println("cannot deleteComment IllegalArgumentException: " + e.getMessage());
+            System.out.println("cannot deleteRepl IllegalArgumentException: " + e.getMessage());
             return illegalArgResponse(e);
 
         } catch (Exception e) {
-            System.out.println("cannot deleteComment Exception: " + e.getMessage());
+            System.out.println("cannot deleteReply Exception: " + e.getMessage());
             return internalErrorResponse(e);
         }
     }
 
-    @GetMapping("/comment")
-    public ResponseEntity<Map<String, Object>> getCommentById(@RequestParam Long id) {
+    @GetMapping("/reply")
+    public ResponseEntity<Map<String, Object>> getReplyById(@RequestParam Long id) {
         try {
-            Comment comment = commentService.getCommentById(id);
-            Map<String, Object> response = createResponse(HttpStatus.OK, comment, "comment found");
+            Reply reply = replyService.getReplyById(id);
+
+            Map<String, Object> response = createResponse(HttpStatus.OK, reply, "comment found");
             return ResponseEntity.ok(response);
         } catch (NoContentFoundException e) {
             Map<String, Object> response = createResponse(HttpStatus.NOT_FOUND, null, e.getMessage());
@@ -105,25 +106,25 @@ public class CommentController {
                     .status(HttpStatus.NOT_FOUND)
                     .body(response);
         } catch (IllegalArgumentException e) {
-            System.out.println("cannot getComment IllegalArgumentException: " + e.getMessage());
+            System.out.println("cannot getReply IllegalArgumentException: " + e.getMessage());
             return illegalArgResponse(e);
 
         }  catch (Exception e) {e.printStackTrace();
-            System.out.println("cannot getComment Exception: " + e.getMessage());
+            System.out.println("cannot getReply Exception: " + e.getMessage());
             return internalErrorResponse(e);
         }
     }
 
-    @GetMapping("/comments")
-    public ResponseEntity<Map<String, Object>> getCommentsOfTweet(
-            @RequestParam Long tweetId,
+    @GetMapping("/replies")
+    public ResponseEntity<Map<String, Object>> getRepliesOfComment(
+            @RequestParam String commentId,
             @RequestParam(defaultValue = "desc") String sort,
             @RequestParam(defaultValue = "0") int pageNo,
             @RequestParam(defaultValue = "6") int pageSize) {
         try {
-            Map<String, Object> comments = commentService.getCommentsOfTweet(tweetId, sort, pageNo, pageSize);
+            Map<String, Object> comments = replyService.getRepliesOfComment(Long.parseLong(commentId), sort, pageNo, pageSize);
 
-            Map<String, Object> response = createResponse(HttpStatus.OK, comments, "no comments found");
+            Map<String, Object> response = createResponse(HttpStatus.OK, comments, "no replyComments found");
             return ResponseEntity.ok(response);
         } catch (NoContentFoundException e) {
             Map<String, Object> response = createResponse(HttpStatus.NOT_FOUND, null, e.getMessage());
@@ -131,11 +132,11 @@ public class CommentController {
                     .status(HttpStatus.NOT_FOUND)
                     .body(response);
         } catch (IllegalArgumentException e) {
-            System.out.println("cannot getCommentsOfTweet IllegalArgumentException: " + e.getMessage());
+            System.out.println("cannot getRepliesOfComment IllegalArgumentException: " + e.getMessage());
             return illegalArgResponse(e);
 
         }  catch (Exception e) {
-            System.out.println("cannot getCommentsOfTweet Exception: " + e.getMessage());
+            System.out.println("cannot getRepliesOfComment Exception: " + e.getMessage());
             return internalErrorResponse(e);
         }
     }

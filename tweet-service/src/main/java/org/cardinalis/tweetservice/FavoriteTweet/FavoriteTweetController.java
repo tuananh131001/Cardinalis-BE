@@ -1,7 +1,10 @@
 package org.cardinalis.tweetservice.FavoriteTweet;
 //import org.cardinalis.tweetservice.engine.Producer;
+import lombok.AllArgsConstructor;
 import org.cardinalis.tweetservice.Tweet.Tweet;
+import org.cardinalis.tweetservice.Tweet.TweetService;
 import org.cardinalis.tweetservice.Ultilities.NoContentFoundException;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
@@ -11,15 +14,23 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import static org.cardinalis.tweetservice.Ultilities.Reusable.*;
 
 
 @RestController
 @RequestMapping("/tweet")
+@AllArgsConstructor
 public class FavoriteTweetController {
     @Autowired
     FavoriteTweetService favoriteTweetService;
+
+    @Autowired
+    TweetService tweetService;
+
+    private final ModelMapper mapper;
+
 
 //    @Autowired
 //    Producer producer;
@@ -31,7 +42,7 @@ public class FavoriteTweetController {
 //        producer.send("saveFav", favoriteTweet);
         try {
             FavoriteTweet fav = FavoriteTweet.builder()
-                    .tweet(Tweet.builder().id(tweetId).build())
+                    .tweet(tweetService.getTweetById(tweetId))
                     .username(username)
                     .createdAt(LocalDateTime.now())
                     .build();
@@ -83,18 +94,13 @@ public class FavoriteTweetController {
 
     @GetMapping("/favoritetweet")
     public ResponseEntity<Map<String, Object>> getFav(
-            @RequestParam(defaultValue = "") String tweetId,
-            @RequestParam(defaultValue = "") String username,
-            @RequestParam(defaultValue = "") String id) {
+            @RequestParam Long tweetId,
+            @RequestParam String username) {
         try {
-            FavoriteTweet favoriteTweet;
-            if (!id.isEmpty()) {
-                favoriteTweet = favoriteTweetService.findFavoriteById(Long.parseLong(id));
-            }
-            else {
-                favoriteTweet = favoriteTweetService.findFavorite(Long.parseLong(tweetId), username);
-            }
-            Map<String, Object> response = createResponse(HttpStatus.OK, favoriteTweet, "fav found");
+            FavoriteTweet favoriteTweet = favoriteTweetService.findFavorite(tweetId, username);
+            FavoriteTweetDTO favDTO = mapper.map(favoriteTweet, FavoriteTweetDTO.class);
+
+            Map<String, Object> response = createResponse(HttpStatus.OK, favDTO, "fav found");
             return ResponseEntity.ok(response);
         } catch (NoContentFoundException e) {
                 Map<String, Object> response = createResponse(HttpStatus.OK, null, e.getMessage());
@@ -112,11 +118,13 @@ public class FavoriteTweetController {
     }
 
     @GetMapping("/favoritetweets")
-    public ResponseEntity<Map<String, Object>> getFavsOfTweet(
-            @RequestParam(defaultValue = "") String tweetId) {
+    public ResponseEntity<Map<String, Object>> getFavsOfTweet(@RequestParam Long tweetId) {
         try {
-            List<FavoriteTweet> favoriteTweets = favoriteTweetService.findAllFavoritesOfTweet(Long.parseLong(tweetId));
-            Map<String, Object> response = createResponse(HttpStatus.OK, favoriteTweets, "fav found");
+            List<FavoriteTweet> favoriteTweets = favoriteTweetService.findAllFavoritesOfTweet(tweetId);
+            List<FavoriteTweetDTO> favDTOs = favoriteTweets.stream()
+                                            .map(fav -> mapper.map(fav, FavoriteTweetDTO.class))
+                                            .collect(Collectors.toList());
+            Map<String, Object> response = createResponse(HttpStatus.OK, favDTOs);
             return ResponseEntity.ok(response);
         } catch (NoContentFoundException e) {
             Map<String, Object> response = createResponse(HttpStatus.OK, null, e.getMessage());

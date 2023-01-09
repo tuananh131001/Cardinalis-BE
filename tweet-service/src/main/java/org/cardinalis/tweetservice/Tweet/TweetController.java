@@ -1,11 +1,13 @@
 package org.cardinalis.tweetservice.Tweet;
 
 import lombok.AllArgsConstructor;
+import org.cardinalis.tweetservice.Comment.Comment;
 import org.cardinalis.tweetservice.Comment.CommentRepository;
 import org.cardinalis.tweetservice.FavoriteTweet.FavoriteTweetRepository;
 import org.cardinalis.tweetservice.Ultilities.NoContentFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +20,6 @@ import static org.cardinalis.tweetservice.Ultilities.Reusable.*;
 
 @RestController
 @RequestMapping("")
-@AllArgsConstructor
 public class TweetController {
     @Autowired
     private TweetService tweetService;
@@ -32,7 +33,10 @@ public class TweetController {
 //    @Autowired
 //    private Producer producer;
 
-    private final ModelMapper mapper;
+//    private final ModelMapper mapper;
+
+    @Autowired
+    TweetDTOService tweetDTOService;
 
     @PostMapping(path = "/tweet")
     public ResponseEntity<Map<String, Object>> addTweet(@RequestBody Tweet tweet) {
@@ -54,15 +58,41 @@ public class TweetController {
         }
     }
 
+
+    @PutMapping("/reply")
+    public ResponseEntity<Map<String, Object>> editTweet(@RequestBody Tweet tweet) {
+        try {
+            Tweet tweetEdited = tweetService.editTweet(tweet);
+            Map<String, Object> response = createResponse(HttpStatus.OK, tweetEdited, "saved comment");
+            return ResponseEntity.ok(response);
+        } catch (IllegalArgumentException e) {
+            System.out.println("cannot saveComment IllegalArgumentException: " + e.getMessage());
+            return illegalArgResponse(e);
+        } catch (DataIntegrityViolationException e) {
+            Map<String, Object> response = createResponse(HttpStatus.NOT_IMPLEMENTED, null, "no tweet with this id");
+            return ResponseEntity
+                    .status(HttpStatus.NOT_IMPLEMENTED)
+                    .body(response);
+        } catch (NoContentFoundException e) {
+            Map<String, Object> response = createResponse(HttpStatus.NOT_IMPLEMENTED, null, e.getMessage());
+            return ResponseEntity
+                    .status(HttpStatus.NOT_IMPLEMENTED)
+                    .body(response);
+        } catch (Exception e) {
+            System.out.println("cannot saveComment Exception: " + e.getMessage());
+            return internalErrorResponse(e);
+        }
+    }
+
     @GetMapping(path = "/tweet")
     public ResponseEntity<Map<String, Object>> getTweetById(
             @RequestParam Long id,
             @RequestParam(defaultValue = "true") Boolean needCount) {
         try {
+
             Tweet tweet = tweetService.getTweetById(id);
-            TweetDTO tweetDTO = mapper.map(tweet, TweetDTO.class);
-            if (needCount) setCount(tweetDTO);
-            Map<String, Object> response = createResponse(HttpStatus.OK, tweetDTO, "tweet found");
+            Object result = needCount ? tweetDTOService.mapTweetTweetDTO(tweet) : tweet;
+            Map<String, Object> response = createResponse(HttpStatus.OK, result, "tweet found");
             return ResponseEntity.ok(response);
 
         } catch (NoContentFoundException e) {
@@ -131,9 +161,4 @@ public class TweetController {
         }
     }
 
-    public TweetDTO setCount(TweetDTO tweetDTO) {
-        tweetDTO.setTotalFav(favoriteTweetRepository.countByTweet_Id(tweetDTO.getId()));
-        tweetDTO.setTotalComment(commentRepository.countByTweet_Id(tweetDTO.getId()));
-        return tweetDTO;
-    }
 }

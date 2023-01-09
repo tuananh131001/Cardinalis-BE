@@ -51,12 +51,6 @@ public class FavoriteTweetServiceImpl implements FavoriteTweetService {
     }
 
     @Override
-    public FavoriteTweet findFavoriteById(Long id) {
-        return favoriteTweetRepository.findById(id)
-                .orElseThrow(() -> new NoContentFoundException("no fav found"));
-    }
-
-    @Override
     public List<FavoriteTweet> findAllFavoritesOfTweet(Long tweetId) {
         try {
             return favoriteTweetRepository.findByTweet_Id(tweetId);

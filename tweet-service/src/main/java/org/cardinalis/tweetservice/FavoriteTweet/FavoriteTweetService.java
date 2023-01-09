@@ -13,8 +13,6 @@ public interface FavoriteTweetService {
 
     FavoriteTweet findFavorite(Long tweetId, String username);
 
-    public FavoriteTweet findFavoriteById(Long id);
-
     public List<FavoriteTweet> findAllFavoritesOfTweet(Long tweetId);
 
 }
