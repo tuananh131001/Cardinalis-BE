@@ -17,7 +17,7 @@ public class FavoriteTweetServiceImpl implements FavoriteTweetService {
     @Override
     public FavoriteTweet saveFavorite(FavoriteTweet favoriteTweet) {
         try {
-            FavoriteTweet find = findFavorite(favoriteTweet.getTweet().getId(), favoriteTweet.getUsername());
+            FavoriteTweet find = findFavorite(favoriteTweet.getTweet().getId(), favoriteTweet.getUsermail());
             if (find != null) throw new IllegalArgumentException("fav already exists");
             return null;
         } catch (NoContentFoundException e) {
@@ -32,9 +32,9 @@ public class FavoriteTweetServiceImpl implements FavoriteTweetService {
     }
 
     @Override
-    public FavoriteTweet deleteFavorite(Long tweetId, String username) {
+    public FavoriteTweet deleteFavorite(Long tweetId, String usermail) {
         try {
-            FavoriteTweet find = findFavorite(tweetId, username);
+            FavoriteTweet find = findFavorite(tweetId, usermail);
             favoriteTweetRepository.delete(find);
             return find;
         } catch (Exception e) {
@@ -44,8 +44,8 @@ public class FavoriteTweetServiceImpl implements FavoriteTweetService {
     }
 
     @Override
-    public FavoriteTweet findFavorite(Long tweetId, String username) {
-        FavoriteTweet find = favoriteTweetRepository.findByUsernameAndTweet_Id(username, tweetId)
+    public FavoriteTweet findFavorite(Long tweetId, String usermail) {
+        FavoriteTweet find = favoriteTweetRepository.findByUsermailAndTweet_Id(usermail, tweetId)
                 .orElseThrow(() -> new NoContentFoundException("no fav found"));
         return find;
     }

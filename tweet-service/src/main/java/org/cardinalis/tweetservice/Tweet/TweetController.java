@@ -1,11 +1,11 @@
 package org.cardinalis.tweetservice.Tweet;
 
-import lombok.AllArgsConstructor;
-import org.cardinalis.tweetservice.Comment.Comment;
+
+import org.apache.kafka.common.errors.AuthorizationException;
 import org.cardinalis.tweetservice.Comment.CommentRepository;
 import org.cardinalis.tweetservice.FavoriteTweet.FavoriteTweetRepository;
 import org.cardinalis.tweetservice.Ultilities.NoContentFoundException;
-import org.modelmapper.ModelMapper;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
@@ -38,10 +38,14 @@ public class TweetController {
     @Autowired
     TweetDTOService tweetDTOService;
 
+
     @PostMapping(path = "/tweet")
-    public ResponseEntity<Map<String, Object>> addTweet(@RequestBody Tweet tweet) {
+    public ResponseEntity<Map<String, Object>> addTweet(
+            @RequestHeader("Authorization") String token,
+            @RequestBody Tweet tweet) {
         try {
-            System.out.println(tweet);
+            String mail = getUserMailFromHeader(token);
+            tweet.setUsermail(mail);
             if (tweet.getCreatedAt() == null) tweet.setCreatedAt(LocalDateTime.now());
 //            producer.send("saveTweet", tweet);
             tweet = tweetService.saveTweet(tweet);
@@ -52,6 +56,10 @@ public class TweetController {
             System.out.println("cannot addTweet IllegalArgumentException: " + e.getMessage());
             return illegalArgResponse(e);
 
+        } catch (AuthorizationException e) {
+            System.out.println("cannot addTweet AuthorizationException: " + e.getMessage());
+            return unauthorizedResponse(e);
+
         } catch (Exception e) {
             System.out.println("cannot addTweet Exception: " + e.getMessage());
             return internalErrorResponse(e);
@@ -59,20 +67,29 @@ public class TweetController {
     }
 
 
-    @PutMapping("/reply")
-    public ResponseEntity<Map<String, Object>> editTweet(@RequestBody Tweet tweet) {
+    @PutMapping("/tweet")
+    public ResponseEntity<Map<String, Object>> editTweet(
+            @RequestHeader("Authorization") String token,
+            @RequestBody Tweet tweet) {
         try {
+            String mail = getUserMailFromHeader(token);
+            tweet.setUsermail(mail);
             Tweet tweetEdited = tweetService.editTweet(tweet);
             Map<String, Object> response = createResponse(HttpStatus.OK, tweetEdited, "saved comment");
             return ResponseEntity.ok(response);
         } catch (IllegalArgumentException e) {
-            System.out.println("cannot saveComment IllegalArgumentException: " + e.getMessage());
+            System.out.println("cannot editTweet IllegalArgumentException: " + e.getMessage());
             return illegalArgResponse(e);
         } catch (DataIntegrityViolationException e) {
+            System.out.println("cannot editTweet DataIntegrityViolationException: " + e.getMessage());
             Map<String, Object> response = createResponse(HttpStatus.NOT_IMPLEMENTED, null, "no tweet with this id");
             return ResponseEntity
                     .status(HttpStatus.NOT_IMPLEMENTED)
                     .body(response);
+        }  catch (AuthorizationException e) {
+            System.out.println("cannot editTweet AuthorizationException: " + e.getMessage());
+            return unauthorizedResponse(e);
+
         } catch (NoContentFoundException e) {
             Map<String, Object> response = createResponse(HttpStatus.NOT_IMPLEMENTED, null, e.getMessage());
             return ResponseEntity
@@ -89,7 +106,6 @@ public class TweetController {
             @RequestParam Long id,
             @RequestParam(defaultValue = "true") Boolean needCount) {
         try {
-
             Tweet tweet = tweetService.getTweetById(id);
             Object result = needCount ? tweetDTOService.mapTweetTweetDTO(tweet) : tweet;
             Map<String, Object> response = createResponse(HttpStatus.OK, result, "tweet found");
@@ -111,10 +127,15 @@ public class TweetController {
     }
 
     @DeleteMapping(path = "/tweet")
-    public ResponseEntity<Map<String, Object>> deleteTweet(@RequestParam Long id) {
+    public ResponseEntity<Map<String, Object>> deleteTweet(
+            @RequestHeader("Authorization") String token,
+            @RequestParam Long id) {
         try {
-            Tweet tweet = tweetService.deleteTweet(id);
-            Map<String, Object> response = createResponse(HttpStatus.OK, tweet, "deleted tweet");
+            String mail = getUserMailFromHeader(token);
+            Tweet tweet = tweetService.getTweetById(id);
+            if (!mail.equals(tweet.getUsermail())) throw new AuthorizationException("unauthorized user");
+            tweetService.deleteTweet(id);
+            Map<String, Object> response = createResponse(HttpStatus.OK, new TweetDTO(tweet), "deleted tweet");
             return ResponseEntity.ok(response);
 
         } catch (NoContentFoundException e) {
@@ -128,6 +149,10 @@ public class TweetController {
             System.out.println("cannot deleteTweet IllegalArgumentException: " + e.getMessage());
             return illegalArgResponse(e);
 
+        } catch (AuthorizationException e) {
+            System.out.println("cannot deleteTweet AuthorizationException: " + e.getMessage());
+            return unauthorizedResponse(e);
+
         } catch (Exception e) {
             System.out.println("cannot deleteTweet Exception: " + e.getMessage());
             return internalErrorResponse(e);
@@ -136,14 +161,14 @@ public class TweetController {
 
     @GetMapping(path = "/tweets")
     public ResponseEntity<Map<String, Object>> getTweets(
-            @RequestParam(defaultValue = "") String username,
+            @RequestParam(defaultValue = "") String usermail,
             @RequestParam(defaultValue = "true") Boolean needCount,
             @RequestParam(defaultValue = "0") int pageNo,
             @RequestParam(defaultValue = "6") int pageSize) {
         try {
             Map<String, Object> result;
-            if (!username.isEmpty()) {
-                result = tweetService.getNewestTweetsFromUser(username, needCount, pageNo, pageSize);
+            if (!usermail.isEmpty()) {
+                result = tweetService.getNewestTweetsFromUser(usermail, needCount, pageNo, pageSize);
             }
             else {
                 result = tweetService.getAll(needCount, pageNo, pageSize);
@@ -152,11 +177,11 @@ public class TweetController {
             Map<String, Object> response = createResponse(HttpStatus.OK, result);
             return ResponseEntity.ok(response);
         } catch (IllegalArgumentException e) {
-            System.out.println("cannot getNewestTweetsFromUser IllegalArgumentException: " + e.getMessage());
+            System.out.println("cannot getTweets IllegalArgumentException: " + e.getMessage());
             return illegalArgResponse(e);
 
         } catch (Exception e) {
-            System.out.println("cannot getNewestTweetsFromUser Exception: " + e.getMessage());
+            System.out.println("cannot getTweets Exception: " + e.getMessage());
             return internalErrorResponse(e);
         }
     }

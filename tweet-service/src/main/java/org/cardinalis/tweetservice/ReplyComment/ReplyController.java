@@ -1,6 +1,7 @@
 package org.cardinalis.tweetservice.ReplyComment;
 
 //import org.cardinalis.tweetservice.engine.Producer;
+import org.apache.kafka.common.errors.AuthorizationException;
 import org.cardinalis.tweetservice.Ultilities.NoContentFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -23,31 +24,42 @@ public class ReplyController {
 //    Producer producer;
 
     @PostMapping("/reply")
-    public ResponseEntity<Map<String, Object>> saveReplyComment(@RequestBody Reply reply) {
-//        producer.send("saveComment", comment);
+    public ResponseEntity<Map<String, Object>> saveReply(
+            @RequestHeader("Authorization") String token,
+            @RequestBody Reply reply) {
         try {
+            String mail = getUserMailFromHeader(token);
+            reply.setUsermail(mail);
             Reply commented = replyService.saveReply(reply);
-            Map<String, Object> response = createResponse(HttpStatus.OK, commented, "saved replyComment");
+            Map<String, Object> response = createResponse(HttpStatus.OK, commented, "saved reply");
             return ResponseEntity.ok(response);
         } catch (IllegalArgumentException e) {
-            System.out.println("cannot saveReplyComment IllegalArgumentException: " + e.getMessage());
+            System.out.println("cannot saveReply IllegalArgumentException: " + e.getMessage());
             return illegalArgResponse(e);
         } catch (DataIntegrityViolationException e) {
             Map<String, Object> response = createResponse(HttpStatus.NOT_IMPLEMENTED, null, "no comment with this id");
             return ResponseEntity
                     .status(HttpStatus.NOT_IMPLEMENTED)
                     .body(response);
+        } catch (AuthorizationException e) {
+            System.out.println("cannot saveReply AuthorizationException: " + e.getMessage());
+            return unauthorizedResponse(e);
+
         } catch (Exception e) {
-            System.out.println("cannot saveReplyComment Exception: " + e.getMessage());
+            System.out.println("cannot saveReply Exception: " + e.getMessage());
             return internalErrorResponse(e);
         }
     }
 
     @PutMapping("/reply")
-    public ResponseEntity<Map<String, Object>> editReply(@RequestBody Reply reply) {
+    public ResponseEntity<Map<String, Object>> editReply(
+            @RequestHeader("Authorization") String token,
+            @RequestBody Reply reply) {
         try {
+            String mail = getUserMailFromHeader(token);
+            reply.setUsermail(mail);
             Reply replyEdited = replyService.editReply(reply);
-            Map<String, Object> response = createResponse(HttpStatus.OK, replyEdited, "saved replyComment");
+            Map<String, Object> response = createResponse(HttpStatus.OK, replyEdited, "saved reply");
             return ResponseEntity.ok(response);
         } catch (IllegalArgumentException e) {
             System.out.println("cannot editReply IllegalArgumentException: " + e.getMessage());
@@ -62,6 +74,10 @@ public class ReplyController {
             return ResponseEntity
                     .status(HttpStatus.NOT_IMPLEMENTED)
                     .body(response);
+        } catch (AuthorizationException e) {
+            System.out.println("cannot editReply AuthorizationException: " + e.getMessage());
+            return unauthorizedResponse(e);
+
         } catch (Exception e) {
             System.out.println("cannot editReply Exception: " + e.getMessage());
             return internalErrorResponse(e);
@@ -69,23 +85,32 @@ public class ReplyController {
     }
 
     @DeleteMapping("/reply")
-    public ResponseEntity<Map<String, Object>> deleteReplyComment(@RequestParam Long id) {
+    public ResponseEntity<Map<String, Object>> deleteReplyComment(
+            @RequestHeader("Authorization") String token,
+            @RequestParam Long id) {
         try {
 //            Map<String, Object> message = new HashMap<>();
 //            message.put("commentId", commentId);
-//            message.put("username", username);
+//            message.put("usermail", usermail);
 //            producer.send("deleteComment", message);
-            Reply reply = replyService.deleteReplyById(id);
-            Map<String, Object> response = createResponse(HttpStatus.OK, reply, "deleted replyComment");
+            String mail = getUserMailFromHeader(token);
+            Reply reply = replyService.getReplyById(id);
+            if (!mail.equals(reply.getUsermail())) throw new AuthorizationException("unauthorized user");
+            replyService.deleteReplyById(id);
+            Map<String, Object> response = createResponse(HttpStatus.OK, reply, "deleted reply");
             return ResponseEntity.ok(response);
         } catch (NoContentFoundException e) {
-            Map<String, Object> response = createResponse(HttpStatus.NOT_IMPLEMENTED, null, "comment not found");
+            Map<String, Object> response = createResponse(HttpStatus.NOT_IMPLEMENTED, null, e.getMessage());
             return ResponseEntity
                     .status(HttpStatus.NOT_IMPLEMENTED)
                     .body(response);
         } catch (IllegalArgumentException e) {
-            System.out.println("cannot deleteRepl IllegalArgumentException: " + e.getMessage());
+            System.out.println("cannot deleteReply IllegalArgumentException: " + e.getMessage());
             return illegalArgResponse(e);
+
+        } catch (AuthorizationException e) {
+            System.out.println("cannot deleteReply AuthorizationException: " + e.getMessage());
+            return unauthorizedResponse(e);
 
         } catch (Exception e) {
             System.out.println("cannot deleteReply Exception: " + e.getMessage());
@@ -98,7 +123,7 @@ public class ReplyController {
         try {
             Reply reply = replyService.getReplyById(id);
 
-            Map<String, Object> response = createResponse(HttpStatus.OK, reply, "comment found");
+            Map<String, Object> response = createResponse(HttpStatus.OK, reply, "reply found");
             return ResponseEntity.ok(response);
         } catch (NoContentFoundException e) {
             Map<String, Object> response = createResponse(HttpStatus.NOT_FOUND, null, e.getMessage());
@@ -123,8 +148,7 @@ public class ReplyController {
             @RequestParam(defaultValue = "6") int pageSize) {
         try {
             Map<String, Object> comments = replyService.getRepliesOfComment(Long.parseLong(commentId), sort, pageNo, pageSize);
-
-            Map<String, Object> response = createResponse(HttpStatus.OK, comments, "no replyComments found");
+            Map<String, Object> response = createResponse(HttpStatus.OK, comments, null);
             return ResponseEntity.ok(response);
         } catch (NoContentFoundException e) {
             Map<String, Object> response = createResponse(HttpStatus.NOT_FOUND, null, e.getMessage());

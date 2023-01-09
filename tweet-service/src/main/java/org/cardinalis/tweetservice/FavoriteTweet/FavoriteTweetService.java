@@ -9,9 +9,9 @@ public interface FavoriteTweetService {
 
     FavoriteTweet saveFavorite(FavoriteTweet favoriteTweet);
 
-    FavoriteTweet deleteFavorite(Long tweetId, String username);
+    FavoriteTweet deleteFavorite(Long tweetId, String usermail);
 
-    FavoriteTweet findFavorite(Long tweetId, String username);
+    FavoriteTweet findFavorite(Long tweetId, String usermail);
 
     public List<FavoriteTweet> findAllFavoritesOfTweet(Long tweetId);
 

@@ -66,10 +66,10 @@ public class TweetServiceImpl implements TweetService {
     }
 
     @Override
-    public Map<String, Object> getNewestTweetsFromUser(String username, Boolean needCount, int pageNo, int pageSize) {
+    public Map<String, Object> getNewestTweetsFromUser(String usermail, Boolean needCount, int pageNo, int pageSize) {
         try {
             Pageable pageable = PageRequest.of(pageNo, pageSize, Sort.Direction.DESC,"createdAt");
-            Page<Tweet> page = tweetRepository.findByUsernameOrderByCreatedAtDesc(username, pageable);
+            Page<Tweet> page = tweetRepository.findByUsermailOrderByCreatedAtDesc(usermail, pageable);
 
             return createPageResponse(getResultList(page, needCount), page.getNumber(), page.hasNext(), page.getTotalPages(), page.getNumberOfElements(), page.getSize());
         } catch (Exception e) {

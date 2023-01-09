@@ -11,7 +11,7 @@ import java.util.Optional;
 public interface TweetRepository extends JpaRepository<Tweet, Long> {
     Optional<Tweet> findById(Long id);
 
-//    @Query("SELECT t FROM Tweet t WHERE t.username = :username")
-    Page<Tweet> findByUsernameOrderByCreatedAtDesc(String username, Pageable pageable);
+//    @Query("SELECT t FROM Tweet t WHERE t.usermail = :usermail")
+    Page<Tweet> findByUsermailOrderByCreatedAtDesc(String usermail, Pageable pageable);
 
 }

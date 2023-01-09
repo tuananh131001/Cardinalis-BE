@@ -9,6 +9,8 @@ public interface CommentService {
     Comment editComment(Comment comment);
     Comment deleteCommentById(Long id);
 
+    Comment deleteComment(Comment comment);
+
     Comment getCommentById(Long id);
 
     Map<String, Object> getCommentsOfTweet(Long tweetId, String sort, int pageNo, int pageSize);

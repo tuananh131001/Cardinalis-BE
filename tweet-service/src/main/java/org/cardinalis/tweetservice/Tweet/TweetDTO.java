@@ -17,7 +17,7 @@ public class TweetDTO {
 
     private Long id;
 
-    private String username;
+    private String usermail;
 
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
@@ -36,7 +36,7 @@ public class TweetDTO {
 
     public TweetDTO(Tweet tweet) {
         this.id = tweet.getId();
-        this.username = tweet.getUsername();
+        this.usermail = tweet.getUsermail();
         this.createdAt = tweet.getCreatedAt();
         this.lastEdit = tweet.getLastEdit();
         this.content = tweet.getContent();
