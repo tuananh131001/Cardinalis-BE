@@ -5,6 +5,8 @@ import org.cardinalis.tweetservice.Ultilities.NoContentFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Slf4j
 @Service
 public class FavoriteTweetServiceImpl implements FavoriteTweetService {
@@ -52,6 +54,16 @@ public class FavoriteTweetServiceImpl implements FavoriteTweetService {
     public FavoriteTweet findFavoriteById(Long id) {
         return favoriteTweetRepository.findById(id)
                 .orElseThrow(() -> new NoContentFoundException("no fav found"));
+    }
+
+    @Override
+    public List<FavoriteTweet> findAllFavoritesOfTweet(Long tweetId) {
+        try {
+            return favoriteTweetRepository.findByTweet_Id(tweetId);
+        }
+        catch (Exception e) {
+            throw e;
+        }
     }
 
 
