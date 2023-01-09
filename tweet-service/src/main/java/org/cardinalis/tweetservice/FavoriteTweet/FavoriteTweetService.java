@@ -3,6 +3,8 @@ package org.cardinalis.tweetservice.FavoriteTweet;
 
 import org.cardinalis.tweetservice.FavoriteTweet.FavoriteTweet;
 
+import java.util.List;
+
 public interface FavoriteTweetService {
 
     FavoriteTweet saveFavorite(FavoriteTweet favoriteTweet);
@@ -12,5 +14,7 @@ public interface FavoriteTweetService {
     FavoriteTweet findFavorite(Long tweetId, String username);
 
     public FavoriteTweet findFavoriteById(Long id);
+
+    public List<FavoriteTweet> findAllFavoritesOfTweet(Long tweetId);
 
 }

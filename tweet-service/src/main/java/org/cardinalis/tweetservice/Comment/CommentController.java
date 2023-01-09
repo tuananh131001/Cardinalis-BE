@@ -24,7 +24,7 @@ public class CommentController {
 //    @Autowired
 //    Producer producer;
 
-    @PostMapping("/comment")
+    @PostMapping("/reply")
     public ResponseEntity<Map<String, Object>> saveComment(@RequestBody Comment comment) {
 //        producer.send("saveComment", comment);
         try {
@@ -45,7 +45,7 @@ public class CommentController {
         }
     }
 
-    @PutMapping("/comment")
+    @PutMapping("/reply")
     public ResponseEntity<Map<String, Object>> editComment(@RequestBody Comment comment) {
         try {
             Comment commented = commentService.editComment(comment);
@@ -70,7 +70,7 @@ public class CommentController {
         }
     }
 
-    @DeleteMapping("/comment")
+    @DeleteMapping("/reply")
     public ResponseEntity<Map<String, Object>> deleteComment(
             @RequestParam(defaultValue = "") String tweetId,
             @RequestParam(defaultValue = "") String username,
@@ -104,7 +104,7 @@ public class CommentController {
         }
     }
 
-    @GetMapping("/comment")
+    @GetMapping("/reply")
     public ResponseEntity<Map<String, Object>> getComment(
             @RequestParam(defaultValue = "") String tweetId,
             @RequestParam(defaultValue = "") String username,
@@ -134,7 +134,7 @@ public class CommentController {
         }
     }
 
-    @GetMapping("/comments")
+    @GetMapping("/replies")
     public ResponseEntity<Map<String, Object>> getComments(
             @RequestParam(defaultValue = "") String tweetId,
             @RequestParam(defaultValue = "desc") String sort,
