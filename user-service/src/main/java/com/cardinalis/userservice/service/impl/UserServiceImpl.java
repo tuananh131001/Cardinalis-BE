@@ -69,7 +69,7 @@ public class UserServiceImpl implements UserService {
         user.setAvatar("https://i.pinimg.com/736x/d4/15/95/d415956c03d9ca8783bfb3c5cc984dde.jpg");
         user.setIsHotUser(true);
         // set 0 as Long type
-
+        user.setBanner("https://destination-review.com/wp-content/uploads/2022/12/anton-shuvalov-vGcRek7WS5s-unsplash-1-1200x600.jpg");
         user.setNotificationsCount(0L);
         user.setCreatedAt(LocalDateTime.now());
         user.setLastLoginTime(LocalDateTime.now());
