@@ -3,6 +3,7 @@ package com.cardinalis.userservice.security.oauth;
 import com.cardinalis.userservice.config.AppProperties;
 import com.cardinalis.userservice.security.JwtProvider;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
@@ -16,10 +17,10 @@ import java.io.IOException;
 import java.net.URI;
 
 @Component
-@NoArgsConstructor
+@RequiredArgsConstructor
 public class OAuth2LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
     private AppProperties appProperties;
-
+    private final JwtProvider jwtProvider;
     //authorizedRedirectUris value from yml
     @Value("${app.oauth2.authorizedRedirectUris}")
     private String authorizedRedirectUris;
@@ -28,30 +29,22 @@ public class OAuth2LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
 //    private HttpCookieOAuth2AuthorizationRequestRepository httpCookieOAuth2AuthorizationRequestRepository;
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
-//        String token = JwtProvider.gene(authentication);
-//        System.out.println(token);
-//        String targetUrl = determineTargetUrl(token);
-//        System.out.println("here");
-//        if (response.isCommitted()) {
-//            logger.debug("Response has already been committed. Unable to redirect to " + targetUrl);
-//            return;
-//        }
-//        clearAuthenticationAttributes(request, response);
-//        getRedirectStrategy().sendRedirect(request, response, targetUrl);
+        String token = jwtProvider.generateTokenForGithub(authentication);
+        System.out.println(token);
+        String targetUrl = determineTargetUrl(token);
+        System.out.println("here");
+        if (response.isCommitted()) {
+            logger.debug("Response has already been committed. Unable to redirect to " + targetUrl);
+            return;
+        }
+        clearAuthenticationAttributes(request, response);
+        getRedirectStrategy().sendRedirect(request, response, targetUrl);
     }
+
     protected void clearAuthenticationAttributes(HttpServletRequest request, HttpServletResponse response) {
         super.clearAuthenticationAttributes(request);
-//        httpCookieOAuth2AuthorizationRequestRepository.removeAuthorizationRequestCookies(request, response);
-    }
+}
     protected String determineTargetUrl(String token) {
-//        Optional<String> redirectUri = CookieUtils.getCookie(request, HttpCookieOAuth2AuthorizationRequestRepository.REDIRECT_URI_PARAM_COOKIE_NAME)
-//                .map(Cookie::getValue);
-
-//        if(redirectUri.isPresent() && !isAuthorizedRedirectUri(redirectUri.get())) {
-//            throw new BadRequestException("Sorry! We've got an Unauthorized Redirect URI and can't proceed with the authentication");
-//        }
-
-
         return UriComponentsBuilder.fromUriString(authorizedRedirectUris)
                 .queryParam("token", token)
                 .build().toUriString();

@@ -1,4 +1,5 @@
 package com.cardinalis.userservice.security;
+import com.cardinalis.userservice.security.oauth.CustomOAuth2User;
 import io.jsonwebtoken.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -47,7 +48,19 @@ public class JwtProvider {
                 .signWith(SignatureAlgorithm.HS256, secretKey)
                 .compact();
     }
+    public String generateTokenForGithub(Authentication authentication) {
+        CustomOAuth2User userPrincipal = (CustomOAuth2User) authentication.getPrincipal();
 
+        Claims claims = Jwts.claims().setSubject(userPrincipal.getEmail());
+        Date now = new Date();
+        Date validity = new Date(now.getTime() + validityInMilliseconds * 1000);
+        return Jwts.builder()
+                .setClaims(claims)
+                .setIssuedAt(now)
+                .setExpiration(validity)
+                .signWith(SignatureAlgorithm.HS256, secretKey)
+                .compact();
+    }
     public boolean validateToken(String token) {
         try {
             Jws<Claims> claimsJws = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token);
