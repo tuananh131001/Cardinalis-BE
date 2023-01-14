@@ -33,7 +33,7 @@ public class Tweet implements Comparable<Tweet>, Serializable {
     private Long id;
 
     @Column(nullable = false)
-    private String username;
+    private String usermail;
 
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)

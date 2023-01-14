@@ -9,7 +9,7 @@ import java.util.Optional;
 
 @Repository
 public interface ReplyRepository extends JpaRepository<Reply, Long> {
-    Optional<Reply> findByUsernameAndComment_Id(String username, Long commentId);
+    Optional<Reply> findByUsermailAndComment_Id(String usermail, Long commentId);
 
 //    @Query("SELECT c FROM ReplyComment c WHERE c.id = :tweet_id")
     Page<Reply> findByComment_Id(Long commentId, Pageable pageable);

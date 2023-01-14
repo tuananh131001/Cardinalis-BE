@@ -1,6 +1,8 @@
 package org.cardinalis.tweetservice.Comment;
 
 //import org.cardinalis.tweetservice.engine.Producer;
+import org.apache.kafka.common.errors.AuthorizationException;
+import org.cardinalis.tweetservice.Tweet.Tweet;
 import org.cardinalis.tweetservice.Ultilities.NoContentFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -23,9 +25,13 @@ public class CommentController {
 //    Producer producer;
 
     @PostMapping("/comment")
-    public ResponseEntity<Map<String, Object>> saveComment(@RequestBody Comment comment) {
+    public ResponseEntity<Map<String, Object>> saveComment(
+            @RequestHeader("Authorization") String token,
+            @RequestBody Comment comment) {
 //        producer.send("saveComment", comment);
         try {
+            String mail = getUserMailFromHeader(token);
+            comment.setUsermail(mail);
             Comment commented = commentService.saveComment(comment);
             Map<String, Object> response = createResponse(HttpStatus.OK, commented, "saved comment");
             return ResponseEntity.ok(response);
@@ -37,6 +43,15 @@ public class CommentController {
             return ResponseEntity
                     .status(HttpStatus.NOT_IMPLEMENTED)
                     .body(response);
+        } catch (NoContentFoundException e) {
+            Map<String, Object> response = createResponse(HttpStatus.NOT_IMPLEMENTED, null, e.getMessage());
+            return ResponseEntity
+                    .status(HttpStatus.NOT_IMPLEMENTED)
+                    .body(response);
+        } catch (AuthorizationException e) {
+            System.out.println("cannot saveFav AuthorizationException: " + e.getMessage());
+            return unauthorizedResponse(e);
+
         } catch (Exception e) {
             System.out.println("cannot saveComment Exception: " + e.getMessage());
             return internalErrorResponse(e);
@@ -44,8 +59,12 @@ public class CommentController {
     }
 
     @PutMapping("/comment")
-    public ResponseEntity<Map<String, Object>> editComment(@RequestBody Comment comment) {
+    public ResponseEntity<Map<String, Object>> editComment(
+            @RequestHeader("Authorization") String token,
+            @RequestBody Comment comment) {
         try {
+            String mail = getUserMailFromHeader(token);
+            comment.setUsermail(mail);
             Comment commentEdited = commentService.editComment(comment);
             Map<String, Object> response = createResponse(HttpStatus.OK, commentEdited, "saved comment");
             return ResponseEntity.ok(response);
@@ -62,6 +81,10 @@ public class CommentController {
             return ResponseEntity
                     .status(HttpStatus.NOT_IMPLEMENTED)
                     .body(response);
+        } catch (AuthorizationException e) {
+            System.out.println("cannot saveFav AuthorizationException: " + e.getMessage());
+            return unauthorizedResponse(e);
+
         } catch (Exception e) {
             System.out.println("cannot saveComment Exception: " + e.getMessage());
             return internalErrorResponse(e);
@@ -69,13 +92,18 @@ public class CommentController {
     }
 
     @DeleteMapping("/comment")
-    public ResponseEntity<Map<String, Object>> deleteComment(@RequestParam Long id) {
+    public ResponseEntity<Map<String, Object>> deleteComment(
+            @RequestHeader("Authorization") String token,
+            @RequestParam Long id) {
         try {
 //            Map<String, Object> message = new HashMap<>();
 //            message.put("tweetId", tweetId);
-//            message.put("username", username);
+//            message.put("usermail", usermail);
 //            producer.send("deleteComment", message);
-            Comment comment = commentService.deleteCommentById(id);
+            String mail = getUserMailFromHeader(token);
+            Comment comment = commentService.getCommentById(id);
+            if (!mail.equals(comment.getUsermail())) throw new AuthorizationException("unauthorized user");
+            commentService.deleteComment(comment);
             Map<String, Object> response = createResponse(HttpStatus.OK, comment, "deleted comment");
             return ResponseEntity.ok(response);
         } catch (NoContentFoundException e) {
@@ -86,6 +114,10 @@ public class CommentController {
         } catch (IllegalArgumentException e) {
             System.out.println("cannot deleteComment IllegalArgumentException: " + e.getMessage());
             return illegalArgResponse(e);
+
+        } catch (AuthorizationException e) {
+            System.out.println("cannot saveFav AuthorizationException: " + e.getMessage());
+            return unauthorizedResponse(e);
 
         } catch (Exception e) {
             System.out.println("cannot deleteComment Exception: " + e.getMessage());
@@ -108,7 +140,7 @@ public class CommentController {
             System.out.println("cannot getComment IllegalArgumentException: " + e.getMessage());
             return illegalArgResponse(e);
 
-        }  catch (Exception e) {e.printStackTrace();
+        }  catch (Exception e) {
             System.out.println("cannot getComment Exception: " + e.getMessage());
             return internalErrorResponse(e);
         }

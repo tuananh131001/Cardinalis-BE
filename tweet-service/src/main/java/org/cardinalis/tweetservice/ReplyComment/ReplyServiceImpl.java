@@ -1,6 +1,7 @@
 package org.cardinalis.tweetservice.ReplyComment;
 
 import lombok.extern.slf4j.Slf4j;
+import org.apache.kafka.common.errors.AuthorizationException;
 import org.cardinalis.tweetservice.Ultilities.NoContentFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -34,6 +35,7 @@ public class ReplyServiceImpl implements ReplyService {
     public Reply editReply(Reply newReply) {
         try {
             Reply oldReply = getReplyById(newReply.getId());
+            if (!oldReply.getUsermail().equals(newReply.getUsermail())) throw new AuthorizationException("authorization failed");
             oldReply.setContent(newReply.getContent());
             oldReply.setLastEdit(LocalDateTime.now());
             return replyRepository.save(oldReply);
@@ -57,7 +59,7 @@ public class ReplyServiceImpl implements ReplyService {
     @Override
     public Reply getReplyById(Long id) {
         return replyRepository.findById(id)
-                .orElseThrow(() -> new NoContentFoundException("no replyComment found"));
+                .orElseThrow(() -> new NoContentFoundException("no reply found"));
     }
 
     @Override

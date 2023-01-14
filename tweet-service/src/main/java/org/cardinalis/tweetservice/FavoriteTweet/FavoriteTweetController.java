@@ -1,6 +1,7 @@
 package org.cardinalis.tweetservice.FavoriteTweet;
 //import org.cardinalis.tweetservice.engine.Producer;
 import lombok.AllArgsConstructor;
+import org.apache.kafka.common.errors.AuthorizationException;
 import org.cardinalis.tweetservice.Tweet.Tweet;
 import org.cardinalis.tweetservice.Tweet.TweetService;
 import org.cardinalis.tweetservice.Ultilities.NoContentFoundException;
@@ -37,13 +38,14 @@ public class FavoriteTweetController {
 
     @PostMapping("/favoritetweet")
     public ResponseEntity<Map<String, Object>> saveFav(
-            @RequestParam Long tweetId,
-            @RequestParam String username) {
+            @RequestHeader("Authorization") String token,
+            @RequestParam Long tweetId) {
 //        producer.send("saveFav", favoriteTweet);
         try {
+            String mail = getUserMailFromHeader(token);
             FavoriteTweet fav = FavoriteTweet.builder()
                     .tweet(tweetService.getTweetById(tweetId))
-                    .username(username)
+                    .usermail(mail)
                     .createdAt(LocalDateTime.now())
                     .build();
             FavoriteTweet favoritedTweet = favoriteTweetService.saveFavorite(fav);
@@ -54,11 +56,20 @@ public class FavoriteTweetController {
             return ResponseEntity
                     .status(HttpStatus.NOT_IMPLEMENTED)
                     .body(response);
-        } catch (DataIntegrityViolationException e) {
+        } catch (NoContentFoundException e) {
+            Map<String, Object> response = createResponse(HttpStatus.NOT_IMPLEMENTED, null, e.getMessage());
+            return ResponseEntity
+                    .status(HttpStatus.NOT_IMPLEMENTED)
+                    .body(response);
+        }  catch (DataIntegrityViolationException e) {
             Map<String, Object> response = createResponse(HttpStatus.NOT_IMPLEMENTED, null, "no tweet with this id");
             return ResponseEntity
                     .status(HttpStatus.NOT_IMPLEMENTED)
                     .body(response);
+        } catch (AuthorizationException e) {
+            System.out.println("cannot saveFav AuthorizationException: " + e.getMessage());
+            return unauthorizedResponse(e);
+
         } catch (Exception e) {
             System.out.println("cannot saveFav Exception: " + e.getMessage());
             return internalErrorResponse(e);
@@ -67,14 +78,15 @@ public class FavoriteTweetController {
 
     @DeleteMapping("/favoritetweet")
     public ResponseEntity<Map<String, Object>> deleteFav(
-            @RequestParam Long tweetId,
-            @RequestParam String username) {
+            @RequestHeader("Authorization") String token,
+            @RequestParam Long tweetId) {
         try {
 //            Map<String, Object> message = new HashMap<>();
 //            message.put("tweetId", tweetId);
-//            message.put("username", username);
+//            message.put("usermail", usermail);
 //            producer.send("deleteFav", message);
-            FavoriteTweet favoriteTweet = favoriteTweetService.deleteFavorite(tweetId, username);
+            String mail = getUserMailFromHeader(token);
+            FavoriteTweet favoriteTweet = favoriteTweetService.deleteFavorite(tweetId, mail);
             Map<String, Object> response = createResponse(HttpStatus.OK, favoriteTweet, "deleted fav");
             return ResponseEntity.ok(response);
         } catch (NoContentFoundException e) {
@@ -86,6 +98,10 @@ public class FavoriteTweetController {
             System.out.println("cannot deleteFav IllegalArgumentException: " + e.getMessage());
             return illegalArgResponse(e);
 
+        } catch (AuthorizationException e) {
+            System.out.println("cannot deleteFav AuthorizationException: " + e.getMessage());
+            return unauthorizedResponse(e);
+
         } catch (Exception e) {
             System.out.println("cannot deleteFav Exception: " + e.getMessage());
             return internalErrorResponse(e);
@@ -95,9 +111,9 @@ public class FavoriteTweetController {
     @GetMapping("/favoritetweet")
     public ResponseEntity<Map<String, Object>> getFav(
             @RequestParam Long tweetId,
-            @RequestParam String username) {
+            @RequestParam String usermail) {
         try {
-            FavoriteTweet favoriteTweet = favoriteTweetService.findFavorite(tweetId, username);
+            FavoriteTweet favoriteTweet = favoriteTweetService.findFavorite(tweetId, usermail);
             FavoriteTweetDTO favDTO = mapper.map(favoriteTweet, FavoriteTweetDTO.class);
 
             Map<String, Object> response = createResponse(HttpStatus.OK, favDTO, "fav found");
