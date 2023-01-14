@@ -226,7 +226,7 @@ public class UserServiceImpl implements UserService {
     public Map<String, Object> login(String email, String password) {
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(email, password));
-            AuthUserProjection user = userRepository.findAuthUserByEmail(email)
+            UserEntity user = userRepository.findAuthUserByEmail(email)
                     .orElseThrow(() -> new ApiRequestException("User not found", HttpStatus.NOT_FOUND));
             String token = jwtProvider.createToken(email, "USER");
             Map<String, Object> response = new HashMap<>();

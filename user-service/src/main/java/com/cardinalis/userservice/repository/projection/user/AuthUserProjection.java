@@ -10,9 +10,11 @@ public interface AuthUserProjection {
     String getFullName();
     String getUsername();
     String getLocation();
+
     String getAbout();
     String getWebsite();
     String getCountryCode();
+
     Long getPhone();
     String getCountry();
     String getGender();

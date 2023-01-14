@@ -138,7 +138,7 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
 //    @Query("UPDATE UserEntity user SET user.gender = :gender WHERE user.id = :userId")
 //    void updateGender(String gender, Long userId);
 
-    @Query("SELECT user FROM UserEntity user WHERE user.email = :email")
-    Optional<AuthUserProjection> findAuthUserByEmail(String email);
+    @Query("SELECT users FROM UserEntity users WHERE users.email = :email")
+    Optional<UserEntity> findAuthUserByEmail(String email);
 
 }
