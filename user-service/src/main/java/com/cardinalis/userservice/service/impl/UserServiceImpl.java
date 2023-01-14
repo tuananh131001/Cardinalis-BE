@@ -116,7 +116,9 @@ public class UserServiceImpl implements UserService {
                 .filter(f -> f.getId().equals(currentUser.getId()))
                 .findFirst();
         boolean isFollower;
-
+        if(userId == user.getId()){
+            throw new ApiRequestException("You can't follow yourself", HttpStatus.BAD_REQUEST);
+        }
         if (follower.isPresent()) {
             followers.remove(follower.get());
             List<UserEntity> subscribers = currentUser.getSubscribers();
@@ -220,7 +222,6 @@ public class UserServiceImpl implements UserService {
             return true;
         }
     }
-
     @Override
     public Map<String, Object> login(String email, String password) {
         try {
