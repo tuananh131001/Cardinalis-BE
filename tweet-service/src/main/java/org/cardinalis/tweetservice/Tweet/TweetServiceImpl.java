@@ -1,6 +1,7 @@
 package org.cardinalis.tweetservice.Tweet;
 
 import lombok.AllArgsConstructor;
+import org.cardinalis.tweetservice.Comment.Comment;
 import org.cardinalis.tweetservice.Comment.CommentRepository;
 import org.cardinalis.tweetservice.FavoriteTweet.FavoriteTweetRepository;
 import org.cardinalis.tweetservice.Ultilities.NoContentFoundException;
@@ -13,14 +14,15 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Transactional
 @Service
-@AllArgsConstructor
 public class TweetServiceImpl implements TweetService {
     @Autowired
     TweetRepository tweetRepository;
@@ -31,7 +33,8 @@ public class TweetServiceImpl implements TweetService {
     @Autowired
     FavoriteTweetRepository favoriteTweetRepository;
 
-    private final ModelMapper mapper;
+    @Autowired
+    TweetDTOService tweetDTOService;
 
 
     @Override
@@ -45,6 +48,17 @@ public class TweetServiceImpl implements TweetService {
     }
 
     @Override
+    public Tweet editTweet(Tweet newTweet) {
+        try {
+            Tweet oldTweet = getTweetById(newTweet.getId());
+            oldTweet.setContent(newTweet.getContent());
+            oldTweet.setLastEdit(LocalDateTime.now());
+            return tweetRepository.save(oldTweet);
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+    @Override
     public Tweet getTweetById(Long id) {
         Tweet tweet = tweetRepository.findById(id)
                 .orElseThrow(() -> new NoContentFoundException("Tweet not found for id = " + id));
@@ -52,10 +66,10 @@ public class TweetServiceImpl implements TweetService {
     }
 
     @Override
-    public Map<String, Object> getNewestTweetsFromUser(String username, Boolean needCount, int pageNo, int pageSize) {
+    public Map<String, Object> getNewestTweetsFromUser(String usermail, Boolean needCount, int pageNo, int pageSize) {
         try {
             Pageable pageable = PageRequest.of(pageNo, pageSize, Sort.Direction.DESC,"createdAt");
-            Page<Tweet> page = tweetRepository.findByUsernameOrderByCreatedAtDesc(username, pageable);
+            Page<Tweet> page = tweetRepository.findByUsermailOrderByCreatedAtDesc(usermail, pageable);
 
             return createPageResponse(getResultList(page, needCount), page.getNumber(), page.hasNext(), page.getTotalPages(), page.getNumberOfElements(), page.getSize());
         } catch (Exception e) {
@@ -102,25 +116,23 @@ public class TweetServiceImpl implements TweetService {
         return response;
     }
 
-    public TweetDTO setCount(TweetDTO tweetDTO) {
-        tweetDTO.setTotalFav(favoriteTweetRepository.countByTweet_Id(tweetDTO.getId()));
-        tweetDTO.setTotalComment(commentRepository.countByTweet_Id(tweetDTO.getId()));
-        System.out.println(tweetDTO);
-        return tweetDTO;
-    }
+//    public TweetDTO setCount(TweetDTO tweetDTO) {
+//        tweetDTO.setTotalFav(favoriteTweetRepository.countByTweet_Id(tweetDTO.getId()));
+//        tweetDTO.setTotalComment(commentRepository.countByTweet_Id(tweetDTO.getId()));
+//        System.out.println(tweetDTO);
+//        return tweetDTO;
+//    }
 
-    public Object getResultList(Page<Tweet> page, Boolean needCount) {
+    public List<?> getResultList(Page<Tweet> page, Boolean needCount) {
         if (!needCount) {
             return page.getContent();
         }
 
         List<Tweet> tweets = page.getContent();
-        List<TweetDTO> tweetDTOS = new ArrayList<>();
-        for (Tweet tweet : tweets) {
-            TweetDTO tweetDTO = mapper.map(tweet, TweetDTO.class);
-            setCount(tweetDTO);
-            tweetDTOS.add(tweetDTO);
-        }
+        List<TweetDTO> tweetDTOS = tweets
+                .stream()
+                .map(tweet -> new TweetDTO(tweet))
+                .collect(Collectors.toList());
         return tweetDTOS;
     }
 }

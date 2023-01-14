@@ -7,11 +7,15 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import lombok.*;
+import org.cardinalis.tweetservice.FavoriteTweet.FavoriteTweet;
+import org.cardinalis.tweetservice.ReplyComment.Reply;
 import org.cardinalis.tweetservice.Tweet.Tweet;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.List;
+
 @Builder
 @Getter
 @Setter
@@ -31,11 +35,18 @@ public class Comment implements Serializable {
     @ManyToOne()
     private Tweet tweet;
 
-    private String username;
+    private String usermail;
 
     private String content;
 
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     private LocalDateTime createdAt = LocalDateTime.now();
+
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
+    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
+    private LocalDateTime lastEdit;
+
+    @OneToMany(mappedBy = "comment", cascade = CascadeType.ALL)
+    private List<Reply> replies;
 }

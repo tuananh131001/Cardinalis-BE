@@ -1,6 +1,8 @@
 package org.cardinalis.tweetservice.Comment;
 
 import lombok.extern.slf4j.Slf4j;
+import org.cardinalis.tweetservice.Tweet.Tweet;
+import org.cardinalis.tweetservice.Tweet.TweetDTO;
 import org.cardinalis.tweetservice.Ultilities.NoContentFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -9,7 +11,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import static org.cardinalis.tweetservice.Ultilities.Reusable.createPageResponse;
 
@@ -34,22 +39,11 @@ public class CommentServiceImpl implements CommentService {
         try {
             Comment oldComment = getCommentById(newComment.getId());
             oldComment.setContent(newComment.getContent());
+            oldComment.setLastEdit(LocalDateTime.now());
             return commentRepository.save(oldComment);
         } catch (Exception e) {
             throw e;
         }
-    }
-
-    @Override
-    public Comment deleteCommentByTweet_IdAndUsername(Long tweetId, String username) {
-        try {
-            Comment find = getCommentByTweet_IdAndUsername(tweetId, username);
-            commentRepository.delete(find);
-            return find;
-        } catch (Exception e) {
-            throw e;
-        }
-
     }
 
     @Override
@@ -65,10 +59,14 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public Comment getCommentByTweet_IdAndUsername(Long tweetId, String username) {
-        Comment find = commentRepository.findByUsernameAndTweet_Id(username, tweetId)
-                .orElseThrow(() -> new NoContentFoundException("no comment found"));
-        return find;
+    public Comment deleteComment(Comment comment) {
+        try {
+            commentRepository.delete(comment);
+            return comment;
+        } catch (Exception e) {
+            throw e;
+        }
+
     }
 
     @Override
@@ -78,27 +76,24 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public Map<String, Object> getCommentsByTweet(Long tweetId, String sort, int pageNo, int pageSize) {
+    public Map<String, Object> getCommentsOfTweet(Long tweetId, String sort, int pageNo, int pageSize) {
         try {
             Pageable pageable = PageRequest.of(pageNo, pageSize, Sort.Direction.fromString(sort),"createdAt");
             Page<Comment> result = commentRepository.findByTweet_Id(tweetId, pageable);
-            return createPageResponse(result.getContent(), result.getNumber(), result.hasNext(), result.getTotalPages(), result.getNumberOfElements(), result.getSize());
+
+            return createPageResponse(getResultList(result), result.getNumber(), result.hasNext(), result.getTotalPages(), result.getNumberOfElements(), result.getSize());
         } catch (Exception e) {
             e.printStackTrace();
             throw e;
         }
     }
 
-    @Override
-    public Map<String, Object> getAll(String sort, int pageNo, int pageSize) {
-        try {
-            Pageable pageable = PageRequest.of(pageNo, pageSize, Sort.Direction.fromString(sort),"createdAt");
-            Page<Comment> result = commentRepository.findAll(pageable);
-            return createPageResponse(result.getContent(), result.getNumber(), result.hasNext(), result.getTotalPages(), result.getNumberOfElements(), result.getSize());
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw e;
-        }
+    public List<?> getResultList(Page<Comment> page) {
+        List<Comment> comments = page.getContent();
+        List<CommentDTO> commentDTOS = comments
+                .stream()
+                .map(comment -> new CommentDTO(comment))
+                .collect(Collectors.toList());
+        return commentDTOS;
     }
-
 }

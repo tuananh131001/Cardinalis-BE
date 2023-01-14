@@ -35,8 +35,8 @@ package org.cardinalis.tweetservice.engine;//package org.cardinalis.tweetservice
 //    }
 //
 //    @KafkaListener(topics = "deleteFav", groupId = "group_id")
-//    public FavoriteTweet deleteFav(Long tweetId, String username) {
-//        return favoriteTweetService.deleteFavorite(tweetId, username);
+//    public FavoriteTweet deleteFav(Long tweetId, String usermail) {
+//        return favoriteTweetService.deleteFavorite(tweetId, usermail);
 //    }
 //
 ////    @KafkaListener(topics = "getTweetById", groupId = "group_id")
@@ -45,7 +45,7 @@ package org.cardinalis.tweetservice.engine;//package org.cardinalis.tweetservice
 ////    }
 ////
 ////    @KafkaListener(topics = "getNewestTweetsFromUser", groupId = "group_id")
-////    public List<Tweet> getNewestTweetsFromUser(String username, int pageNo, int pageSize) throws Exception {
-////        return tweetService.getNewestTweetsFromUser(username, pageNo, pageSize);
+////    public List<Tweet> getNewestTweetsFromUser(String usermail, int pageNo, int pageSize) throws Exception {
+////        return tweetService.getNewestTweetsFromUser(usermail, pageNo, pageSize);
 ////    }
 //}
