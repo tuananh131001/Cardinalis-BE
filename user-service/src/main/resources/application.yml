@@ -32,13 +32,13 @@ spring:
               scope:
                 - email
                 - profile
-#          facebook:
-#            clientId: 121189305185277
-#            clientSecret: 42ffe5aa7379e8326387e0fe16f34132
-#            redirectUri: "{baseUrl}/oauth2/callback/{registrationId}"
-#            scope:
-#              - email
-#              - public_profile
+            facebook:
+              clientId: 1880213688985868
+              clientSecret: 991c698333e0bbf9d5dfbd183f6cd20a
+              redirectUri: "{baseUrl}/oauth2/callback/{registrationId}"
+              scope:
+                - email
+                - public_profile
 #          github:
 #            client-id:  ${GITHUB_CLIENT_ID:581a14a284dd1d5815f5}
 #            client-secret:  ${GITHUB_CLIENT_SECRET:8c77af28a85cd5bc2063e007cb48116296767152}
