@@ -23,6 +23,3 @@ manifests:
   - k8s/cloud/privileges.yaml
   - k8s/cloud/gateway.yaml
   - k8s/cloud/ingress.yaml
-  - k8s/cloud/02-kafka.yaml
-  - k8s/cloud/00-namespace.yaml
-  - k8s/cloud/01-zookeeper.yaml
