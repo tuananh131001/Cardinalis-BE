@@ -11,7 +11,7 @@ import java.util.Optional;
 public interface FavoriteTweetRepository extends JpaRepository<FavoriteTweet, Long> {
     List<FavoriteTweet> findByTweet_Id(Long tweetId);
 
-    Optional<FavoriteTweet> findByUsermailAndTweet_Id(String usermail, Long tweetId);
+    Optional<FavoriteTweet> findByEmailAndTweet_Id(String email, Long tweetId);
 
     long countByTweet_Id(Long tweetId);
 

@@ -44,7 +44,7 @@ public class FavoriteTweetController {
             String mail = getUserMailFromHeader(token);
             FavoriteTweet fav = FavoriteTweet.builder()
                     .tweet(tweetService.getTweetById(tweetId))
-                    .usermail(mail)
+                    .email(mail)
                     .createdAt(LocalDateTime.now())
                     .build();
             FavoriteTweet favoritedTweet = favoriteTweetService.saveFavorite(fav);
@@ -82,7 +82,7 @@ public class FavoriteTweetController {
         try {
 //            Map<String, Object> message = new HashMap<>();
 //            message.put("tweetId", tweetId);
-//            message.put("usermail", usermail);
+//            message.put("email", email);
 //            producer.send("deleteFav", message);
             String mail = getUserMailFromHeader(token);
             FavoriteTweet favoriteTweet = favoriteTweetService.deleteFavorite(tweetId, mail);
@@ -110,9 +110,9 @@ public class FavoriteTweetController {
     @GetMapping("/favoritetweet")
     public ResponseEntity<Map<String, Object>> getFav(
             @RequestParam Long tweetId,
-            @RequestParam String usermail) {
+            @RequestParam String email) {
         try {
-            FavoriteTweet favoriteTweet = favoriteTweetService.findFavorite(tweetId, usermail);
+            FavoriteTweet favoriteTweet = favoriteTweetService.findFavorite(tweetId, email);
             FavoriteTweetDTO favDTO = mapper.map(favoriteTweet, FavoriteTweetDTO.class);
 
             Map<String, Object> response = createResponse(HttpStatus.OK, favDTO, "fav found");

@@ -37,7 +37,7 @@ public class ReplyServiceImpl implements ReplyService {
     public Reply editReply(Reply newReply) {
         try {
             Reply oldReply = getReplyById(newReply.getId());
-            if (!oldReply.getUsermail().equals(newReply.getUsermail())) throw new AuthorizationException("authorization failed");
+            if (!oldReply.getEmail().equals(newReply.getEmail())) throw new AuthorizationException("authorization failed");
             oldReply.setContent(newReply.getContent());
             oldReply.setLastEdit(LocalDateTime.now());
             return replyRepository.save(oldReply);

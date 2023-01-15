@@ -31,7 +31,7 @@ public class Reply implements Serializable {
     @ManyToOne()
     private Comment comment;
 
-    private String usermail;
+    private String email;
 
     private String content;
 

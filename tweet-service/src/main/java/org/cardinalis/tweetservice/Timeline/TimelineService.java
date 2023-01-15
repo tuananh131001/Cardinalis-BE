@@ -7,13 +7,17 @@ package org.cardinalis.tweetservice.Timeline;
 import org.cardinalis.tweetservice.Tweet.Tweet;
 import org.cardinalis.tweetservice.Tweet.TweetServiceImpl;
 import org.cardinalis.tweetservice.Util.NoContentFoundException;
+import org.cardinalis.tweetservice.DTOUser.SuccessResponseDTO;
+import org.cardinalis.tweetservice.DTOUser.UserResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.redis.core.Cursor;
 import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ScanOptions;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.PostConstruct;
 import java.util.*;
@@ -25,20 +29,16 @@ import static org.cardinalis.tweetservice.Util.Reusable.createPageResponse;
 @Service
 public class
 TimelineService {
+
     private final String TIMELINE_CACHE = "TIMELINE";
 
     @Autowired
     RedisTemplate<String, Object> redisTemplate;
     private HashOperations<String, String, Tweet> hashOperations;
-
-//    @Autowired
-//    UserService userService;
-
     @Autowired
     TweetServiceImpl tweetService;
-
-//    @Autowired
-//    UserRepository userRepository;
+    @Autowired
+    RestTemplate restTemplate;
 
     @PostConstruct
     private void intializeHashOperations() {
@@ -46,7 +46,7 @@ TimelineService {
     }
 
     private String createKey(Tweet tweet) {
-        return tweet.getUsermail() + "::" + tweet.getId();
+        return tweet.getEmail() + "::" + tweet.getId();
     }
 
     @Cacheable(value = "TIMELINE")
@@ -91,35 +91,36 @@ TimelineService {
         return createPageResponse(tweets, 0, false, 1, tweets.size(), tweets.size());
     }
 
-//    @Cacheable(value = "TIMELINE")
-//    public Map<String, Object> getTimelineForUser(String usermail, int pageNo, int pageSize) throws Exception{
-//        List<Tweet> userTimeline = new ArrayList<>();
-//
-//        UserEntity user = userRepository.findByEmail(usermail).orElseThrow(() -> new NoContentFoundException("not found user"));
-//        Page<UserProjection> fPage = userService.getFollowing(user.getId(), PageRequest.of(0, 50));
-//        List<String> followingList = fPage.getContent().stream().map(userProjection -> userProjection.getMail()).collect(Collectors.toList());
-//        if (followingList == null || followingList.isEmpty()) {
-//            throw new NoContentFoundException("no following");
-//        }
-//
-//        for (String followedMail : followingList) {
-//            String keyPattern = followedMail + "::" + "*";
-//            Map<String, Tweet> map = findTweetByPattern(keyPattern);
-//            userTimeline.addAll(map.values());
-//        }
-//
-//        if (userTimeline.isEmpty()) {
-//            for (String followedMail : followingList) {
-//                Map<String, Object> page = tweetService.getNewestTweetsFromUser(followedMail, true, 0, 10);
-//                List<Tweet> tweets = (ArrayList) page.get("data");
-//                userTimeline.addAll(tweets);
-//            }
-//        }
-//        if (!userTimeline.isEmpty()) {
-//            Collections.sort(userTimeline);
-//            Collections.reverse(userTimeline);
-//        }
-//        return createPageResponse(userTimeline, 0, false, 1, userTimeline.size(), userTimeline.size());
-//    }
+    @Cacheable(value = "TIMELINE")
+    public Map<String, Object> getTimelineForUser(String userId, int pageNo, int pageSize) throws Exception{
+        List<Tweet> userTimeline = new ArrayList<>();
+        ResponseEntity<SuccessResponseDTO> restResponse = restTemplate.getForEntity("http://cardinalis-be.live/following/"+userId, SuccessResponseDTO.class);
+        SuccessResponseDTO res = restResponse.getBody();
+
+        List<UserResponse> followingList = (ArrayList) res.getData();
+
+        if (followingList == null || followingList.isEmpty()) {
+            throw new NoContentFoundException("no following");
+        }
+
+        for (UserResponse user : followingList) {
+            String keyPattern = user.getEmail() + "::" + "*";
+            Map<String, Tweet> map = findTweetByPattern(keyPattern);
+            userTimeline.addAll(map.values());
+        }
+
+        if (userTimeline.isEmpty()) {
+            for (UserResponse user : followingList) {
+                Map<String, Object> page = tweetService.getNewestTweetsFromUser(user.getEmail(), true, 0, 10);
+                List<Tweet> tweets = (ArrayList) page.get("data");
+                userTimeline.addAll(tweets);
+            }
+        }
+        if (!userTimeline.isEmpty()) {
+            Collections.sort(userTimeline);
+            Collections.reverse(userTimeline);
+        }
+        return createPageResponse(userTimeline, 0, false, 1, userTimeline.size(), userTimeline.size());
+    }
 
 }

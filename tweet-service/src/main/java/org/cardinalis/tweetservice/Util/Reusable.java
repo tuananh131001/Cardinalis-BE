@@ -1,5 +1,7 @@
 package org.cardinalis.tweetservice.Util;
 
+import org.cardinalis.tweetservice.Tweet.Tweet;
+import org.cardinalis.tweetservice.DTOUser.AuthUserResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -9,6 +11,12 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class Reusable {
+    static public Tweet importUserInfo(AuthUserResponse user, Tweet tweet) {
+        tweet.setUsername(user.getUsername());
+        tweet.setAvatar(user.getAvatar());
+        tweet.setUserid(user.getId());
+        return tweet;
+    }
 
     static public Map<String, Object> createResponse(HttpStatus status, Object data, String message) {
         Map<String, Object> response = new HashMap<>();

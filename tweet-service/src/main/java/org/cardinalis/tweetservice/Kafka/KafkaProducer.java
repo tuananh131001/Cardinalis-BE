@@ -1,4 +1,4 @@
-package org.cardinalis.tweetservice.engine;//package org.cardinalis.tweetservice.engine;
+package org.cardinalis.tweetservice.Kafka;//package org.cardinalis.tweetservice.engine;
 //
 import org.apache.kafka.clients.admin.NewTopic;
 import org.slf4j.Logger;
@@ -9,9 +9,9 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
 @Service
-public class Producer {
+public class KafkaProducer {
 
-    private static final Logger logger = LoggerFactory.getLogger(Producer.class);
+    private static final Logger logger = LoggerFactory.getLogger(KafkaProducer.class);
 
     @Autowired
     private KafkaTemplate<String, Object> kafkaTemplate;
@@ -40,6 +40,19 @@ public class Producer {
     public NewTopic deleteFav() {
         return new NewTopic("deleteFav", 1, (short) 1);
     }
+
+//    @Bean
+//    public NewTopic tweetRequireUserInfo() {
+//        return new NewTopic("tweetRequireUserInfo", 1, (short) 1);
+//    }
+//     @Bean
+//    public NewTopic tweetRequireFollowingList() {
+//        return new NewTopic("tweetRequireFollowingList", 1, (short) 1);
+//    }
+//    @Bean
+//    public NewTopic requireFollowingList() {
+//        return new NewTopic("requireFollowingList", 1, (short) 1);
+//    }
 
     public void send(String topic, Object object) {
         logger.info(String.format("#### -> Producing kafka message for topic: " + topic));

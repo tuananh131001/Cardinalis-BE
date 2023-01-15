@@ -1,4 +1,4 @@
-package org.cardinalis.tweetservice.engine;
+package org.cardinalis.tweetservice.Kafka;
 
 
 import org.cardinalis.tweetservice.Comment.Comment;
@@ -10,13 +10,20 @@ import org.cardinalis.tweetservice.ReplyComment.ReplyService;
 import org.cardinalis.tweetservice.Timeline.TimelineService;
 import org.cardinalis.tweetservice.Tweet.Tweet;
 import org.cardinalis.tweetservice.Tweet.TweetService;
+import org.cardinalis.tweetservice.DTOUser.AuthUserResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+
+import java.util.Map;
+
+import static org.cardinalis.tweetservice.Util.Reusable.importUserInfo;
 
 
 @Service
-public class Consumer {
+public class KafkaConsumer {
     @Autowired
     TweetService tweetService;
     @Autowired
@@ -28,8 +35,17 @@ public class Consumer {
     @Autowired
     ReplyService replyService;
 
+//    @Autowired
+//    KafkaProducer kafkaProducer;
+    @Autowired
+    RestTemplate restTemplate;
+
     @KafkaListener(topics = "saveTweet", groupId = "group_id")
     public void saveTweet(Tweet tweet) throws Exception  {
+        ResponseEntity<Map> restResponse = restTemplate.getForEntity("http://cardinalis-be.live/user/fetch/email="+tweet.getEmail(), Map.class);
+        Map<String, Object> map = restResponse.getBody();
+        AuthUserResponse user = (AuthUserResponse) map.get("data");
+        importUserInfo(user, tweet);
         tweet = tweetService.saveTweet(tweet);
         timelineService.saveTweet(tweet);
     }
@@ -56,7 +72,22 @@ public class Consumer {
     }
 
     @KafkaListener(topics = "deleteFav", groupId = "group_id")
-    public FavoriteTweet deleteFav(Long tweetId, String usermail) {
-        return favoriteTweetService.deleteFavorite(tweetId, usermail);
+    public FavoriteTweet deleteFav(Long tweetId, String email) {
+        return favoriteTweetService.deleteFavorite(tweetId, email);
     }
+
+//    @KafkaListener(topics = "tweetRequireUserInfo", groupId = "group_id")
+//    public void tweetRequireUserInfo(String email) {
+//        kafkaProducer.send("userProcessUserInfo", email);
+//    }
+//
+//    @KafkaListener(topics = "tweetRequireFollowingList", groupId = "group_id")
+//    public void tweetRequireFollowingList(String email) {
+//        kafkaProducer.send("userProcessFollowingList", email);
+//    }
+//
+//    @KafkaListener(topics = "returnUserInfo", groupId = "group_id")
+//    public TweetAuthorDTO returnUserInfo(TweetAuthorDTO user) {
+//        return user;
+//    }
 }

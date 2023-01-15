@@ -6,7 +6,7 @@ import org.cardinalis.tweetservice.Comment.CommentRepository;
 import org.cardinalis.tweetservice.FavoriteTweet.FavoriteTweetRepository;
 import org.cardinalis.tweetservice.Util.NoContentFoundException;
 
-import org.cardinalis.tweetservice.engine.Producer;
+import org.cardinalis.tweetservice.Kafka.KafkaProducer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
@@ -32,7 +32,7 @@ public class TweetController {
     FavoriteTweetRepository favoriteTweetRepository;
 
     @Autowired
-    private Producer producer;
+    private KafkaProducer kafkaProducer;
 
 //    @Autowired
 //    private Producer producer;
@@ -49,9 +49,9 @@ public class TweetController {
             @RequestBody Tweet tweet) {
         try {
             String mail = getUserMailFromHeader(token);
-            tweet.setUsermail(mail);
+            tweet.setEmail(mail);
             if (tweet.getCreatedAt() == null) tweet.setCreatedAt(LocalDateTime.now());
-            producer.send("saveTweet", tweet);
+            kafkaProducer.send("saveTweet", tweet);
 //            tweet = tweetService.saveTweet(tweet);
             Map<String, Object> response = createResponse(HttpStatus.OK, tweet, "saved tweet");
             return ResponseEntity.ok(response);
@@ -77,7 +77,7 @@ public class TweetController {
             @RequestBody Tweet tweet) {
         try {
             String mail = getUserMailFromHeader(token);
-            tweet.setUsermail(mail);
+            tweet.setEmail(mail);
             Tweet tweetEdited = tweetService.editTweet(tweet);
             Map<String, Object> response = createResponse(HttpStatus.OK, tweetEdited, "saved comment");
             return ResponseEntity.ok(response);
@@ -137,7 +137,7 @@ public class TweetController {
         try {
             String mail = getUserMailFromHeader(token);
             Tweet tweet = tweetService.getTweetById(id);
-            if (!mail.equals(tweet.getUsermail())) throw new AuthorizationException("unauthorized user");
+            if (!mail.equals(tweet.getEmail())) throw new AuthorizationException("unauthorized user");
             tweetService.deleteTweet(id);
             Map<String, Object> response = createResponse(HttpStatus.OK, new TweetDTO(tweet), "deleted tweet");
             return ResponseEntity.ok(response);
@@ -165,14 +165,14 @@ public class TweetController {
 
     @GetMapping(path = "/tweets")
     public ResponseEntity<Map<String, Object>> getTweets(
-            @RequestParam(defaultValue = "") String usermail,
+            @RequestParam(defaultValue = "") String email,
             @RequestParam(defaultValue = "true") Boolean needCount,
             @RequestParam(defaultValue = "0") int pageNo,
             @RequestParam(defaultValue = "6") int pageSize) {
         try {
             Map<String, Object> result;
-            if (!usermail.isEmpty()) {
-                result = tweetService.getNewestTweetsFromUser(usermail, needCount, pageNo, pageSize);
+            if (!email.isEmpty()) {
+                result = tweetService.getNewestTweetsFromUser(email, needCount, pageNo, pageSize);
             }
             else {
                 result = tweetService.getAll(needCount, pageNo, pageSize);

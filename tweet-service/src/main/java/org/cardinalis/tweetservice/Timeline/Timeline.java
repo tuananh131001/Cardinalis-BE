@@ -17,7 +17,7 @@
 //    private static final long serialVersionUID = 10L;
 //
 ////    @Id
-////    private String usermail;
+////    private String email;
 //
 //    private List<Tweet> userTimeline;
 //}

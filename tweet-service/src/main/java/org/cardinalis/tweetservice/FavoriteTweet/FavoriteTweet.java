@@ -33,7 +33,7 @@ public class FavoriteTweet implements Serializable {
     @ManyToOne()
     private Tweet tweet;
 
-    private String usermail;
+    private String email;
 
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)

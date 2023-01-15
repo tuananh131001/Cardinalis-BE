@@ -29,7 +29,7 @@ public class ReplyController {
             @RequestBody Reply reply) {
         try {
             String mail = getUserMailFromHeader(token);
-            reply.setUsermail(mail);
+            reply.setEmail(mail);
             Reply commented = replyService.saveReply(reply);
             Map<String, Object> response = createResponse(HttpStatus.OK, commented, "saved reply");
             return ResponseEntity.ok(response);
@@ -57,7 +57,7 @@ public class ReplyController {
             @RequestBody Reply reply) {
         try {
             String mail = getUserMailFromHeader(token);
-            reply.setUsermail(mail);
+            reply.setEmail(mail);
             Reply replyEdited = replyService.editReply(reply);
             Map<String, Object> response = createResponse(HttpStatus.OK, replyEdited, "saved reply");
             return ResponseEntity.ok(response);
@@ -91,11 +91,11 @@ public class ReplyController {
         try {
 //            Map<String, Object> message = new HashMap<>();
 //            message.put("commentId", commentId);
-//            message.put("usermail", usermail);
+//            message.put("email", email);
 //            producer.send("deleteComment", message);
             String mail = getUserMailFromHeader(token);
             Reply reply = replyService.getReplyById(id);
-            if (!mail.equals(reply.getUsermail())) throw new AuthorizationException("unauthorized user");
+            if (!mail.equals(reply.getEmail())) throw new AuthorizationException("unauthorized user");
             replyService.deleteReplyById(id);
             Map<String, Object> response = createResponse(HttpStatus.OK, reply, "deleted reply");
             return ResponseEntity.ok(response);

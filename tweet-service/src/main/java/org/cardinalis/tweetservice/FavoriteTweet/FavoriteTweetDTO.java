@@ -17,7 +17,7 @@ public class FavoriteTweetDTO {
 
     private Long id;
 
-    private String usermail;
+    private String email;
 
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
