@@ -43,34 +43,34 @@ services:
 
   zoo1:
     container_name: zoo1
-    image: confluentinc/cp-zookeeper:latest
+    image: wurstmeister/zookeeper
     environment:
       ZOOKEEPER_CLIENT_PORT: 2181
       ZOOKEEPER_TICK_TIME: 2000
     networks:
       - twitter-network
     ports:
-      - 22181:2181
+      - "2181:2181"
     volumes:
-      - kafka-storage:/data
-      - kafka-storage:/datalog
+      - zk-single-kafka-single:/var/lib/zoo/data
+      - zk-single-kafka-single:/var/lib/zoo/datalog
 
   kafka1:
     container_name: kafka1
-    image: confluentinc/cp-kafka
-    hostname: kafka1
+    image: wurstmeister/kafka
     ports:
       - "9092:9092"
     environment:
-      KAFKA_ADVERTISED_LISTENERS: LISTENER_DOCKER_INTERNAL://kafka1:19092,LISTENER_DOCKER_EXTERNAL://${DOCKER_HOST_IP:-127.0.0.1}:9092
-      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: LISTENER_DOCKER_INTERNAL:PLAINTEXT,LISTENER_DOCKER_EXTERNAL:PLAINTEXT
-      KAFKA_INTER_BROKER_LISTENER_NAME: LISTENER_DOCKER_INTERNAL
+      KAFKA_ADVERTISED_HOST_NAME: 127.0.0.1
       KAFKA_ZOOKEEPER_CONNECT: "zoo1:2181"
       KAFKA_BROKER_ID: 1
-      KAFKA_LOG4J_LOGGERS: "kafka.controller=INFO,kafka.producer.async.DefaultEventHandler=INFO,state.change.logger=INFO"
-      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: 'false'
+#      KAFKA_LOG4J_LOGGERS: "kafka.controller=INFO,kafka.producer.async.DefaultEventHandler=INFO,state.change.logger=INFO"
+#      KAFKA_ADVERTISED_LISTENERS: LISTENER_DOCKER_INTERNAL://kafka1:19092,LISTENER_DOCKER_EXTERNAL://${DOCKER_HOST_IP:-127.0.0.1}:9092
+#      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: LISTENER_DOCKER_INTERNAL:PLAINTEXT,LISTENER_DOCKER_EXTERNAL:PLAINTEXT
+#      KAFKA_INTER_BROKER_LISTENER_NAME: LISTENER_DOCKER_INTERNAL
     volumes:
-      - ./zk-single-kafka-single/kafka1/data:/var/lib/kafka/data
+      - zk-single-kafka-single:/var/lib/kafka/data
     depends_on:
       - zoo1
     networks:
@@ -97,7 +97,7 @@ volumes:
   my-db-user:
   pgadmin:
   my-redis-timeline:
-  kafka-storage:
+  zk-single-kafka-single:
 
 networks:
   twitter-network:

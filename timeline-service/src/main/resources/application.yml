@@ -4,7 +4,6 @@ spring:
   application:
     name: timeline-service
 
-
   redis:
 #    host: ${REDIS_URL:redis://default:bKHo0mmnI1atx5ULubqR@containers-us-west-161.railway.app:6394}
     host: ${REDIS_URL:localhost}

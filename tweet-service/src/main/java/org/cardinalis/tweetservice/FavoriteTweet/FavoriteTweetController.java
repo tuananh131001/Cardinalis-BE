@@ -2,9 +2,8 @@ package org.cardinalis.tweetservice.FavoriteTweet;
 //import org.cardinalis.tweetservice.engine.Producer;
 import lombok.AllArgsConstructor;
 import org.apache.kafka.common.errors.AuthorizationException;
-import org.cardinalis.tweetservice.Tweet.Tweet;
 import org.cardinalis.tweetservice.Tweet.TweetService;
-import org.cardinalis.tweetservice.Ultilities.NoContentFoundException;
+import org.cardinalis.tweetservice.Util.NoContentFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -17,7 +16,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import static org.cardinalis.tweetservice.Ultilities.Reusable.*;
+import static org.cardinalis.tweetservice.Util.Reusable.*;
 
 
 @RestController
@@ -72,7 +71,7 @@ public class FavoriteTweetController {
 
         } catch (Exception e) {
             System.out.println("cannot saveFav Exception: " + e.getMessage());
-            return internalErrorResponse(e);
+            return errorResponse(e);
         }
     }
 
@@ -104,7 +103,7 @@ public class FavoriteTweetController {
 
         } catch (Exception e) {
             System.out.println("cannot deleteFav Exception: " + e.getMessage());
-            return internalErrorResponse(e);
+            return errorResponse(e);
         }
     }
 
@@ -129,7 +128,7 @@ public class FavoriteTweetController {
 
         }  catch (Exception e) {e.printStackTrace();
             System.out.println("cannot getFav Exception: " + e.getMessage());
-            return internalErrorResponse(e);
+            return errorResponse(e);
         }
     }
 
@@ -153,7 +152,7 @@ public class FavoriteTweetController {
 
         }  catch (Exception e) {e.printStackTrace();
             System.out.println("cannot getFav Exception: " + e.getMessage());
-            return internalErrorResponse(e);
+            return errorResponse(e);
         }
     }
 }

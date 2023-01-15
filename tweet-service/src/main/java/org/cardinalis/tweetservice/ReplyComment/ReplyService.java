@@ -1,9 +1,14 @@
 package org.cardinalis.tweetservice.ReplyComment;
 
+import org.springframework.kafka.annotation.EnableKafka;
+import org.springframework.kafka.annotation.KafkaListener;
+
 import java.util.Map;
 
+@EnableKafka
 public interface ReplyService {
 
+    @KafkaListener(topics = "saveReply", groupId = "group_id")
     Reply saveReply(Reply reply);
 
     Reply editReply(Reply reply);

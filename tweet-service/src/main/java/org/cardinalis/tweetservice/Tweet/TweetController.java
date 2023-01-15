@@ -4,8 +4,9 @@ package org.cardinalis.tweetservice.Tweet;
 import org.apache.kafka.common.errors.AuthorizationException;
 import org.cardinalis.tweetservice.Comment.CommentRepository;
 import org.cardinalis.tweetservice.FavoriteTweet.FavoriteTweetRepository;
-import org.cardinalis.tweetservice.Ultilities.NoContentFoundException;
+import org.cardinalis.tweetservice.Util.NoContentFoundException;
 
+import org.cardinalis.tweetservice.engine.Producer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
@@ -15,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDateTime;
 import java.util.Map;
 
-import static org.cardinalis.tweetservice.Ultilities.Reusable.*;
+import static org.cardinalis.tweetservice.Util.Reusable.*;
 
 
 @RestController
@@ -30,6 +31,9 @@ public class TweetController {
     @Autowired
     FavoriteTweetRepository favoriteTweetRepository;
 
+    @Autowired
+    private Producer producer;
+
 //    @Autowired
 //    private Producer producer;
 
@@ -40,15 +44,15 @@ public class TweetController {
 
 
     @PostMapping(path = "/tweet")
-    public ResponseEntity<Map<String, Object>> addTweet(
+    public ResponseEntity<Map<String, Object>> saveTweet(
             @RequestHeader("Authorization") String token,
             @RequestBody Tweet tweet) {
         try {
             String mail = getUserMailFromHeader(token);
             tweet.setUsermail(mail);
             if (tweet.getCreatedAt() == null) tweet.setCreatedAt(LocalDateTime.now());
-//            producer.send("saveTweet", tweet);
-            tweet = tweetService.saveTweet(tweet);
+            producer.send("saveTweet", tweet);
+//            tweet = tweetService.saveTweet(tweet);
             Map<String, Object> response = createResponse(HttpStatus.OK, tweet, "saved tweet");
             return ResponseEntity.ok(response);
 
@@ -62,7 +66,7 @@ public class TweetController {
 
         } catch (Exception e) {
             System.out.println("cannot addTweet Exception: " + e.getMessage());
-            return internalErrorResponse(e);
+            return errorResponse(e);
         }
     }
 
@@ -97,7 +101,7 @@ public class TweetController {
                     .body(response);
         } catch (Exception e) {
             System.out.println("cannot saveComment Exception: " + e.getMessage());
-            return internalErrorResponse(e);
+            return errorResponse(e);
         }
     }
 
@@ -122,7 +126,7 @@ public class TweetController {
 
         } catch (Exception e) {
             System.out.println("cannot getTweetById Exception: " + e.getMessage());
-            return internalErrorResponse(e);
+            return errorResponse(e);
         }
     }
 
@@ -155,7 +159,7 @@ public class TweetController {
 
         } catch (Exception e) {
             System.out.println("cannot deleteTweet Exception: " + e.getMessage());
-            return internalErrorResponse(e);
+            return errorResponse(e);
         }
     }
 
@@ -182,7 +186,7 @@ public class TweetController {
 
         } catch (Exception e) {
             System.out.println("cannot getTweets Exception: " + e.getMessage());
-            return internalErrorResponse(e);
+            return errorResponse(e);
         }
     }
 
