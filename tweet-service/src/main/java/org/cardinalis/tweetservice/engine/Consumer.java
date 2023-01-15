@@ -30,7 +30,7 @@ public class Consumer {
 
     @KafkaListener(topics = "saveTweet", groupId = "group_id")
     public void saveTweet(Tweet tweet) throws Exception  {
-        tweetService.saveTweet(tweet);
+        tweet = tweetService.saveTweet(tweet);
         timelineService.saveTweet(tweet);
     }
 

@@ -6,6 +6,7 @@ import org.cardinalis.tweetservice.Comment.CommentRepository;
 import org.cardinalis.tweetservice.FavoriteTweet.FavoriteTweetRepository;
 import org.cardinalis.tweetservice.Util.NoContentFoundException;
 
+import org.cardinalis.tweetservice.engine.Producer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
@@ -30,6 +31,9 @@ public class TweetController {
     @Autowired
     FavoriteTweetRepository favoriteTweetRepository;
 
+    @Autowired
+    private Producer producer;
+
 //    @Autowired
 //    private Producer producer;
 
@@ -47,8 +51,8 @@ public class TweetController {
             String mail = getUserMailFromHeader(token);
             tweet.setUsermail(mail);
             if (tweet.getCreatedAt() == null) tweet.setCreatedAt(LocalDateTime.now());
-//            producer.send("saveTweet", tweet);
-            tweet = tweetService.saveTweet(tweet);
+            producer.send("saveTweet", tweet);
+//            tweet = tweetService.saveTweet(tweet);
             Map<String, Object> response = createResponse(HttpStatus.OK, tweet, "saved tweet");
             return ResponseEntity.ok(response);
 
