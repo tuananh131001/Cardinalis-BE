@@ -100,9 +100,22 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserEntity updateUser(Long id, AuthUserResponse requestDTO) {
         log.info("Update user {}", id);
-        var userFound = userRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("User " + id + " not found"));
+        UserEntity user = authenticationService.getAuthenticatedUser();
+        UserEntity userFound = userRepository.findById(user.getId())
+                .orElseThrow(() -> new ApiRequestException("User not found", HttpStatus.NOT_FOUND));
         userFound.setEmail(requestDTO.getEmail());
+        userFound.setFullName(requestDTO.getFullName());
+        userFound.setUsername(requestDTO.getUsername());
+        userFound.setLocation(requestDTO.getLocation());
+        userFound.setBio(requestDTO.getBio());
+        userFound.setWebsite(requestDTO.getWebsite());
+        userFound.setCountryCode(requestDTO.getCountryCode());
+        userFound.setPhone(requestDTO.getPhone());
+        userFound.setCountry(requestDTO.getCountry());
+        userFound.setGender(requestDTO.getGender());
+        userFound.setDateOfBirth(requestDTO.getDateOfBirth());
+        userFound.setNotificationsCount(requestDTO.getNotificationsCount());
+        userFound.setAvatar(requestDTO.getAvatar());
         return userRepository.save(userFound);
     }
     @Override
