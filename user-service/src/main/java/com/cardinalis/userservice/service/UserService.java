@@ -15,6 +15,8 @@ public interface UserService {
     Map<String, Object> save(RegisterDTO register);
     public List<UserEntity> searchByUserName(String username);
     public UserEntity fetchByUsername(String username);
+    public UserEntity fetchByEmail(String email);
+
 //    public List<String> getFollowingList(String username);
     public UserEntity updateUser(Long id, AuthUserResponse requestDTO);
     Page<UserProjection> getFollowers(Long userId, Pageable pageable);

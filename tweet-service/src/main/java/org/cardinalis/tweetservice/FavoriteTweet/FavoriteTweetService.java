@@ -14,9 +14,9 @@ public interface FavoriteTweetService {
     FavoriteTweet saveFavorite(FavoriteTweet favoriteTweet);
 
     @KafkaListener(topics = "deleteFav", groupId = "group_id")
-    FavoriteTweet deleteFavorite(Long tweetId, String usermail);
+    FavoriteTweet deleteFavorite(Long tweetId, String email);
 
-    FavoriteTweet findFavorite(Long tweetId, String usermail);
+    FavoriteTweet findFavorite(Long tweetId, String email);
 
     public List<FavoriteTweet> findAllFavoritesOfTweet(Long tweetId);
 

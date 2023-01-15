@@ -193,7 +193,19 @@ public class UserController {
         }
     }
 
-    @GetMapping("/fetch/{username}")
+    @GetMapping("/fetch/email={email}")
+    public ResponseEntity<Map<String, Object>> fetchByEmail(@PathVariable("email") String email) {
+        UserEntity user = userService.fetchByEmail(email);
+        AuthUserResponse userDTO = mapper.map(user, AuthUserResponse.class);
+
+        Map<String, Object> response = createResponse(
+                HttpStatus.OK,
+                userDTO
+        );
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/fetch")
     public ResponseEntity<Map<String, Object>> fetchByUsername(@PathVariable("username") String username) {
         UserEntity user = userService.fetchByUsername(username);
         AuthUserResponse userDTO = mapper.map(user, AuthUserResponse.class);

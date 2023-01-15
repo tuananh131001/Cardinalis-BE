@@ -1,6 +1,5 @@
 package org.cardinalis.tweetservice.Tweet;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -33,7 +32,16 @@ public class Tweet implements Comparable<Tweet>, Serializable {
     private Long id;
 
     @Column(nullable = false)
-    private String usermail;
+    private String email;
+
+    @Column
+    private Long userid;
+
+    @Column
+    private String username;
+
+    @Column
+    private String avatar;
 
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)

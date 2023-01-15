@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Column;
 import java.time.LocalDateTime;
 
 @Data
@@ -17,7 +18,16 @@ public class TweetDTO {
 
     private Long id;
 
-    private String usermail;
+    private String email;
+
+    @Column
+    private Long userid;
+
+    @Column
+    private String username;
+
+    @Column
+    private String avatar;
 
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
@@ -36,7 +46,10 @@ public class TweetDTO {
 
     public TweetDTO(Tweet tweet) {
         this.id = tweet.getId();
-        this.usermail = tweet.getUsermail();
+        this.email = tweet.getEmail();
+        this.username = tweet.getUsername();
+        this.avatar = tweet.getAvatar();
+        this.userid = tweet.getId();
         this.createdAt = tweet.getCreatedAt();
         this.lastEdit = tweet.getLastEdit();
         this.content = tweet.getContent();
