@@ -35,7 +35,7 @@ public class Comment implements Serializable {
     @ManyToOne()
     private Tweet tweet;
 
-    private String usermail;
+    private String email;
 
     private String content;
 

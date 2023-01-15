@@ -2,7 +2,7 @@ package org.cardinalis.tweetservice.ReplyComment;
 
 //import org.cardinalis.tweetservice.engine.Producer;
 import org.apache.kafka.common.errors.AuthorizationException;
-import org.cardinalis.tweetservice.Ultilities.NoContentFoundException;
+import org.cardinalis.tweetservice.Util.NoContentFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
-import static org.cardinalis.tweetservice.Ultilities.Reusable.*;
+import static org.cardinalis.tweetservice.Util.Reusable.*;
 
 
 @RestController
@@ -29,7 +29,7 @@ public class ReplyController {
             @RequestBody Reply reply) {
         try {
             String mail = getUserMailFromHeader(token);
-            reply.setUsermail(mail);
+            reply.setEmail(mail);
             Reply commented = replyService.saveReply(reply);
             Map<String, Object> response = createResponse(HttpStatus.OK, commented, "saved reply");
             return ResponseEntity.ok(response);
@@ -47,7 +47,7 @@ public class ReplyController {
 
         } catch (Exception e) {
             System.out.println("cannot saveReply Exception: " + e.getMessage());
-            return internalErrorResponse(e);
+            return errorResponse(e);
         }
     }
 
@@ -57,7 +57,7 @@ public class ReplyController {
             @RequestBody Reply reply) {
         try {
             String mail = getUserMailFromHeader(token);
-            reply.setUsermail(mail);
+            reply.setEmail(mail);
             Reply replyEdited = replyService.editReply(reply);
             Map<String, Object> response = createResponse(HttpStatus.OK, replyEdited, "saved reply");
             return ResponseEntity.ok(response);
@@ -80,7 +80,7 @@ public class ReplyController {
 
         } catch (Exception e) {
             System.out.println("cannot editReply Exception: " + e.getMessage());
-            return internalErrorResponse(e);
+            return errorResponse(e);
         }
     }
 
@@ -91,11 +91,11 @@ public class ReplyController {
         try {
 //            Map<String, Object> message = new HashMap<>();
 //            message.put("commentId", commentId);
-//            message.put("usermail", usermail);
+//            message.put("email", email);
 //            producer.send("deleteComment", message);
             String mail = getUserMailFromHeader(token);
             Reply reply = replyService.getReplyById(id);
-            if (!mail.equals(reply.getUsermail())) throw new AuthorizationException("unauthorized user");
+            if (!mail.equals(reply.getEmail())) throw new AuthorizationException("unauthorized user");
             replyService.deleteReplyById(id);
             Map<String, Object> response = createResponse(HttpStatus.OK, reply, "deleted reply");
             return ResponseEntity.ok(response);
@@ -114,7 +114,7 @@ public class ReplyController {
 
         } catch (Exception e) {
             System.out.println("cannot deleteReply Exception: " + e.getMessage());
-            return internalErrorResponse(e);
+            return errorResponse(e);
         }
     }
 
@@ -136,7 +136,7 @@ public class ReplyController {
 
         }  catch (Exception e) {e.printStackTrace();
             System.out.println("cannot getReply Exception: " + e.getMessage());
-            return internalErrorResponse(e);
+            return errorResponse(e);
         }
     }
 
@@ -161,7 +161,7 @@ public class ReplyController {
 
         }  catch (Exception e) {
             System.out.println("cannot getRepliesOfComment Exception: " + e.getMessage());
-            return internalErrorResponse(e);
+            return errorResponse(e);
         }
     }
 }

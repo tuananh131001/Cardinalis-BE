@@ -1,7 +1,9 @@
 package com.cardinalis.userservice.model;
 
 import com.cardinalis.userservice.enums.AuthenticationProvider;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
+import net.minidev.json.annotate.JsonIgnore;
 import org.hibernate.Hibernate;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
@@ -84,34 +86,22 @@ public class UserEntity implements UserDetails {
     //@Builder.Default
     private List<Role> roles = new ArrayList();
 
-    @ManyToMany
-    @JoinTable(name = "user_subscriptions",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "subscriber_id"))
-    private List<UserEntity> followers;
 
-    @ManyToMany
-    @JoinTable(name = "user_subscriptions",
-            joinColumns = @JoinColumn(name = "subscriber_id"),
-            inverseJoinColumns = @JoinColumn(name = "user_id"))
-    private List<UserEntity> following;
-    @ManyToMany
-    @JoinTable(name = "user_follower_requests",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "follower_id"))
-    private List<UserEntity> followerRequests;
+    @ManyToMany(fetch = FetchType.LAZY,
+            cascade = {
+                    CascadeType.PERSIST,
+                    CascadeType.MERGE
+            })
+    @JoinTable(name = "follower_following",
+            joinColumns = { @JoinColumn(name = "follower_id") },
+            inverseJoinColumns = { @JoinColumn(name = "following_id") })
+    @JsonIgnoreProperties("followers")
+    private List<UserEntity> following = new ArrayList<>();
 
-    @ManyToMany
-    @JoinTable(name = "subscribers",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "subscriber_id"))
-    private List<UserEntity> subscribers;
+    @ManyToMany(mappedBy = "following", fetch = FetchType.LAZY)
+    @JsonIgnoreProperties("following")
+    private List<UserEntity> followers = new ArrayList<>();
 
-    @OneToMany
-    private List<Notification> notifications;
-
-    @Column(name = "notifications_count", columnDefinition = "int8 default 0")
-    private Long notificationsCount;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

@@ -15,16 +15,14 @@ public interface UserService {
     Map<String, Object> save(RegisterDTO register);
     public List<UserEntity> searchByUserName(String username);
     public UserEntity fetchByUsername(String username);
+    public UserEntity fetchByEmail(String email);
+
 //    public List<String> getFollowingList(String username);
-    public UserEntity updateUser(Long id, AuthUserResponse requestDTO);
+    public UserEntity updateUser( AuthUserResponse requestDTO);
     Page<UserProjection> getFollowers(Long userId, Pageable pageable);
-    Page<FollowerUserProjection> getFollowerRequests(Pageable pageable);
-    public String acceptFollowRequest(Long userId);
-    Boolean processUserList(UserEntity currentUser, List<UserEntity> userLists);
-    Boolean processSubscribeToNotifications(Long userId);
+
     Page<UserProjection> getFollowing(Long userId, Pageable pageable);
 
     Map<String, Object> processFollow(Long userId);
-    String declineFollowRequest(Long userId);
     Map<String, Object> login(String email, String password);
 }

@@ -128,56 +128,30 @@ public class UserController {
         return ResponseEntity.ok().headers(response.getHeaders()).body(successResponseDTO);
     }
 
-    @GetMapping("/follower-requests")
-    public ResponseEntity<SuccessResponseDTO> getFollowerRequests(@PageableDefault(size = 10) Pageable pageable) {
-        HeaderResponse<FollowerUserResponse> response = userMapper.getFollowerRequests(pageable);
-        SuccessResponseDTO successResponseDTO = SuccessResponseDTO.builder()
-                .data(response.getItems())
-                .code("200")
-                .success(true)
-                .build();
-        return ResponseEntity.ok().headers(response.getHeaders()).body(successResponseDTO);
-    }
+
 
     @GetMapping("/follow/{userId}")
     public ResponseEntity<SuccessResponseDTO> processFollow(@PathVariable Long userId) {
-        NotificationResponse notification = userMapper.processFollow(userId);
+        Map<String,Object> notification = userMapper.processFollow(userId);
 
 //        if (notification.getId() != null) {
 //            messagingTemplate.convertAndSend("/topic/notifications/" + notification.getUserToFollow().getId(), notification);
 //        }
         SuccessResponseDTO successResponseDTO = SuccessResponseDTO.builder()
-                .data(notification.getUserToFollow())
+                .data(notification)
                 .code("200")
                 .success(true)
                 .build();
         return ResponseEntity.ok(successResponseDTO);
     }
 
-    @GetMapping("/follow/accept/{userId}")
-    public ResponseEntity<SuccessResponseDTO> acceptFollowRequest(@PathVariable Long userId) {
-        SuccessResponseDTO successResponseDTO = SuccessResponseDTO.builder()
-                .data(userMapper.acceptFollowRequest(userId))
-                .code("200")
-                .success(true)
-                .build();
-        return ResponseEntity.ok(successResponseDTO);
-    }
 
-    @GetMapping("/follow/decline/{userId}")
-    public ResponseEntity<SuccessResponseDTO> declineFollowRequest(@PathVariable Long userId) {
-        SuccessResponseDTO successResponseDTO = SuccessResponseDTO.builder()
-                .data(userMapper.declineFollowRequest(userId))
-                .code("200")
-                .success(true)
-                .build();
-        return ResponseEntity.ok(successResponseDTO);
-    }
-    @PutMapping("/{id}")
-    public ResponseEntity<Object> updateUser(@PathVariable Long id,
+
+    @PutMapping("")
+    public ResponseEntity<Object> updateUser(
                                      @RequestBody AuthUserResponse requestDTO) {
         try {
-            UserEntity user = userService.updateUser(id, requestDTO);
+            UserEntity user = userService.updateUser( requestDTO);
             return ResponseEntity.ok(SuccessResponseDTO.builder()
                     .data(mapper.map(user, AuthUserResponse.class))
                     .code("200")
@@ -193,7 +167,19 @@ public class UserController {
         }
     }
 
-    @GetMapping("/fetch/{username}")
+    @GetMapping("/fetch/email={email}")
+    public ResponseEntity<Map<String, Object>> fetchByEmail(@PathVariable("email") String email) {
+        UserEntity user = userService.fetchByEmail(email);
+        AuthUserResponse userDTO = mapper.map(user, AuthUserResponse.class);
+
+        Map<String, Object> response = createResponse(
+                HttpStatus.OK,
+                userDTO
+        );
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/fetch")
     public ResponseEntity<Map<String, Object>> fetchByUsername(@PathVariable("username") String username) {
         UserEntity user = userService.fetchByUsername(username);
         AuthUserResponse userDTO = mapper.map(user, AuthUserResponse.class);

@@ -1,6 +1,7 @@
-package org.cardinalis.tweetservice.Ultilities;
+package org.cardinalis.tweetservice.Util;
 
-import org.apache.kafka.common.errors.AuthorizationException;
+import org.cardinalis.tweetservice.Tweet.Tweet;
+import org.cardinalis.tweetservice.DTOUser.AuthUserResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -10,6 +11,12 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class Reusable {
+    static public Tweet importUserInfo(AuthUserResponse user, Tweet tweet) {
+        tweet.setUsername(user.getUsername());
+        tweet.setAvatar(user.getAvatar());
+        tweet.setUserid(user.getId());
+        return tweet;
+    }
 
     static public Map<String, Object> createResponse(HttpStatus status, Object data, String message) {
         Map<String, Object> response = new HashMap<>();
@@ -37,13 +44,13 @@ public class Reusable {
                 .body(response);
     }
 
-    static public ResponseEntity<Map<String, Object>> internalErrorResponse(Exception e) {
+    static public ResponseEntity<Map<String, Object>> errorResponse(Exception e) {
         e.printStackTrace();
         Map<String, Object> response = createResponse(
-                HttpStatus.INTERNAL_SERVER_ERROR,null, "error from our server");
+                HttpStatus.NOT_IMPLEMENTED,null, e.getMessage());
 
         return ResponseEntity
-                .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .status(HttpStatus.NOT_IMPLEMENTED)
                 .body(response);
     }
 

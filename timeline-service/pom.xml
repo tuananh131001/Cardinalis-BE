@@ -49,6 +49,11 @@
 		</dependency>
 
 		<dependency>
+			<groupId>io.lettuce</groupId>
+			<artifactId>lettuce-core</artifactId>
+		</dependency>
+
+		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 		</dependency>
@@ -64,11 +69,6 @@
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.springframework.data/spring-data-r2dbc -->
 
-
-		<dependency>
-			<groupId>io.lettuce</groupId>
-			<artifactId>lettuce-core</artifactId>
-		</dependency>
 		<dependency>
 			<groupId>com.cardinalis</groupId>
 			<artifactId>tweet-service</artifactId>

@@ -1,5 +1,5 @@
-package org.cardinalis.tweetservice.engine;//package org.cardinalis.tweetservice.engine;
-//
+//package com.cardinalis.userservice.kafka;//package org.cardinalis.tweetservice.engine;
+////
 //import org.apache.kafka.clients.admin.NewTopic;
 //import org.slf4j.Logger;
 //import org.slf4j.LoggerFactory;
@@ -8,32 +8,24 @@ package org.cardinalis.tweetservice.engine;//package org.cardinalis.tweetservice
 //import org.springframework.kafka.core.KafkaTemplate;
 //import org.springframework.stereotype.Service;
 //
-//@Service
-//public class Producer {
+//import java.util.List;
 //
-//    private static final Logger logger = LoggerFactory.getLogger(Producer.class);
+//@Service
+//public class KafkaProducer {
+//
+//    private static final Logger logger = LoggerFactory.getLogger(KafkaProducer.class);
 //
 //    @Autowired
 //    private KafkaTemplate<String, Object> kafkaTemplate;
 //
 //    @Bean
-//    public NewTopic saveTweet() {
-//        return new NewTopic("saveTweet", 1, (short) 1);
+//    public NewTopic returnUserInfo() {
+//        return new NewTopic("returnUserInfo", 1, (short) 1);
 //    }
 //
 //    @Bean
-//    public NewTopic deleteTweet() {
-//        return new NewTopic("deleteTweet", 1, (short) 1);
-//    }
-//
-//    @Bean
-//    public NewTopic saveFav() {
-//        return new NewTopic("saveFav", 1, (short) 1);
-//    }
-//
-//    @Bean
-//    public NewTopic deleteFav() {
-//        return new NewTopic("deleteFav", 1, (short) 1);
+//    public NewTopic returnFollowingList() {
+//        return new NewTopic("returnFollowingList", 1, (short) 1);
 //    }
 //
 //    public void send(String topic, Object object) {

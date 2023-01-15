@@ -1,14 +1,13 @@
 package org.cardinalis.tweetservice.Comment;
 
 import lombok.extern.slf4j.Slf4j;
-import org.cardinalis.tweetservice.Tweet.Tweet;
-import org.cardinalis.tweetservice.Tweet.TweetDTO;
-import org.cardinalis.tweetservice.Ultilities.NoContentFoundException;
+import org.cardinalis.tweetservice.Util.NoContentFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.kafka.annotation.EnableKafka;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -16,10 +15,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import static org.cardinalis.tweetservice.Ultilities.Reusable.createPageResponse;
+import static org.cardinalis.tweetservice.Util.Reusable.createPageResponse;
 
 @Slf4j
 @Service
+@EnableKafka
 public class CommentServiceImpl implements CommentService {
 
     @Autowired

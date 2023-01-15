@@ -1,17 +1,12 @@
 package com.cardinalis.userservice.service.impl;
 import com.cardinalis.userservice.dao.RegisterDTO;
 import com.cardinalis.userservice.dao.response.AuthUserResponse;
-import com.cardinalis.userservice.enums.NotificationType;
 import com.cardinalis.userservice.exception.ApiRequestException;
 import com.cardinalis.userservice.exception.NoContentFoundException;
-import com.cardinalis.userservice.model.Notification;
 import com.cardinalis.userservice.model.Role;
-import com.cardinalis.userservice.repository.NotificationRepository;
 import com.cardinalis.userservice.repository.RelationshipRepository;
 import com.cardinalis.userservice.repository.UserRepository;
 import com.cardinalis.userservice.model.UserEntity;
-import com.cardinalis.userservice.repository.projection.user.AuthUserProjection;
-import com.cardinalis.userservice.repository.projection.user.FollowerUserProjection;
 import com.cardinalis.userservice.repository.projection.user.UserProjection;
 import com.cardinalis.userservice.security.JwtProvider;
 import com.cardinalis.userservice.service.AuthenticationService;
@@ -43,7 +38,6 @@ public class UserServiceImpl implements UserService {
 
     private final RelationshipRepository relationshipRepository;
     private final AuthenticationService authenticationService;
-    private final NotificationRepository notificationRepository;
     private final JwtProvider jwtProvider;
     @Autowired
     private final ModelMapper mapper;
@@ -69,8 +63,7 @@ public class UserServiceImpl implements UserService {
         user.setAvatar("https://i.pinimg.com/736x/d4/15/95/d415956c03d9ca8783bfb3c5cc984dde.jpg");
         user.setIsHotUser(true);
         // set 0 as Long type
-
-        user.setNotificationsCount(0L);
+        user.setBanner("https://destination-review.com/wp-content/uploads/2022/12/anton-shuvalov-vGcRek7WS5s-unsplash-1-1200x600.jpg");
         user.setCreatedAt(LocalDateTime.now());
         user.setLastLoginTime(LocalDateTime.now());
         user.setRoles(List.of(Role.builder().id(2L).name("USER").build()));
@@ -95,62 +88,60 @@ public class UserServiceImpl implements UserService {
                 .orElseThrow(() -> new NoContentFoundException("User not found"));
     }
 
+    public UserEntity fetchByEmail(String email) {
+        return userRepository.findByEmail(email)
+                .orElseThrow(() -> new NoContentFoundException("User not found"));
+    }
+
 
     @Transactional
     @Override
-    public UserEntity updateUser(Long id, AuthUserResponse requestDTO) {
-        log.info("Update user {}", id);
-        var userFound = userRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("User " + id + " not found"));
+    public UserEntity updateUser(AuthUserResponse requestDTO) {
+        UserEntity user = authenticationService.getAuthenticatedUser();
+        UserEntity userFound = userRepository.findById(user.getId())
+                .orElseThrow(() -> new ApiRequestException("User not found", HttpStatus.NOT_FOUND));
         userFound.setEmail(requestDTO.getEmail());
+        userFound.setFullName(requestDTO.getFullName());
+        userFound.setUsername(requestDTO.getUsername());
+        userFound.setLocation(requestDTO.getLocation());
+        userFound.setBio(requestDTO.getBio());
+        userFound.setWebsite(requestDTO.getWebsite());
+        userFound.setCountryCode(requestDTO.getCountryCode());
+        userFound.setPhone(requestDTO.getPhone());
+        userFound.setCountry(requestDTO.getCountry());
+        userFound.setGender(requestDTO.getGender());
+        userFound.setDateOfBirth(requestDTO.getDateOfBirth());
+        userFound.setAvatar(requestDTO.getAvatar());
         return userRepository.save(userFound);
     }
     @Override
     @Transactional
     public Map<String, Object> processFollow(Long userId) {
-        UserEntity user = authenticationService.getAuthenticatedUser();
-        UserEntity currentUser = userRepository.findById(userId)
+        UserEntity currentUser = authenticationService.getAuthenticatedUser();
+        UserEntity userToFollow = userRepository.findById(userId)
                 .orElseThrow(() -> new ApiRequestException("User not found", HttpStatus.NOT_FOUND));
-        List<UserEntity> followers = user.getFollowers();
-        Optional<UserEntity> follower = followers.stream()
-                .filter(f -> f.getId().equals(currentUser.getId()))
-                .findFirst();
-        boolean isFollower;
-
-        if (follower.isPresent()) {
-            followers.remove(follower.get());
-            List<UserEntity> subscribers = currentUser.getSubscribers();
-            Optional<UserEntity> subscriber = subscribers.stream()
-                    .filter(s -> s.getId().equals(user.getId()))
-                    .findFirst();
-            subscriber.ifPresent(subscribers::remove);
-            isFollower = false;
+        Map<String, Object> response = new HashMap<>();
+        //check user follow myself
+        if (currentUser.getId().equals(userToFollow.getId())) {
+            throw new ApiRequestException("You can't follow yourself", HttpStatus.BAD_REQUEST);
+        }
+        if (currentUser.getFollowing().contains(userToFollow)) { // unfollow
+            //unfollow
+            currentUser.getFollowing().remove(userToFollow);
+            userToFollow.getFollowers().remove(currentUser);
+            userRepository.save(currentUser);
+            userRepository.save(userToFollow);
+            response.put("message", "Unfollow Successful!");
         } else {
-            followers.add(currentUser);
-            isFollower = true;
+            //follow
+            currentUser.getFollowing().add(userToFollow);
+            userToFollow.getFollowers().add(currentUser);
+            userRepository.save(currentUser);
+            userRepository.save(userToFollow);
+            response.put("message", "Follow Successful!");
         }
-
-        Notification notification = new Notification();
-        notification.setNotificationType(NotificationType.FOLLOW);
-        notification.setUser(user);
-        notification.setUserToFollow(currentUser);
-        notification.setNotifiedUser(currentUser);
-
-        if (!currentUser.getId().equals(user.getId())) {
-            Optional<Notification> userNotification = currentUser.getNotifications().stream()
-                    .filter(n -> n.getNotificationType().equals(NotificationType.FOLLOW)
-                            && n.getUser().getId().equals(user.getId()))
-                    .findFirst();
-
-            if (userNotification.isEmpty()) {
-                Notification newNotification = notificationRepository.save(notification);
-                currentUser.setNotificationsCount(currentUser.getNotificationsCount() + 1);
-                List<Notification> notifications = currentUser.getNotifications();
-                notifications.add(newNotification);
-                return Map.of("notification", newNotification, "isFollower", isFollower);
-            }
-        }
-        return Map.of("notification", notification, "isFollower", isFollower);
+        response.put("user", userToFollow);
+        return response;
     }
     @Override
     public Page<UserProjection> getFollowers(Long userId, Pageable pageable) {
@@ -175,38 +166,8 @@ public class UserServiceImpl implements UserService {
         Long authUserId = authenticationService.getAuthenticatedUserId();
         return userRepository.isUserFollowByOtherUser(authUserId, userId);
     }
-    @Override
-    public Page<FollowerUserProjection> getFollowerRequests(Pageable pageable) {
-        Long authUserId = authenticationService.getAuthenticatedUserId();
-        return userRepository.getFollowerRequests(authUserId, pageable);
-    }
-    @Override
-    @Transactional
-    public String acceptFollowRequest(Long userId) {
-        UserEntity user = authenticationService.getAuthenticatedUser();
-        UserEntity currentUser = userRepository.findById(userId)
-                .orElseThrow(() -> new ApiRequestException("User not found", HttpStatus.NOT_FOUND));
-        user.getFollowerRequests().remove(currentUser);
-        user.getFollowers().add(currentUser);
-        return "User (id:" + userId + ") accepted.";
-    }
-    @Override
-    @Transactional
-    public String declineFollowRequest(Long userId) {
-        UserEntity user = authenticationService.getAuthenticatedUser();
-        UserEntity currentUser = userRepository.findById(userId)
-                .orElseThrow(() -> new ApiRequestException("User not found", HttpStatus.NOT_FOUND));
-        user.getFollowerRequests().remove(currentUser);
-        return "User (id:" + userId + ") declined.";
-    }
-    @Override
-    @Transactional
-    public Boolean processSubscribeToNotifications(Long userId) {
-        UserEntity user = authenticationService.getAuthenticatedUser();
-        UserEntity currentUser = userRepository.findById(userId)
-                .orElseThrow(() -> new ApiRequestException("User not found", HttpStatus.NOT_FOUND));
-        return processUserList(user, currentUser.getSubscribers());
-    }
+
+
     public Boolean processUserList(UserEntity currentUser, List<UserEntity> userLists) {
         Optional<UserEntity> userFromList = userLists.stream()
                 .filter(user -> user.getId().equals(currentUser.getId()))
@@ -220,12 +181,11 @@ public class UserServiceImpl implements UserService {
             return true;
         }
     }
-
     @Override
     public Map<String, Object> login(String email, String password) {
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(email, password));
-            AuthUserProjection user = userRepository.findAuthUserByEmail(email)
+            UserEntity user = userRepository.findAuthUserByEmail(email)
                     .orElseThrow(() -> new ApiRequestException("User not found", HttpStatus.NOT_FOUND));
             String token = jwtProvider.createToken(email, "USER");
             Map<String, Object> response = new HashMap<>();

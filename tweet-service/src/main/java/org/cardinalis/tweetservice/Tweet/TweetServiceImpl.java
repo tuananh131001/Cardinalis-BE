@@ -1,21 +1,18 @@
 package org.cardinalis.tweetservice.Tweet;
 
-import lombok.AllArgsConstructor;
-import org.cardinalis.tweetservice.Comment.Comment;
 import org.cardinalis.tweetservice.Comment.CommentRepository;
 import org.cardinalis.tweetservice.FavoriteTweet.FavoriteTweetRepository;
-import org.cardinalis.tweetservice.Ultilities.NoContentFoundException;
-import org.modelmapper.ModelMapper;
+import org.cardinalis.tweetservice.Util.NoContentFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.kafka.annotation.EnableKafka;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,6 +20,7 @@ import java.util.stream.Collectors;
 
 @Transactional
 @Service
+@EnableKafka
 public class TweetServiceImpl implements TweetService {
     @Autowired
     TweetRepository tweetRepository;
@@ -66,10 +64,10 @@ public class TweetServiceImpl implements TweetService {
     }
 
     @Override
-    public Map<String, Object> getNewestTweetsFromUser(String usermail, Boolean needCount, int pageNo, int pageSize) {
+    public Map<String, Object> getNewestTweetsFromUser(String email, Boolean needCount, int pageNo, int pageSize) {
         try {
             Pageable pageable = PageRequest.of(pageNo, pageSize, Sort.Direction.DESC,"createdAt");
-            Page<Tweet> page = tweetRepository.findByUsermailOrderByCreatedAtDesc(usermail, pageable);
+            Page<Tweet> page = tweetRepository.findByEmailOrderByCreatedAtDesc(email, pageable);
 
             return createPageResponse(getResultList(page, needCount), page.getNumber(), page.hasNext(), page.getTotalPages(), page.getNumberOfElements(), page.getSize());
         } catch (Exception e) {

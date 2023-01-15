@@ -20,17 +20,8 @@ public class AuthUserResponse {
     private Long phone;
     private String country;
     private String gender;
-    private String dateOfBirth;
+    private LocalDateTime dateOfBirth;
     private LocalDateTime createdAt;
-//    private Long tweetCount;
-//    private Long mediaTweetCount;
-//    private Long likeCount;
     private Long notificationsCount;
-//    private boolean profileCustomized;
-//    private boolean profileStarted;
     private String avatar;
-//    private Integer followersSize;
-//    private Integer followingSize;
-//    private Integer followerRequestsSize;
-//    private Integer unreadMessagesSize;
 }

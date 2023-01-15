@@ -43,17 +43,11 @@ public class UserMapper {
         return basicMapper.getHeaderResponse(users, UserResponse.class);
     }
 
-    public HeaderResponse<FollowerUserResponse> getFollowerRequests(Pageable pageable) {
-        Page<FollowerUserProjection> followers = userService.getFollowerRequests(pageable);
-        return basicMapper.getHeaderResponse(followers, FollowerUserResponse.class);
-    }
 
-    public NotificationResponse processFollow(Long userId) {
+
+    public Map<String, Object>  processFollow(Long userId) {
         Map<String, Object> notificationDetails = userService.processFollow(userId);
-        Notification notification = (Notification) notificationDetails.get("notification");
-        NotificationResponse notificationResponse = basicMapper.convertToResponse(notification, NotificationResponse.class);
-        notificationResponse.getUserToFollow().setFollower((Boolean) notificationDetails.get("isFollower"));
-        return notificationResponse;
+        return notificationDetails;
     }
 
     //    User Authentication
@@ -80,18 +74,6 @@ public class UserMapper {
 //                .collect(Collectors.toList());
 //    }
 
-
-    public String acceptFollowRequest(Long userId) {
-        return userService.acceptFollowRequest(userId);
-    }
-
-    public String declineFollowRequest(Long userId) {
-        return userService.declineFollowRequest(userId);
-    }
-
-    public Boolean processSubscribeToNotifications(Long userId) {
-        return userService.processSubscribeToNotifications(userId);
-    }
 
     private void processInputErrors(BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {

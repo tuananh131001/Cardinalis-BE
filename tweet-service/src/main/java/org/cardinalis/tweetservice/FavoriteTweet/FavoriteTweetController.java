@@ -2,9 +2,8 @@ package org.cardinalis.tweetservice.FavoriteTweet;
 //import org.cardinalis.tweetservice.engine.Producer;
 import lombok.AllArgsConstructor;
 import org.apache.kafka.common.errors.AuthorizationException;
-import org.cardinalis.tweetservice.Tweet.Tweet;
 import org.cardinalis.tweetservice.Tweet.TweetService;
-import org.cardinalis.tweetservice.Ultilities.NoContentFoundException;
+import org.cardinalis.tweetservice.Util.NoContentFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -17,7 +16,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import static org.cardinalis.tweetservice.Ultilities.Reusable.*;
+import static org.cardinalis.tweetservice.Util.Reusable.*;
 
 
 @RestController
@@ -45,7 +44,7 @@ public class FavoriteTweetController {
             String mail = getUserMailFromHeader(token);
             FavoriteTweet fav = FavoriteTweet.builder()
                     .tweet(tweetService.getTweetById(tweetId))
-                    .usermail(mail)
+                    .email(mail)
                     .createdAt(LocalDateTime.now())
                     .build();
             FavoriteTweet favoritedTweet = favoriteTweetService.saveFavorite(fav);
@@ -72,7 +71,7 @@ public class FavoriteTweetController {
 
         } catch (Exception e) {
             System.out.println("cannot saveFav Exception: " + e.getMessage());
-            return internalErrorResponse(e);
+            return errorResponse(e);
         }
     }
 
@@ -83,7 +82,7 @@ public class FavoriteTweetController {
         try {
 //            Map<String, Object> message = new HashMap<>();
 //            message.put("tweetId", tweetId);
-//            message.put("usermail", usermail);
+//            message.put("email", email);
 //            producer.send("deleteFav", message);
             String mail = getUserMailFromHeader(token);
             FavoriteTweet favoriteTweet = favoriteTweetService.deleteFavorite(tweetId, mail);
@@ -104,16 +103,16 @@ public class FavoriteTweetController {
 
         } catch (Exception e) {
             System.out.println("cannot deleteFav Exception: " + e.getMessage());
-            return internalErrorResponse(e);
+            return errorResponse(e);
         }
     }
 
     @GetMapping("/favoritetweet")
     public ResponseEntity<Map<String, Object>> getFav(
             @RequestParam Long tweetId,
-            @RequestParam String usermail) {
+            @RequestParam String email) {
         try {
-            FavoriteTweet favoriteTweet = favoriteTweetService.findFavorite(tweetId, usermail);
+            FavoriteTweet favoriteTweet = favoriteTweetService.findFavorite(tweetId, email);
             FavoriteTweetDTO favDTO = mapper.map(favoriteTweet, FavoriteTweetDTO.class);
 
             Map<String, Object> response = createResponse(HttpStatus.OK, favDTO, "fav found");
@@ -129,7 +128,7 @@ public class FavoriteTweetController {
 
         }  catch (Exception e) {e.printStackTrace();
             System.out.println("cannot getFav Exception: " + e.getMessage());
-            return internalErrorResponse(e);
+            return errorResponse(e);
         }
     }
 
@@ -153,7 +152,7 @@ public class FavoriteTweetController {
 
         }  catch (Exception e) {e.printStackTrace();
             System.out.println("cannot getFav Exception: " + e.getMessage());
-            return internalErrorResponse(e);
+            return errorResponse(e);
         }
     }
 }

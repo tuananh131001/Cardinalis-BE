@@ -6,6 +6,7 @@ public interface UserProjection {
     Long getId();
     String getFullName();
     String getUsername();
+    String getEmail();
     String getBio();
     String getAvatar();
 

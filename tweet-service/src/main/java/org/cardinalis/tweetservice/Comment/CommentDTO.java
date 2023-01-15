@@ -18,7 +18,7 @@ public class CommentDTO {
 
     private Long id;
 
-    private String usermail;
+    private String email;
 
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
@@ -35,7 +35,7 @@ public class CommentDTO {
 
     public CommentDTO(Comment comment) {
         this.id = comment.getId();
-        this.usermail = comment.getUsermail();
+        this.email = comment.getEmail();
         this.createdAt = comment.getCreatedAt();
         this.lastEdit = comment.getLastEdit();
         this.content = comment.getContent();

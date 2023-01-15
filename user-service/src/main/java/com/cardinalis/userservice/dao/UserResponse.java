@@ -9,14 +9,10 @@ import lombok.Setter;
 public class UserResponse {
     private Long id;
     private String fullName;
+    private String email;
     private String username;
     private String bio;
     private String avatar;
-
-
-
-    @JsonProperty("isWaitingForApprove")
-    private boolean isWaitingForApprove;
 
     @JsonProperty("isFollower")
     private boolean isFollower;
