@@ -2,6 +2,7 @@ package com.cardinalis.userservice.controller;
 
 import com.cardinalis.userservice.dao.*;
 import com.cardinalis.userservice.dao.request.AuthenticationRequest;
+import com.cardinalis.userservice.dao.request.ChangePasswordDTO;
 import com.cardinalis.userservice.dao.response.AuthUserResponse;
 import com.cardinalis.userservice.dao.response.AuthenticationResponse;
 import com.cardinalis.userservice.dao.response.FollowerUserResponse;
@@ -164,6 +165,26 @@ public class UserController {
                             .success(false)
                             .errors_message("Error : " + e.getMessage())
                             .build());
+        }
+    }
+    //change password
+    @PutMapping("/change-password")
+    public ResponseEntity<Object> changePassword(
+            @RequestBody ChangePasswordDTO requestDTO) {
+        try {
+            Map<String, Object> user = userService.changePassword(requestDTO);
+            return ResponseEntity.ok(SuccessResponseDTO.builder()
+                    .data(mapper.map(user, AuthUserResponse.class))
+                    .code("200")
+                    .success(true)
+                    .build());
+        } catch ( Exception e) {
+            return ResponseEntity.badRequest().body(FailResponseDTO.builder()
+                    .data(null)
+                    .code("400")
+                    .success(false)
+                    .errors_message("Error : " + e.getMessage())
+                    .build());
         }
     }
 

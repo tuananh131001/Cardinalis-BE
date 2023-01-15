@@ -51,7 +51,7 @@ public class TweetController {
             String mail = getUserMailFromHeader(token);
             tweet.setEmail(mail);
             if (tweet.getCreatedAt() == null) tweet.setCreatedAt(LocalDateTime.now());
-            kafkaProducer.send("saveTweet", tweet);
+            kafkaProducer.sendMessageGetUser(tweet);
 //            tweet = tweetService.saveTweet(tweet);
             Map<String, Object> response = createResponse(HttpStatus.OK, tweet, "saved tweet");
             return ResponseEntity.ok(response);
