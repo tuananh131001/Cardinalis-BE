@@ -21,7 +21,6 @@
   <modules>
     <module>user-service</module>
     <module>tweet-service</module>
-    <module>timeline-service</module>
     <module>gateway</module>
   </modules>
   <dependencies>
