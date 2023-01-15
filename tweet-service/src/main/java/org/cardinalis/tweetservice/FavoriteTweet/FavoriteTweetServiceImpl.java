@@ -1,14 +1,16 @@
 package org.cardinalis.tweetservice.FavoriteTweet;
 
 import lombok.extern.slf4j.Slf4j;
-import org.cardinalis.tweetservice.Ultilities.NoContentFoundException;
+import org.cardinalis.tweetservice.Util.NoContentFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.kafka.annotation.EnableKafka;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Slf4j
 @Service
+@EnableKafka
 public class FavoriteTweetServiceImpl implements FavoriteTweetService {
 
     @Autowired

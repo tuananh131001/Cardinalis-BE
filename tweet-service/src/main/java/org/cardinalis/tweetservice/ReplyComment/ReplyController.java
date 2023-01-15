@@ -2,7 +2,7 @@ package org.cardinalis.tweetservice.ReplyComment;
 
 //import org.cardinalis.tweetservice.engine.Producer;
 import org.apache.kafka.common.errors.AuthorizationException;
-import org.cardinalis.tweetservice.Ultilities.NoContentFoundException;
+import org.cardinalis.tweetservice.Util.NoContentFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
-import static org.cardinalis.tweetservice.Ultilities.Reusable.*;
+import static org.cardinalis.tweetservice.Util.Reusable.*;
 
 
 @RestController
@@ -47,7 +47,7 @@ public class ReplyController {
 
         } catch (Exception e) {
             System.out.println("cannot saveReply Exception: " + e.getMessage());
-            return internalErrorResponse(e);
+            return errorResponse(e);
         }
     }
 
@@ -80,7 +80,7 @@ public class ReplyController {
 
         } catch (Exception e) {
             System.out.println("cannot editReply Exception: " + e.getMessage());
-            return internalErrorResponse(e);
+            return errorResponse(e);
         }
     }
 
@@ -114,7 +114,7 @@ public class ReplyController {
 
         } catch (Exception e) {
             System.out.println("cannot deleteReply Exception: " + e.getMessage());
-            return internalErrorResponse(e);
+            return errorResponse(e);
         }
     }
 
@@ -136,7 +136,7 @@ public class ReplyController {
 
         }  catch (Exception e) {e.printStackTrace();
             System.out.println("cannot getReply Exception: " + e.getMessage());
-            return internalErrorResponse(e);
+            return errorResponse(e);
         }
     }
 
@@ -161,7 +161,7 @@ public class ReplyController {
 
         }  catch (Exception e) {
             System.out.println("cannot getRepliesOfComment Exception: " + e.getMessage());
-            return internalErrorResponse(e);
+            return errorResponse(e);
         }
     }
 }

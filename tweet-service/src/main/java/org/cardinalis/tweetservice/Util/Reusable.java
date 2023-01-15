@@ -1,6 +1,5 @@
-package org.cardinalis.tweetservice.Ultilities;
+package org.cardinalis.tweetservice.Util;
 
-import org.apache.kafka.common.errors.AuthorizationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -37,13 +36,13 @@ public class Reusable {
                 .body(response);
     }
 
-    static public ResponseEntity<Map<String, Object>> internalErrorResponse(Exception e) {
+    static public ResponseEntity<Map<String, Object>> errorResponse(Exception e) {
         e.printStackTrace();
         Map<String, Object> response = createResponse(
-                HttpStatus.INTERNAL_SERVER_ERROR,null, "error from our server");
+                HttpStatus.NOT_IMPLEMENTED,null, e.getMessage());
 
         return ResponseEntity
-                .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .status(HttpStatus.NOT_IMPLEMENTED)
                 .body(response);
     }
 

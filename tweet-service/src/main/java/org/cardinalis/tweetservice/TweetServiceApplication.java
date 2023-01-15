@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.Bean;
 
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = "com.cardinalis.userservice")
 public class TweetServiceApplication {
 
 	public static void main(String[] args) {

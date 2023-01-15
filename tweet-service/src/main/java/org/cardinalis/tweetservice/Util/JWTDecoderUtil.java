@@ -1,4 +1,4 @@
-package org.cardinalis.tweetservice.Ultilities;
+package org.cardinalis.tweetservice.Util;
 
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.impl.crypto.DefaultJwtSignatureValidator;
