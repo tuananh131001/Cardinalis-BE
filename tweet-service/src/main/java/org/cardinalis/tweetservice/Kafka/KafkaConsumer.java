@@ -1,6 +1,8 @@
 package org.cardinalis.tweetservice.Kafka;
 
 
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.cardinalis.tweetservice.Comment.Comment;
 import org.cardinalis.tweetservice.Comment.CommentService;
 import org.cardinalis.tweetservice.FavoriteTweet.FavoriteTweet;
@@ -11,12 +13,14 @@ import org.cardinalis.tweetservice.Timeline.TimelineService;
 import org.cardinalis.tweetservice.Tweet.Tweet;
 import org.cardinalis.tweetservice.Tweet.TweetService;
 import org.cardinalis.tweetservice.DTOUser.AuthUserResponse;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import static org.cardinalis.tweetservice.Util.Reusable.importUserInfo;
@@ -41,13 +45,18 @@ public class KafkaConsumer {
     RestTemplate restTemplate;
 
     @KafkaListener(topics = "saveTweet", groupId = "group_id")
-    public void saveTweet(Tweet tweet) throws Exception  {
-        ResponseEntity<Map> restResponse = restTemplate.getForEntity("http://cardinalis-be.live/user/fetch/email="+tweet.getEmail(), Map.class);
+    public Tweet saveTweet(Tweet tweet) throws Exception  {
+        String url = "http://localhost:3003/user/fetch/email="+tweet.getEmail();
+//        String url = "http://cardinalis-be.live/user/fetch/email="+tweet.getEmail();
+        ResponseEntity<Map> restResponse = restTemplate.getForEntity(url, Map.class);
         Map<String, Object> map = restResponse.getBody();
-        AuthUserResponse user = (AuthUserResponse) map.get("data");
-        importUserInfo(user, tweet);
+        Map<String, Object> m = (Map) map.get("data");
+        tweet.setUserid(Long.parseLong(m.get("id").toString()));
+        tweet.setUsername((String) m.get("username"));
+        tweet.setAvatar((String) m.get("avatar"));
         tweet = tweetService.saveTweet(tweet);
         timelineService.saveTweet(tweet);
+        return tweet;
     }
 
     @KafkaListener(topics = "deleteTweet", groupId = "group_id")
