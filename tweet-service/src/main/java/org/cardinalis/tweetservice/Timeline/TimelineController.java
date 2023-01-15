@@ -25,13 +25,13 @@ public class TimelineController {
 
     @GetMapping("")
     public ResponseEntity<Map<String, Object>> getUserTimeline(
-            @RequestParam(defaultValue = "") String email,
+            @RequestParam(defaultValue = "") String userId,
             @RequestParam(defaultValue = "0") int pageNo,
             @RequestParam(defaultValue = "6") int pageSize){
         try {
             Map<String, Object> result = new HashMap<>();
-            if(email.isEmpty())  result = timelineService.getAll(pageNo, pageSize);
-//            else result = timelineService.getTimelineForUser(email, pageNo, pageSize);
+            if(userId.isEmpty())  result = timelineService.getAll(pageNo, pageSize);
+            else result = timelineService.getTimelineForUser(Long.parseLong(userId), pageNo, pageSize);
             Map<String, Object> response = createResponse(HttpStatus.OK, result);
             return ResponseEntity.ok(response);
         } catch (IllegalArgumentException e) {

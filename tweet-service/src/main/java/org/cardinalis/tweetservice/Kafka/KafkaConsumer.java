@@ -50,10 +50,10 @@ public class KafkaConsumer {
 //        String url = "http://cardinalis-be.live/user/fetch/email="+tweet.getEmail();
         ResponseEntity<Map> restResponse = restTemplate.getForEntity(url, Map.class);
         Map<String, Object> map = restResponse.getBody();
-        Map<String, Object> m = (Map) map.get("data");
-        tweet.setUserid(Long.parseLong(m.get("id").toString()));
-        tweet.setUsername((String) m.get("username"));
-        tweet.setAvatar((String) m.get("avatar"));
+        Map<String, Object> userData = (Map) map.get("data");
+        tweet.setUserid(Long.parseLong(userData.get("id").toString()));
+        tweet.setUsername((String) userData.get("username"));
+        tweet.setAvatar((String) userData.get("avatar"));
         tweet = tweetService.saveTweet(tweet);
         timelineService.saveTweet(tweet);
         return tweet;
