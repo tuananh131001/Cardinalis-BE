@@ -48,6 +48,7 @@ public class KafkaConsumer {
     public Tweet saveTweet(Tweet tweet) throws Exception  {
         String url = "http://localhost:3003/user/fetch/email="+tweet.getEmail();
 //        String url = "http://cardinalis-be.live/user/fetch/email="+tweet.getEmail();
+        System.out.println("hahaaaaaa");
         ResponseEntity<Map> restResponse = restTemplate.getForEntity(url, Map.class);
         Map<String, Object> map = restResponse.getBody();
         Map<String, Object> userData = (Map) map.get("data");
@@ -55,6 +56,7 @@ public class KafkaConsumer {
         tweet.setUsername((String) userData.get("username"));
         tweet.setAvatar((String) userData.get("avatar"));
         tweet = tweetService.saveTweet(tweet);
+//        System.out.println(tweet);
         timelineService.saveTweet(tweet);
         return tweet;
     }

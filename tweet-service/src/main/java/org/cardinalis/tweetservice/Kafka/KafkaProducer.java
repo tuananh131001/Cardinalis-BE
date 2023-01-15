@@ -55,6 +55,7 @@ public class KafkaProducer {
 //    }
 
     public void send(String topic, Object object) {
+        System.out.println(topic);
         logger.info(String.format("#### -> Producing kafka message for topic: " + topic));
         kafkaTemplate.send(topic, object);
     }
