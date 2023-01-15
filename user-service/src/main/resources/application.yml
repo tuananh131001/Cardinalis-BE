@@ -32,6 +32,7 @@ spring:
             scope:
               - user:email
               - read:user
+
 jwt:
   header: Authorization
   secret: dejavu

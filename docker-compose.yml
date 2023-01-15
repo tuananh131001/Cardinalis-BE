@@ -43,6 +43,7 @@ services:
 
   zoo1:
     container_name: zoo1
+    hostname: zoo1
     image: wurstmeister/zookeeper
     environment:
       ZOOKEEPER_CLIENT_PORT: 2181
@@ -57,6 +58,7 @@ services:
 
   kafka1:
     container_name: kafka1
+    hostname: kafka1
     image: wurstmeister/kafka
     ports:
       - "9092:9092"

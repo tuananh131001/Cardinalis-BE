@@ -95,6 +95,11 @@ public class UserServiceImpl implements UserService {
                 .orElseThrow(() -> new NoContentFoundException("User not found"));
     }
 
+    public UserEntity fetchByEmail(String email) {
+        return userRepository.findByEmail(email)
+                .orElseThrow(() -> new NoContentFoundException("User not found"));
+    }
+
 
     @Transactional
     @Override

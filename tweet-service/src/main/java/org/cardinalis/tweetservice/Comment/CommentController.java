@@ -30,7 +30,7 @@ public class CommentController {
 //        producer.send("saveComment", comment);
         try {
             String mail = getUserMailFromHeader(token);
-            comment.setUsermail(mail);
+            comment.setEmail(mail);
             Comment commented = commentService.saveComment(comment);
             Map<String, Object> response = createResponse(HttpStatus.OK, commented, "saved comment");
             return ResponseEntity.ok(response);
@@ -63,7 +63,7 @@ public class CommentController {
             @RequestBody Comment comment) {
         try {
             String mail = getUserMailFromHeader(token);
-            comment.setUsermail(mail);
+            comment.setEmail(mail);
             Comment commentEdited = commentService.editComment(comment);
             Map<String, Object> response = createResponse(HttpStatus.OK, commentEdited, "saved comment");
             return ResponseEntity.ok(response);
@@ -97,11 +97,11 @@ public class CommentController {
         try {
 //            Map<String, Object> message = new HashMap<>();
 //            message.put("tweetId", tweetId);
-//            message.put("usermail", usermail);
+//            message.put("email", email);
 //            producer.send("deleteComment", message);
             String mail = getUserMailFromHeader(token);
             Comment comment = commentService.getCommentById(id);
-            if (!mail.equals(comment.getUsermail())) throw new AuthorizationException("unauthorized user");
+            if (!mail.equals(comment.getEmail())) throw new AuthorizationException("unauthorized user");
             commentService.deleteComment(comment);
             Map<String, Object> response = createResponse(HttpStatus.OK, comment, "deleted comment");
             return ResponseEntity.ok(response);
