@@ -12,7 +12,6 @@
         <outputRelativeToContentRoot value="true" />
         <module name="tweet-service" />
         <module name="user-service" />
-        <module name="timeline-service" />
         <module name="gateway" />
       </profile>
     </annotationProcessing>
@@ -21,6 +20,7 @@
       <module name="Cardinalis-BE (1) (com.example)" target="19" />
       <module name="crud" target="17" />
       <module name="eureka-server" target="16" />
+      <module name="timeline-service" target="16" />
       <module name="wrapper" target="1.5" />
     </bytecodeTargetLevel>
   </component>
