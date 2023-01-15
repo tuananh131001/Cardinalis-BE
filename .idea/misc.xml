@@ -7,7 +7,6 @@
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/tweet-crd/pom.xml" />
         <option value="$PROJECT_DIR$/tweet-service/pom.xml" />
-        <option value="$PROJECT_DIR$/timeline-service/pom.xml" />
         <option value="$PROJECT_DIR$/gateway/pom.xml" />
       </list>
     </option>
