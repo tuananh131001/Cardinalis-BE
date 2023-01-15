@@ -106,8 +106,8 @@ public class UserController {
                     .body(response);
         }
     }
-    @GetMapping("/followers/{userId}")
-    public ResponseEntity<SuccessResponseDTO> getFollowers(@PathVariable Long userId, @PageableDefault(size = 15) Pageable pageable) {
+    @GetMapping("/followers")
+    public ResponseEntity<SuccessResponseDTO> getFollowers(@RequestParam(name = "userId", defaultValue = "") Long userId, @PageableDefault(size = 15) Pageable pageable) {
         HeaderResponse<UserResponse> response = userMapper.getFollowers(userId, pageable);
         SuccessResponseDTO successResponseDTO = SuccessResponseDTO.builder()
                 .data(response.getItems())
@@ -117,8 +117,8 @@ public class UserController {
         return ResponseEntity.ok().headers(response.getHeaders()).body(successResponseDTO);
     }
 
-    @GetMapping("/following/{userId}")
-    public ResponseEntity<SuccessResponseDTO> getFollowing(@PathVariable Long userId, @PageableDefault(size = 15) Pageable pageable) {
+    @GetMapping("/following")
+    public ResponseEntity<SuccessResponseDTO> getFollowing(@RequestParam(name = "userId", defaultValue = "") Long userId, @PageableDefault(size = 15) Pageable pageable) {
         HeaderResponse<UserResponse> response = userMapper.getFollowing(userId, pageable);
         SuccessResponseDTO successResponseDTO = SuccessResponseDTO.builder()
                 .data(response.getItems())
@@ -130,8 +130,8 @@ public class UserController {
 
 
 
-    @GetMapping("/follow/{userId}")
-    public ResponseEntity<SuccessResponseDTO> processFollow(@PathVariable Long userId) {
+    @GetMapping("/follow")
+    public ResponseEntity<SuccessResponseDTO> processFollow(@RequestParam(name = "userId", defaultValue = "") Long userId) {
         Map<String,Object> notification = userMapper.processFollow(userId);
 
 //        if (notification.getId() != null) {

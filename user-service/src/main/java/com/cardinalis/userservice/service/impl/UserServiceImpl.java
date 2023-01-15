@@ -167,6 +167,10 @@ public class UserServiceImpl implements UserService {
         return userRepository.isUserFollowByOtherUser(authUserId, userId);
     }
 
+    public boolean isFollowingOneWay(Long userId) {
+        Long authUserId = authenticationService.getAuthenticatedUserId();
+        return userRepository.isFollowingOneWay(authUserId, userId);
+    }
 
     public Boolean processUserList(UserEntity currentUser, List<UserEntity> userLists) {
         Optional<UserEntity> userFromList = userLists.stream()

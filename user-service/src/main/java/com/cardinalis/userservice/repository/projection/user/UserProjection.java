@@ -12,4 +12,7 @@ public interface UserProjection {
 
     @Value("#{@userServiceImpl.isUserFollowByOtherUser(target.id)}")
     boolean getIsFollower();
+
+    @Value("#{@userServiceImpl.isFollowingOneWay(target.id)}")
+    boolean getIsFollowing();
 }
