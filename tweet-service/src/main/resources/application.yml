@@ -7,7 +7,7 @@ spring:
   datasource:
     username: ${USER_DB:postgres}
     password: ${PASSWORD_DB:postgres}
-    url: ${HOST_DB:jdbc:postgresql://localhost:5432/cardinalis}
+    url: ${HOST_DB:jdbc:postgresql://localhost:3306/cardinalis}
     driver-class-name: ${DRIVER_DB:org.postgresql.Driver}
   cloud:
     service-registry:
@@ -16,7 +16,7 @@ spring:
   jpa:
     defer-datasource-initialization: true
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect

@@ -92,7 +92,7 @@ TimelineService {
     }
 
     @Cacheable(value = "TIMELINE")
-    public Map<String, Object> getTimelineForUser(String userId, int pageNo, int pageSize) throws Exception{
+    public Map<String, Object> getTimelineForUser(Long userId, int pageNo, int pageSize) throws Exception{
         List<Tweet> userTimeline = new ArrayList<>();
         String url = "http://localhost:3003/user/following/"+userId;
 //        String url = "http://cardinalis-be.live/user/following/"+userId;
