@@ -16,7 +16,7 @@ public interface UserService {
     public List<UserEntity> searchByUserName(String username);
     public UserEntity fetchByUsername(String username);
 //    public List<String> getFollowingList(String username);
-    public UserEntity updateUser(Long id, AuthUserResponse requestDTO);
+    public UserEntity updateUser( AuthUserResponse requestDTO);
     Page<UserProjection> getFollowers(Long userId, Pageable pageable);
     Page<FollowerUserProjection> getFollowerRequests(Pageable pageable);
     public String acceptFollowRequest(Long userId);

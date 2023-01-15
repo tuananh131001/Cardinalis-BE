@@ -98,8 +98,7 @@ public class UserServiceImpl implements UserService {
 
     @Transactional
     @Override
-    public UserEntity updateUser(Long id, AuthUserResponse requestDTO) {
-        log.info("Update user {}", id);
+    public UserEntity updateUser(AuthUserResponse requestDTO) {
         UserEntity user = authenticationService.getAuthenticatedUser();
         UserEntity userFound = userRepository.findById(user.getId())
                 .orElseThrow(() -> new ApiRequestException("User not found", HttpStatus.NOT_FOUND));

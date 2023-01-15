@@ -173,11 +173,11 @@ public class UserController {
                 .build();
         return ResponseEntity.ok(successResponseDTO);
     }
-    @PutMapping("/{id}")
-    public ResponseEntity<Object> updateUser(@PathVariable Long id,
+    @PutMapping("")
+    public ResponseEntity<Object> updateUser(
                                      @RequestBody AuthUserResponse requestDTO) {
         try {
-            UserEntity user = userService.updateUser(id, requestDTO);
+            UserEntity user = userService.updateUser( requestDTO);
             return ResponseEntity.ok(SuccessResponseDTO.builder()
                     .data(mapper.map(user, AuthUserResponse.class))
                     .code("200")
