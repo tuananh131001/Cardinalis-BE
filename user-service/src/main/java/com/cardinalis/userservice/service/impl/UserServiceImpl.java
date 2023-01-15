@@ -1,5 +1,6 @@
 package com.cardinalis.userservice.service.impl;
 import com.cardinalis.userservice.dao.RegisterDTO;
+import com.cardinalis.userservice.dao.request.ChangePasswordDTO;
 import com.cardinalis.userservice.dao.response.AuthUserResponse;
 import com.cardinalis.userservice.exception.ApiRequestException;
 import com.cardinalis.userservice.exception.NoContentFoundException;
@@ -74,6 +75,28 @@ public class UserServiceImpl implements UserService {
         response.put("token", token);
         return response;
     }
+    //Change password
+    @Override
+    public Map<String, Object> changePassword(ChangePasswordDTO changePasswordDTO) {
+        Map<String, Object> response = new HashMap<>();
+        UserEntity user = authenticationService.getAuthenticatedUser();
+        if (user == null) {
+            throw new ApiRequestException("User not found", HttpStatus.NOT_FOUND);
+        }
+        if (!passwordEncoder.matches(changePasswordDTO.getOldPassword(), user.getPassword())) {
+            throw new ApiRequestException("Old password is incorrect", HttpStatus.BAD_REQUEST);
+        }
+        //check two same password
+        if (passwordEncoder.matches(changePasswordDTO.getNewPassword(), user.getPassword())) {
+            throw new ApiRequestException("New password is the same as old password", HttpStatus.BAD_REQUEST);
+        }
+        user.setPassword(passwordEncoder.encode(changePasswordDTO.getNewPassword()));
+        userRepository.save(user);
+
+        response.put("message", "Password changed successfully");
+        return response;
+    }
+
     public List<UserEntity> searchByUserName(String username) {
         var users = userRepository.findByUsernameContaining(username);
         if (users.isEmpty()) {
