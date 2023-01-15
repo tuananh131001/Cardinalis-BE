@@ -45,8 +45,8 @@ public class OAuth2LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
         super.clearAuthenticationAttributes(request);
 }
     protected String determineTargetUrl(String token) {
-        return UriComponentsBuilder.fromUriString(authorizedRedirectUris)
-                .queryParam("token", token)
+        return UriComponentsBuilder.fromUriString(authorizedRedirectUris + token)
+//                .queryParam("token", token)
                 .build().toUriString();
     }
 

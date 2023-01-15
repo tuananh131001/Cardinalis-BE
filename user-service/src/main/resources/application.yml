@@ -28,14 +28,14 @@ spring:
             google:
               clientId: 952781349439-js8fh2delvi33ncscisku9vhan0re72o.apps.googleusercontent.com
               clientSecret: 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
-              redirectUri: "{baseUrl}/oauth2/callback/{registrationId}"
+              redirectUri: "https://cardinalis-be.live/oauth2/callback/{registrationId}"
               scope:
                 - email
                 - profile
             facebook:
               clientId: 1880213688985868
               clientSecret: 991c698333e0bbf9d5dfbd183f6cd20a
-              redirectUri: "{baseUrl}/oauth2/callback/{registrationId}"
+              redirectUri: "https://cardinalis-be.live/oauth2/callback/{registrationId}"
               scope:
                 - email
                 - public_profile
@@ -66,5 +66,5 @@ app:
     # we'll be generating an auth token for the user and sending the token to the
     # redirectUri mentioned by the client in the /oauth2/authorize request.
     # We're not using cookies because they won't work well in mobile clients.
-    authorizedRedirectUris: "http://localhost:5173/oauth2/redirect"
+    authorizedRedirectUris: "https://cardinalis.netlify.app/oauth2/"
 #  http://localhost:9002/oauth2/authorize/github?redirect_uri=http://localhost:5173/oauth2/redirect
