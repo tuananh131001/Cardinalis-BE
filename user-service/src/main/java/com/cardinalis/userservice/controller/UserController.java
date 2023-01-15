@@ -128,51 +128,25 @@ public class UserController {
         return ResponseEntity.ok().headers(response.getHeaders()).body(successResponseDTO);
     }
 
-    @GetMapping("/follower-requests")
-    public ResponseEntity<SuccessResponseDTO> getFollowerRequests(@PageableDefault(size = 10) Pageable pageable) {
-        HeaderResponse<FollowerUserResponse> response = userMapper.getFollowerRequests(pageable);
-        SuccessResponseDTO successResponseDTO = SuccessResponseDTO.builder()
-                .data(response.getItems())
-                .code("200")
-                .success(true)
-                .build();
-        return ResponseEntity.ok().headers(response.getHeaders()).body(successResponseDTO);
-    }
+
 
     @GetMapping("/follow/{userId}")
     public ResponseEntity<SuccessResponseDTO> processFollow(@PathVariable Long userId) {
-        NotificationResponse notification = userMapper.processFollow(userId);
+        Map<String,Object> notification = userMapper.processFollow(userId);
 
 //        if (notification.getId() != null) {
 //            messagingTemplate.convertAndSend("/topic/notifications/" + notification.getUserToFollow().getId(), notification);
 //        }
         SuccessResponseDTO successResponseDTO = SuccessResponseDTO.builder()
-                .data(notification.getUserToFollow())
+                .data(notification)
                 .code("200")
                 .success(true)
                 .build();
         return ResponseEntity.ok(successResponseDTO);
     }
 
-    @GetMapping("/follow/accept/{userId}")
-    public ResponseEntity<SuccessResponseDTO> acceptFollowRequest(@PathVariable Long userId) {
-        SuccessResponseDTO successResponseDTO = SuccessResponseDTO.builder()
-                .data(userMapper.acceptFollowRequest(userId))
-                .code("200")
-                .success(true)
-                .build();
-        return ResponseEntity.ok(successResponseDTO);
-    }
 
-    @GetMapping("/follow/decline/{userId}")
-    public ResponseEntity<SuccessResponseDTO> declineFollowRequest(@PathVariable Long userId) {
-        SuccessResponseDTO successResponseDTO = SuccessResponseDTO.builder()
-                .data(userMapper.declineFollowRequest(userId))
-                .code("200")
-                .success(true)
-                .build();
-        return ResponseEntity.ok(successResponseDTO);
-    }
+
     @PutMapping("")
     public ResponseEntity<Object> updateUser(
                                      @RequestBody AuthUserResponse requestDTO) {

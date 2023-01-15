@@ -36,23 +36,13 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
 //    @Query("SELECT follower.id FROM UserEntity user LEFT JOIN user.followers follower WHERE user.id = :userId")
 //    List<Long> getUserFollowersIds(Long userId);
 
-    @Query("SELECT f.id AS id, f.fullName AS fullName, f.username AS username, f.bio AS bio, f.avatar AS avatar " +
-            "FROM UserEntity user " +
-            "LEFT JOIN user.followers f " +
-            "WHERE user.id = :userId")
+    @Query("SELECT f.id AS id, f.fullName AS fullName, f.username AS username, f.bio AS bio, f.avatar AS avatar FROM UserEntity u JOIN u.followers f WHERE u.id = :userId")
     Page<UserProjection> getFollowersById(Long userId, Pageable pageable);
 
-    @Query("SELECT f.id AS id, f.fullName AS fullName, f.username AS username, f.bio AS bio, f.avatar AS avatar " +
-            "FROM UserEntity user " +
-            "LEFT JOIN user.following f " +
-            "WHERE user.id = :userId")
+    @Query("SELECT f.id AS id, f.fullName AS fullName, f.username AS username, f.bio AS bio, f.avatar AS avatar FROM UserEntity u JOIN u.following f WHERE u.id = :userId")
     Page<UserProjection> getFollowingById(Long userId, Pageable pageable);
 
-    @Query("SELECT f.id AS id, f.fullName AS fullName, f.username AS username, f.bio AS bio, f.avatar AS avatar " +
-            "FROM UserEntity user " +
-            "LEFT JOIN user.followerRequests f " +
-            "WHERE user.id = :userId")
-    Page<FollowerUserProjection> getFollowerRequests(Long userId, Pageable pageable);
+
 
 //    @Query("SELECT user.userMutedList FROM UserEntity user WHERE user.id = :userId")
 //    List<UserEntity> getUserMutedListById(Long userId);
@@ -66,77 +56,6 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
             "AND follower.id = :userId")
     boolean isUserFollowByOtherUser(Long authUserId, Long userId);
 
-
-//    @Query("SELECT CASE WHEN count(subscriber) > 0 THEN true ELSE false END FROM UserEntity user " +
-//            "LEFT JOIN user.subscribers subscriber " +
-//            "WHERE user.id = :userId " +
-//            "AND subscriber.id = :subscriberUserId")
-//    boolean isMyProfileSubscribed(Long userId, Long subscriberUserId);
-//
-//
-//    @Query("SELECT user FROM UserEntity user WHERE user.id = :userId")
-//    Optional<UserEntity> getUserDetails(Long userId);
-//
-//    @Query(value = "SELECT users.id as id, users.full_name as fullName, users.username as username, users.about as about, " +
-//            "users.private_profile as isPrivateProfile, images.id as img_id, images.src as img_src " +
-//            "FROM UserEntity " +
-//            "LEFT JOIN user_avatar ON users.id = user_avatar.user_id " +
-//            "LEFT JOIN images ON user_avatar.avatar_id = images.id " +
-//            "WHERE users.id IN ( " +
-//            "SELECT user_subscriptions.subscriber_id FROM UserEntity " +
-//            "JOIN user_subscriptions ON users.id = user_subscriptions.user_id " +
-//            "WHERE users.id = ?1) " +
-//            "INTERSECT " +
-//            "SELECT users.id as id, users.full_name as fullName, users.username as username, users.about as about, " +
-//            "users.private_profile as isPrivateProfile, images.id as img_id, images.src as img_src " +
-//            "FROM UserEntity " +
-//            "LEFT JOIN user_avatar ON users.id = user_avatar.user_id " +
-//            "LEFT JOIN images ON user_avatar.avatar_id = images.id " +
-//            "WHERE users.id IN ( " +
-//            "SELECT user_subscriptions.subscriber_id FROM UserEntity " +
-//            "JOIN user_subscriptions ON users.id = user_subscriptions.user_id " +
-//            "WHERE users.id = ?2)", nativeQuery = true)
-//    <T> List<T> getSameFollowers(Long userId, Long authUserId, Class<T> type);
-//
-//    @Modifying
-//    @Query("UPDATE UserEntity user SET user.email = :email WHERE user.id = :userId")
-//    void updateEmail(String email, Long userId);
-//
-//    @Modifying
-//    @Query("UPDATE UserEntity user SET user.password = :password WHERE user.id = :userId")
-//    void updatePassword(String password, Long userId);
-//
-//    @Modifying
-//    @Query("UPDATE UserEntity user SET user.passwordResetCode = :passwordResetCode WHERE user.id = :userId")
-//    void updatePasswordResetCode(String passwordResetCode, Long userId);
-//
-//    @Modifying
-//    @Query("UPDATE UserEntity user SET user.active = true WHERE user.id = :userId")
-//    void updateActiveUserProfile(Long userId);
-//
-//    @Modifying
-//    @Query("UPDATE UserEntity user SET user.profileStarted = true WHERE user.id = :userId")
-//    void updateProfileStarted(Long userId);
-//
-//    @Modifying
-//    @Query("UPDATE UserEntity user SET user.activationCode = :activationCode WHERE user.id = :userId")
-//    void updateActivationCode(String activationCode, Long userId);
-//
-//    @Modifying
-//    @Query("UPDATE UserEntity user SET user.username = :username WHERE user.id = :userId")
-//    void updateUsername(String username, Long userId);
-//
-//    @Modifying
-//    @Query("UPDATE UserEntity user SET user.countryCode = :countryCode, user.phone = :phone WHERE user.id = :userId")
-//    void updatePhone(String countryCode, Long phone, Long userId);
-//
-//    @Modifying
-//    @Query("UPDATE UserEntity user SET user.country = :country WHERE user.id = :userId")
-//    void updateCountry(String country, Long userId);
-//
-//    @Modifying
-//    @Query("UPDATE UserEntity user SET user.gender = :gender WHERE user.id = :userId")
-//    void updateGender(String gender, Long userId);
 
     @Query("SELECT users FROM UserEntity users WHERE users.email = :email")
     Optional<UserEntity> findAuthUserByEmail(String email);

@@ -18,13 +18,9 @@ public interface UserService {
 //    public List<String> getFollowingList(String username);
     public UserEntity updateUser( AuthUserResponse requestDTO);
     Page<UserProjection> getFollowers(Long userId, Pageable pageable);
-    Page<FollowerUserProjection> getFollowerRequests(Pageable pageable);
-    public String acceptFollowRequest(Long userId);
-    Boolean processUserList(UserEntity currentUser, List<UserEntity> userLists);
-    Boolean processSubscribeToNotifications(Long userId);
+
     Page<UserProjection> getFollowing(Long userId, Pageable pageable);
 
     Map<String, Object> processFollow(Long userId);
-    String declineFollowRequest(Long userId);
     Map<String, Object> login(String email, String password);
 }

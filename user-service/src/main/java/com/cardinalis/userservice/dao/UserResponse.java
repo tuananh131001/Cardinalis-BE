@@ -13,11 +13,6 @@ public class UserResponse {
     private String bio;
     private String avatar;
 
-
-
-    @JsonProperty("isWaitingForApprove")
-    private boolean isWaitingForApprove;
-
     @JsonProperty("isFollower")
     private boolean isFollower;
 }
