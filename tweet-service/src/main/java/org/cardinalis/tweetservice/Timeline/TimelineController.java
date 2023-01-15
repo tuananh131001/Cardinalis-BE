@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -28,9 +29,9 @@ public class TimelineController {
             @RequestParam(defaultValue = "0") int pageNo,
             @RequestParam(defaultValue = "6") int pageSize){
         try {
-            Map<String, Object> result;
+            Map<String, Object> result = new HashMap<>();
             if(usermail.isEmpty())  result = timelineService.getAll(pageNo, pageSize);
-            else result = timelineService.getTimelineForUser(usermail, pageNo, pageSize);
+//            else result = timelineService.getTimelineForUser(usermail, pageNo, pageSize);
             Map<String, Object> response = createResponse(HttpStatus.OK, result);
             return ResponseEntity.ok(response);
         } catch (IllegalArgumentException e) {
