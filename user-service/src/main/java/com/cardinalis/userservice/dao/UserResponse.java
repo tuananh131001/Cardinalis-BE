@@ -16,4 +16,7 @@ public class UserResponse {
 
     @JsonProperty("isFollower")
     private boolean isFollower;
+
+    @JsonProperty("isFollowing")
+    private boolean isFollowing;
 }

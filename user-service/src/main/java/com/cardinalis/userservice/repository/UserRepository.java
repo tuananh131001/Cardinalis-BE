@@ -48,7 +48,7 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
 //    List<UserEntity> getUserMutedListById(Long userId);
 
 
-
+    // explain:
     @Query("SELECT CASE WHEN count(follower) > 0 THEN true ELSE false END " +
             "FROM UserEntity user " +
             "LEFT JOIN user.followers follower " +
@@ -56,7 +56,13 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
             "AND follower.id = :userId")
     boolean isUserFollowByOtherUser(Long authUserId, Long userId);
 
-
+    // check if I follow this user
+    @Query("SELECT CASE WHEN count(following) > 0 THEN true ELSE false END " +
+            "FROM UserEntity user " +
+            "LEFT JOIN user.following following " +
+            "WHERE user.id = :authUserId " +
+            "AND following.id = :userId")
+    boolean isFollowingOneWay(Long authUserId,Long userId);
     @Query("SELECT users FROM UserEntity users WHERE users.email = :email")
     Optional<UserEntity> findAuthUserByEmail(String email);
 
