@@ -61,12 +61,15 @@ public class ApplicationStartUp {
                                 .name("ADMIN")
                                 .build())).build());
                 //                User following
-//                user1.setFollowing(Arrays.asList(user2, user3));
-//                user2.setFollowing(Arrays.asList(user1, user3));
-//                user3.setFollowing(Arrays.asList(user1, user2));
-//                userRepository.save(user1);
-//                userRepository.save(user2);
-//                userRepository.save(user3);
+                user1.getFollowing().add(user2);
+                user2.getFollowers().add(user1);
+                user1.getFollowing().add(user3);
+                user3.getFollowers().add(user1);
+                user2.getFollowing().add(user3);
+                user3.getFollowers().add(user2);
+                userRepository.save(user1);
+                userRepository.save(user2);
+                userRepository.save(user3);
 
             }
         };
