@@ -94,7 +94,9 @@ TimelineService {
     @Cacheable(value = "TIMELINE")
     public Map<String, Object> getTimelineForUser(String userId, int pageNo, int pageSize) throws Exception{
         List<Tweet> userTimeline = new ArrayList<>();
-        ResponseEntity<SuccessResponseDTO> restResponse = restTemplate.getForEntity("http://cardinalis-be.live/following/"+userId, SuccessResponseDTO.class);
+        String url = "http://localhost:3003/user/following/"+userId;
+//        String url = "http://cardinalis-be.live/user/following/"+userId;
+        ResponseEntity<SuccessResponseDTO> restResponse = restTemplate.getForEntity(url, SuccessResponseDTO.class);
         SuccessResponseDTO res = restResponse.getBody();
 
         List<UserResponse> followingList = (ArrayList) res.getData();
