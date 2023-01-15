@@ -179,7 +179,7 @@ public class UserController {
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/fetch")
+    @GetMapping("/fetch/{username}")
     public ResponseEntity<Map<String, Object>> fetchByUsername(@PathVariable("username") String username) {
         UserEntity user = userService.fetchByUsername(username);
         AuthUserResponse userDTO = mapper.map(user, AuthUserResponse.class);

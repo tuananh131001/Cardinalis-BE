@@ -12,6 +12,7 @@ build:
     context: user-service
     jib:
       project: com.cardinalis:user-service
+
   - image: us-central1-docker.pkg.dev/proven-solstice-371106/cardinalis/gateway
     context: gateway
     jib:
