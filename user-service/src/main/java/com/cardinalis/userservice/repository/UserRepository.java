@@ -36,10 +36,10 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
 //    @Query("SELECT follower.id FROM UserEntity user LEFT JOIN user.followers follower WHERE user.id = :userId")
 //    List<Long> getUserFollowersIds(Long userId);
 
-    @Query("SELECT f.id AS id, f.fullName AS fullName, f.username AS username, f.bio AS bio, f.avatar AS avatar FROM UserEntity u JOIN u.followers f WHERE u.id = :userId")
+    @Query("SELECT f.id AS id,f.email AS email , f.fullName AS fullName, f.username AS username, f.bio AS bio, f.avatar AS avatar FROM UserEntity u JOIN u.followers f WHERE u.id = :userId")
     Page<UserProjection> getFollowersById(Long userId, Pageable pageable);
 
-    @Query("SELECT f.id AS id, f.fullName AS fullName, f.username AS username, f.bio AS bio, f.avatar AS avatar FROM UserEntity u JOIN u.following f WHERE u.id = :userId")
+    @Query("SELECT f.id AS id,f.email AS email , f.fullName AS fullName, f.username AS username, f.bio AS bio, f.avatar AS avatar FROM UserEntity u JOIN u.following f WHERE u.id = :userId")
     Page<UserProjection> getFollowingById(Long userId, Pageable pageable);
 
 
