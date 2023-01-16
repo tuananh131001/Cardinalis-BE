@@ -15,14 +15,13 @@ public class CorsConfiguration extends
 
     @Bean
     public CorsWebFilter corsWebFilter() {
-
+        final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         final CorsConfiguration corsConfig = new CorsConfiguration();
         corsConfig.setAllowedOriginPatterns(Collections.singletonList("*"));
         corsConfig.setMaxAge(3600L);
-        corsConfig.setAllowedMethods(Arrays.asList("GET", "POST","PUT", "DELETE"));
+        corsConfig.setAllowedMethods(Arrays.asList("GET","OPTIONS", "POST","PUT", "DELETE"));
         corsConfig.addAllowedHeader("Content-Type");
 
-        final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", corsConfig);
 
         return new CorsWebFilter(source);
