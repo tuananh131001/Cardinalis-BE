@@ -13,6 +13,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Component
@@ -44,7 +45,7 @@ public class ApplicationStartUp {
                 favoriteTweetRepository.save(FavoriteTweet.builder().tweet(tweet5).email("thanhnn2@gmail.com").build());
                 favoriteTweetRepository.save(FavoriteTweet.builder().tweet(tweet5).email("jjeanjacques10@github.com").build());
 
-                Comment commnent1 = commentRepository.save(Comment.builder().tweet(tweet1).email("thanhnn2@gmail.com").content("tuyet").build());
+                Comment commnent1 = commentRepository.save(Comment.builder().tweet(tweet1).createdAt(LocalDateTime.now()).lastEdit(LocalDateTime.now()).email("thanhnn2@gmail.com").content("tuyet").build());
                 Comment commnent2 = commentRepository.save(Comment.builder().tweet(tweet4).email("jjeanjacques10@github.com").content("ok").build());
                 Comment commnent3 = commentRepository.save(Comment.builder().tweet(tweet3).email("thanhnn2@gmail.com").content("haha vui ghe").build());
                 Comment commnent4 = commentRepository.save(Comment.builder().tweet(tweet2).email("thanhnn2@gmail.com").content("an tet nao").build());
@@ -80,6 +81,8 @@ public class ApplicationStartUp {
                 .content("xin chao the gioi")
                 .avatar("https://i.pinimg.com/736x/d4/15/95/d415956c03d9ca8783bfb3c5cc984dde.jpg")
                 .username("Thanh NN 2")
+                .lastEdit(LocalDateTime.now())
+                .createdAt(LocalDateTime.now())
                 .email("thanhnn2@gmail.com")
                 .build();
     }
@@ -89,6 +92,8 @@ public class ApplicationStartUp {
                 .content("hello")
                 .avatar("https://photo-cms-plo.epicdn.me/w850/Uploaded/2023/zreyxqnexq/2015_03_19/happy-dog_VUJG.jpg")
                 .email("jjeanjacques10@github.com")
+                .lastEdit(LocalDateTime.now())
+                .createdAt(LocalDateTime.now())
                 .username("jjeanjacques10")
                 .build();
     }
@@ -98,6 +103,8 @@ public class ApplicationStartUp {
                 .content("tui nek")
                 .avatar("https://photo-cms-plo.epicdn.me/w850/Uploaded/2023/zreyxqnexq/2015_03_19/happy-dog_VUJG.jpg")
                 .email("user3@gmail.com")
+                .lastEdit(LocalDateTime.now())
+                .createdAt(LocalDateTime.now())
                 .username("user3")
                 .build();
     }
@@ -108,6 +115,8 @@ public class ApplicationStartUp {
                 .avatar("https://i.pinimg.com/736x/d4/15/95/d415956c03d9ca8783bfb3c5cc984dde.jpg")
                 .username("Thanh NN 2")
                 .email("thanhnn2@gmail.com")
+                .lastEdit(LocalDateTime.now())
+                .createdAt(LocalDateTime.now())
                 .build();
     }
 
@@ -117,6 +126,8 @@ public class ApplicationStartUp {
                 .content("muon nghi tet")
                 .avatar("https://photo-cms-plo.epicdn.me/w850/Uploaded/2023/zreyxqnexq/2015_03_19/happy-dog_VUJG.jpg")
                 .email("user3@gmail.com")
+                .lastEdit(LocalDateTime.now())
+                .createdAt(LocalDateTime.now())
                 .username("user3")
                 .build();
     }
