@@ -13,6 +13,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
+import java.util.function.Consumer;
+
 @Service
 public class KafkaProducer {
 
@@ -20,6 +22,9 @@ public class KafkaProducer {
     private static final String TOPIC_GET_USER = "getUser";
     @Autowired
     private KafkaTemplate<String, Object> kafkaTemplate;
+
+//    @Bean
+
 
     public void sendMessageGetUser(Tweet message) throws JsonProcessingException {
         logger.info(String.format("#### -> Producing message -> %s", message));

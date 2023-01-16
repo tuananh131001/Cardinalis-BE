@@ -1,4 +1,4 @@
-package org.cardinalis.tweetservice.Timeline.config;
+package org.cardinalis.tweetservice.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

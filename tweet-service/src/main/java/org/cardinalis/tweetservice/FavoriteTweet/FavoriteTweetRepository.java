@@ -1,6 +1,8 @@
 package org.cardinalis.tweetservice.FavoriteTweet;
 
 import org.cardinalis.tweetservice.FavoriteTweet.FavoriteTweet;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -15,4 +17,5 @@ public interface FavoriteTweetRepository extends JpaRepository<FavoriteTweet, Lo
 
     long countByTweet_Id(Long tweetId);
 
+    Page<FavoriteTweet> findByEmailOrderByCreatedAt(String email, Pageable pageable);
 }

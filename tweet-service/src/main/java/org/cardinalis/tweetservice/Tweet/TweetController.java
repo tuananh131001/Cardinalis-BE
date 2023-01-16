@@ -14,7 +14,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Map;
+import java.util.Optional;
+import java.util.concurrent.CountDownLatch;
 
 import static org.cardinalis.tweetservice.Util.Reusable.*;
 
@@ -42,6 +45,8 @@ public class TweetController {
     @Autowired
     TweetDTOService tweetDTOService;
 
+    @Autowired
+    TweetRepository tweetRepository;
 
     @PostMapping(path = "/tweet")
     public ResponseEntity<Map<String, Object>> saveTweet(
@@ -50,10 +55,16 @@ public class TweetController {
         try {
             String mail = getUserMailFromHeader(token);
             tweet.setEmail(mail);
+
             if (tweet.getCreatedAt() == null) tweet.setCreatedAt(LocalDateTime.now());
-            kafkaProducer.sendMessageGetUser(tweet);
 //            tweet = tweetService.saveTweet(tweet);
-            Map<String, Object> response = createResponse(HttpStatus.OK, tweet, "saved tweet");
+            kafkaProducer.sendMessageGetUser(tweet);
+            // deplay 5s
+            Thread.sleep(3000); // delay for 5 seconds
+            List<Tweet> newTweet = tweetRepository.findFirstByEmailOrderByCreatedAtDesc(mail);
+            // reduce new tweet in 1
+            Tweet tweet1 = newTweet.get(0);
+            Map<String, Object> response = createResponse(HttpStatus.OK, tweet1, "saved tweet");
             return ResponseEntity.ok(response);
 
         } catch (IllegalArgumentException e) {
