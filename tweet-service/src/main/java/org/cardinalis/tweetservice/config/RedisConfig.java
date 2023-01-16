@@ -14,7 +14,12 @@ public class RedisConfig {
     // Setting up the jedis connection factory.
     @Bean
     JedisConnectionFactory jedisConnectionFactory() {
-        return new JedisConnectionFactory();
+        JedisConnectionFactory jedisConFactory
+                = new JedisConnectionFactory();
+        jedisConFactory.setHostName("34.118.240.76");
+        jedisConFactory.setPort(6379);
+        return jedisConFactory;
+
     }
 
     // Setting up the redis template object.
@@ -25,4 +30,5 @@ public class RedisConfig {
         redisTemplate.setValueSerializer(new GenericToStringSerializer<Object>(Object.class));
         return redisTemplate;
     }
+
 }
