@@ -3,6 +3,7 @@ package org.cardinalis.tweetservice.Tweet;
 
 import org.apache.kafka.common.errors.AuthorizationException;
 import org.cardinalis.tweetservice.Comment.CommentRepository;
+import org.cardinalis.tweetservice.DTOUser.UserDTOKafka;
 import org.cardinalis.tweetservice.FavoriteTweet.FavoriteTweetRepository;
 import org.cardinalis.tweetservice.Util.NoContentFoundException;
 
@@ -12,6 +13,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -47,6 +49,8 @@ public class TweetController {
 
     @Autowired
     TweetRepository tweetRepository;
+    @Autowired
+    private RestTemplate restTemplate;
 
     @PostMapping(path = "/tweet")
     public ResponseEntity<Map<String, Object>> saveTweet(
@@ -58,13 +62,19 @@ public class TweetController {
 
             if (tweet.getCreatedAt() == null) tweet.setCreatedAt(LocalDateTime.now());
 //            tweet = tweetService.saveTweet(tweet);
-            kafkaProducer.sendMessageGetUser(tweet);
+//            kafkaProducer.sendMessageGetUser(tweet);
             // deplay 5s
-            Thread.sleep(3000); // delay for 5 seconds
-            List<Tweet> newTweet = tweetRepository.findFirstByEmailOrderByCreatedAtDesc(mail);
+            Map user =  restTemplate.getForObject("/fetch/email=" + mail, Map.class);
+            Map<String, Object> userData = (Map) user.get("data");
+            System.out.println("user: " + user);
+            tweet.setAvatar((String) userData.get("avatar"));
+            tweet.setUsername((String) userData.get("username"));
+            tweet.setUserid(Long.valueOf((Integer) userData.get("id")));
+            tweet = tweetService.saveTweet(tweet);
+
+//            List<Tweet> newTweet = tweetRepository.findFirstByEmailOrderByCreatedAtDesc(mail);
             // reduce new tweet in 1
-            Tweet tweet1 = newTweet.get(0);
-            Map<String, Object> response = createResponse(HttpStatus.OK, tweet1, "saved tweet");
+            Map<String, Object> response = createResponse(HttpStatus.OK, tweet, "saved tweet");
             return ResponseEntity.ok(response);
 
         } catch (IllegalArgumentException e) {
