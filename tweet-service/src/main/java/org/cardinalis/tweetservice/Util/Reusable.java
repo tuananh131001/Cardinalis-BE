@@ -94,14 +94,22 @@ public class Reusable {
     }
 
     public List<TweetDTO> getTweetDTOList(List<Tweet> tweets) throws Exception {
-        List<String> emails = getEmailsFromTweets(tweets);
-        Map<String, TweetAuthorDTO>  authorDTOMap = getUserInfo(emails);
+        try {
+            List<String> emails = getEmailsFromTweets(tweets);
+            Map<String, TweetAuthorDTO>  authorDTOMap = getUserInfo(emails);
 
-        List<TweetDTO> tweetDTOS = tweets
-                .stream()
-                .map(tweet -> new TweetDTO(tweet, authorDTOMap.get(tweet.getEmail())))
-                .collect(Collectors.toList());
-        return tweetDTOS;
+            List<TweetDTO> tweetDTOS = tweets
+                    .stream()
+                    .map(tweet -> new TweetDTO(tweet, authorDTOMap.get(tweet.getEmail())))
+                    .collect(Collectors.toList());
+            return tweetDTOS;
+        } catch (NullPointerException | JsonProcessingException e) {
+            List<TweetDTO> tweetDTOS = tweets
+                    .stream()
+                    .map(tweet -> new TweetDTO(tweet))
+                    .collect(Collectors.toList());
+            return tweetDTOS;
+        }
     }
 
     public List<TweetDTO> getTweetDTOList(List<Tweet> tweets, String email) throws JsonProcessingException {
