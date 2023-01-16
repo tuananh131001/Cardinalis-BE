@@ -80,14 +80,11 @@ public class TimelineController {
             @RequestParam(defaultValue = "6") int pageSize,
       @RequestHeader("Authorization") String token){
         try {
-            try {
-                List<Tweet> listTweetInCache = hashOperations.get(TIMELINE_CACHE, userId);
-                if (listTweetInCache != null) {
-                    return new ResponseEntity<>(listTweetInCache, HttpStatus.OK);
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
+            List<Tweet> listTweetInCache = hashOperations.get(TIMELINE_CACHE, userId);
+            if (listTweetInCache != null) {
+                return new ResponseEntity<>(listTweetInCache, HttpStatus.OK);
             }
+
 
 
             String mail = getUserMailFromHeader(token);

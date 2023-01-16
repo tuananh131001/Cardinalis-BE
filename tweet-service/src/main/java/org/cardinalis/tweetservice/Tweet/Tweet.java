@@ -1,6 +1,8 @@
 package org.cardinalis.tweetservice.Tweet;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -55,10 +57,12 @@ public class Tweet implements Comparable<Tweet>, Serializable {
     private String content = "";
 
 //    @JsonBackReference
+    @JsonIgnore
     @OneToMany(mappedBy = "tweet", cascade = CascadeType.ALL)
     private List<FavoriteTweet> fav;
 
 //    @JsonBackReference
+    @JsonIgnore
     @OneToMany(mappedBy = "tweet", cascade = CascadeType.ALL)
     private List<Comment> comments;
 
