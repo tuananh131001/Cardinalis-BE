@@ -17,6 +17,5 @@ public interface TweetRepository extends JpaRepository<Tweet, Long>  {
     Page<Tweet> findByEmailOrderByCreatedAtDesc(String email, Pageable pageable);
     //findFirstByEmailOrderByCreatedAtDesc
    //select top result
-    @Query("SELECT t FROM Tweet t WHERE t.email = :email ORDER BY t.createdAt DESC")
-    List<Tweet> findFirstByEmailOrderByCreatedAtDesc(String email);
+   List<Tweet> findAllByEmail(String email, Pageable pageable);
 }

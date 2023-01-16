@@ -1,17 +1,19 @@
 package org.cardinalis.tweetservice.Timeline;
 
+import org.cardinalis.tweetservice.DTOUser.UserResponse;
 import org.cardinalis.tweetservice.Tweet.Tweet;
+import org.cardinalis.tweetservice.Tweet.TweetRepository;
 import org.cardinalis.tweetservice.Util.NoContentFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static org.cardinalis.tweetservice.Util.Reusable.*;
 
@@ -22,29 +24,62 @@ public class TimelineController {
 
     @Autowired
     TimelineService timelineService;
+    @Autowired
+    TweetRepository tweetRepository;
+    @Autowired
+    RestTemplate restTemplate;
+    private ArrayList<Map<String, Object>> getAllFollowers(Long myId, String accessToken){
+        System.out.println("myId = " + myId);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.set("Authorization",accessToken);
 
+        HttpEntity<String> entity = new HttpEntity<String>("",headers);
+        ResponseEntity<Map> user =  restTemplate.exchange("/following?userId=" + myId, HttpMethod.GET,entity, Map.class);
+        System.out.println("user = " + user);
+        Map userDataNew = user.getBody();
+        System.out.println("userDataNew = " + userDataNew);
+        ArrayList<Map<String, Object>> userData = (ArrayList<Map<String, Object>>) user.getBody().get("data");
+
+//        List<Map<String, Object>> followers = (List) userData.get("followers");
+        System.out.println("followers: " + userData);
+        return userData; //return all tweet of user following
+    }
+    private List<Tweet> getTweetsOfFollowing(ArrayList<Map<String, Object>> followers, String accessToken){
+
+        List<Tweet> tweets = new ArrayList<>();
+        PageRequest pageRequest = PageRequest.of(0, 10);
+        System.out.println("followers = " + followers);
+        for (Map<String, Object> follower : followers) {
+            String userEmail = (String) follower.get("email");
+            tweetRepository.findAllByEmail(userEmail,pageRequest).forEach(tweet -> {
+                System.out.println("tweet = " + tweet);
+                tweets.add(tweet);
+            });
+        }
+        System.out.println("tweets = " + tweets);
+        return tweets;
+    }
     @GetMapping("")
-    public ResponseEntity<Map<String, Object>> getUserTimeline(
+    public ResponseEntity<List<Tweet>> getUserTimeline(
             @RequestParam(defaultValue = "") String userId,
             @RequestParam(defaultValue = "0") int pageNo,
-            @RequestParam(defaultValue = "6") int pageSize){
+            @RequestParam(defaultValue = "6") int pageSize,
+      @RequestHeader("Authorization") String token){
         try {
-            Map<String, Object> result = new HashMap<>();
-            if(userId.isEmpty())  result = timelineService.getAll(pageNo, pageSize);
-            else result = timelineService.getTimelineForUser(Long.parseLong(userId), pageNo, pageSize);
-            Map<String, Object> response = createResponse(HttpStatus.OK, result);
-            return ResponseEntity.ok(response);
-        } catch (IllegalArgumentException e) {
-            return illegalArgResponse(e);
-        }  catch (NoContentFoundException e) {
-            Map<String, Object> response = createResponse(
-                    HttpStatus.NOT_IMPLEMENTED, null, e.getMessage());
-            return ResponseEntity
-                    .status(HttpStatus.NOT_IMPLEMENTED)
-                    .body(response);
-        } catch (Exception e) {
+            String mail = getUserMailFromHeader(token);
+            Map user =  restTemplate.getForObject("/fetch/email=" + mail, Map.class);
+            assert user != null;
+            Map<String, Object> userData = (Map) user.get("data");
+            Long myUserId = Long.valueOf((Integer) userData.get("id"));
+            ArrayList<Map<String, Object>> listOfFollowing= getAllFollowers(myUserId,token);
+            List<Tweet> tweetsGet = getTweetsOfFollowing(listOfFollowing,token);
+            Map<String,Object> response = new HashMap<>();
+            return new ResponseEntity<List<Tweet>>( tweetsGet , HttpStatus.OK);
+
+        }   catch (Exception e) {
             e.printStackTrace();
-            return errorResponse(e);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 

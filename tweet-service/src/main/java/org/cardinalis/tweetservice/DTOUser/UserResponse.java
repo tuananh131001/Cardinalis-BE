@@ -19,4 +19,5 @@ public class UserResponse {
     private boolean isWaitingForApprove;
 
     private boolean isFollower;
+    private boolean isFollowing;
 }
