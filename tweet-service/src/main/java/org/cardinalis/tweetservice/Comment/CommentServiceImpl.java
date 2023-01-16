@@ -81,15 +81,14 @@ public class CommentServiceImpl implements CommentService {
             Pageable pageable = PageRequest.of(pageNo, pageSize, Sort.Direction.fromString(sort),"createdAt");
             Page<Comment> result = commentRepository.findByTweet_Id(tweetId, pageable);
 
-            return createPageResponse(getResultList(result), result.getNumber(), result.hasNext(), result.getTotalPages(), result.getNumberOfElements(), result.getSize());
+            return createPageResponse(getResultList(result.getContent()), result.getNumber(), result.hasNext(), result.getTotalPages(), result.getNumberOfElements(), result.getSize());
         } catch (Exception e) {
             e.printStackTrace();
             throw e;
         }
     }
 
-    public List<?> getResultList(Page<Comment> page) {
-        List<Comment> comments = page.getContent();
+    public List<CommentDTO> getResultList(List<Comment> comments) {
         List<CommentDTO> commentDTOS = comments
                 .stream()
                 .map(comment -> new CommentDTO(comment))

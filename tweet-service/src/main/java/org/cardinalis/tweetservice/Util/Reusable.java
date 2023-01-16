@@ -1,24 +1,27 @@
 package org.cardinalis.tweetservice.Util;
 
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.cardinalis.tweetservice.DTO.TweetAuthorDTO;
 import org.cardinalis.tweetservice.Tweet.Tweet;
-import org.cardinalis.tweetservice.DTOUser.AuthUserResponse;
 import org.cardinalis.tweetservice.Tweet.TweetDTO;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.io.IOException;
+import java.util.*;
 import java.util.stream.Collectors;
 
+@Service
 public class Reusable {
-    static public Tweet importUserInfo(AuthUserResponse user, Tweet tweet) {
-        tweet.setUsername(user.getUsername());
-        tweet.setAvatar(user.getAvatar());
-        tweet.setUserid(user.getId());
-        return tweet;
-    }
+    @Autowired
+    RestTemplate restTemplate;
+
 
     static public Map<String, Object> createResponse(HttpStatus status, Object data, String message) {
         Map<String, Object> response = new HashMap<>();
@@ -90,15 +93,60 @@ public class Reusable {
         return map.get("sub"); //the mail
     }
 
-    public static List<?> getResultList(List<Tweet> tweets, Boolean needCount) {
-        if (!needCount) {
-            return tweets;
-        }
+    public List<TweetDTO> getTweetDTOList(List<Tweet> tweets) throws Exception {
+        List<String> emails = getEmailsFromTweets(tweets);
+        Map<String, TweetAuthorDTO>  authorDTOMap = getUserInfo(emails);
+
         List<TweetDTO> tweetDTOS = tweets
                 .stream()
-                .map(tweet -> new TweetDTO(tweet))
+                .map(tweet -> new TweetDTO(tweet, authorDTOMap.get(tweet.getEmail())))
                 .collect(Collectors.toList());
         return tweetDTOS;
     }
+
+    public List<TweetDTO> getTweetDTOList(List<Tweet> tweets, String email) throws JsonProcessingException {
+        TweetAuthorDTO authorDTO = getUserInfo(email);
+        List<TweetDTO> tweetDTOS = tweets.stream().map(tweet -> new TweetDTO(tweet,authorDTO)).collect(Collectors.toList());
+        return tweetDTOS;
+    }
+
+    public static List<String> getEmailsFromTweets(List<Tweet> tweets) {
+        List<String> emails = tweets.stream().map(tweet -> tweet.getEmail()).collect(Collectors.toList());
+        return emails;
+    }
+
+
+    public Map<String, TweetAuthorDTO> getUserInfo(List<String> emails) throws IOException {
+        String base_url = "http://localhost:3003";
+//        String base_url = "http://cardinalis-be.live";
+
+        List<String> emails_distinct = emails.stream().distinct().collect(Collectors.toList());
+
+        Map<String, TweetAuthorDTO> result = new HashMap<>();
+
+        for (String email: emails_distinct) {
+            String url = base_url + "/user/serverExchangeData/" + email;
+            ResponseEntity<Map> tweetAuthorDTOResponseEntity = restTemplate.getForEntity(url, Map.class);
+            Map<String, Object> map = tweetAuthorDTOResponseEntity.getBody();
+            String m = (String) map.get("data");
+            TweetAuthorDTO authorDTO = new ObjectMapper().readValue(m, TweetAuthorDTO.class);
+            result.put(email, authorDTO);
+        }
+        return result;
+    }
+
+    public TweetAuthorDTO getUserInfo(String email) throws JsonProcessingException {
+        String base_url = "http://localhost:3003";
+//        String base_url = "http://cardinalis-be.live";
+
+        String url = base_url + "/user/serverExchangeData/" + email;
+        ResponseEntity<Map> tweetAuthorDTOResponseEntity = restTemplate.getForEntity(url, Map.class);
+        Map<String, Object> map = tweetAuthorDTOResponseEntity.getBody();
+        String m = (String) map.get("data");
+        TweetAuthorDTO authorDTO = new ObjectMapper().readValue(m, TweetAuthorDTO.class);
+        return authorDTO;
+    }
+
+
 
 }

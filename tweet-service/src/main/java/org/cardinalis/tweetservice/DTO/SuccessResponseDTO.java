@@ -1,4 +1,4 @@
-package org.cardinalis.tweetservice.DTOUser;
+package org.cardinalis.tweetservice.DTO;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

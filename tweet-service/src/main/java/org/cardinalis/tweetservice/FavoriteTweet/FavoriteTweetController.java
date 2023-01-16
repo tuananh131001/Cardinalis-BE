@@ -2,7 +2,6 @@ package org.cardinalis.tweetservice.FavoriteTweet;
 //import org.cardinalis.tweetservice.engine.Producer;
 import lombok.AllArgsConstructor;
 import org.apache.kafka.common.errors.AuthorizationException;
-import org.cardinalis.tweetservice.Tweet.TweetDTO;
 import org.cardinalis.tweetservice.Tweet.TweetService;
 import org.cardinalis.tweetservice.Util.NoContentFoundException;
 import org.modelmapper.ModelMapper;
@@ -150,7 +149,7 @@ public class FavoriteTweetController {
 
             }
             else {
-                Map<String, Object> favedTweets = favoriteTweetService.findFavByUser(email, pageNo, pageSize);
+                Map<String, Object> favedTweets = favoriteTweetService.findFavTweetByUser(email, pageNo, pageSize);
                 response = createResponse(HttpStatus.OK, favedTweets);
             }
 

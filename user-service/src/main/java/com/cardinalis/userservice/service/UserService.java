@@ -1,6 +1,7 @@
 package com.cardinalis.userservice.service;
 
 import com.cardinalis.userservice.dao.RegisterDTO;
+import com.cardinalis.userservice.dao.TweetAuthorDTO;
 import com.cardinalis.userservice.dao.response.AuthUserResponse;
 import com.cardinalis.userservice.model.UserEntity;
 import com.cardinalis.userservice.repository.projection.user.FollowerUserProjection;
@@ -25,4 +26,5 @@ public interface UserService {
 
     Map<String, Object> processFollow(Long userId);
     Map<String, Object> login(String email, String password);
+    TweetAuthorDTO serverExchangeData(String email);
 }

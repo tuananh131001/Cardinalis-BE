@@ -1,5 +1,6 @@
 package com.cardinalis.userservice.service.impl;
 import com.cardinalis.userservice.dao.RegisterDTO;
+import com.cardinalis.userservice.dao.TweetAuthorDTO;
 import com.cardinalis.userservice.dao.response.AuthUserResponse;
 import com.cardinalis.userservice.exception.ApiRequestException;
 import com.cardinalis.userservice.exception.NoContentFoundException;
@@ -27,6 +28,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -200,4 +202,12 @@ public class UserServiceImpl implements UserService {
             throw new ApiRequestException("Incorrect password or email.", HttpStatus.FORBIDDEN);
         }
     }
+
+    @Override
+    public TweetAuthorDTO serverExchangeData(String email) {
+        UserEntity user = userRepository.findByEmail(email).orElseThrow(() -> new NoContentFoundException("not found ueser"));
+        TweetAuthorDTO authorDTO = new TweetAuthorDTO(user);
+        return authorDTO;
+    }
+
 }

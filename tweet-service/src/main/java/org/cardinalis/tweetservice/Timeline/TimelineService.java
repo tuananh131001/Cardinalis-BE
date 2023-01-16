@@ -7,8 +7,9 @@ package org.cardinalis.tweetservice.Timeline;
 import org.cardinalis.tweetservice.Tweet.Tweet;
 import org.cardinalis.tweetservice.Tweet.TweetServiceImpl;
 import org.cardinalis.tweetservice.Util.NoContentFoundException;
-import org.cardinalis.tweetservice.DTOUser.SuccessResponseDTO;
-import org.cardinalis.tweetservice.DTOUser.UserResponse;
+import org.cardinalis.tweetservice.DTO.SuccessResponseDTO;
+import org.cardinalis.tweetservice.DTO.UserResponse;
+import org.cardinalis.tweetservice.Util.Reusable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.redis.core.Cursor;
@@ -37,8 +38,11 @@ TimelineService {
     private HashOperations<String, String, Tweet> hashOperations;
     @Autowired
     TweetServiceImpl tweetService;
+
     @Autowired
     RestTemplate restTemplate;
+    @Autowired
+    Reusable reusable;
 
     @PostConstruct
     private void intializeHashOperations() {
@@ -86,9 +90,9 @@ TimelineService {
     }
 
     @Cacheable(value = "TIMELINE")
-    public Map<String, Object> getAll(int pageNo, int pageSize) {
+    public Map<String, Object> getAll(int pageNo, int pageSize) throws Exception {
         List<Tweet> tweets = hashOperations.entries(TIMELINE_CACHE).values().stream().collect(Collectors.toList());
-        return createPageResponse(tweets, 0, false, 1, tweets.size(), tweets.size());
+        return createPageResponse(reusable.getTweetDTOList(tweets), 0, false, 1, tweets.size(), tweets.size());
     }
 
     @Cacheable(value = "TIMELINE")
@@ -113,7 +117,7 @@ TimelineService {
 
         if (userTimeline.isEmpty()) {
             for (UserResponse user : followingList) {
-                Map<String, Object> page = tweetService.getNewestTweetsFromUser(user.getEmail(), true, 0, 10);
+                Map<String, Object> page = tweetService.getNewestTweetsFromUser(user.getEmail(), 0, 10);
                 List<Tweet> tweets = (ArrayList) page.get("data");
                 userTimeline.addAll(tweets);
             }
@@ -122,7 +126,7 @@ TimelineService {
             Collections.sort(userTimeline);
             Collections.reverse(userTimeline);
         }
-        return createPageResponse(userTimeline, 0, false, 1, userTimeline.size(), userTimeline.size());
+        return createPageResponse(reusable.getTweetDTOList(userTimeline), 0, false, 1, userTimeline.size(), userTimeline.size());
     }
 
 }

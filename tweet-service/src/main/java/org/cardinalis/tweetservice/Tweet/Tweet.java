@@ -34,15 +34,6 @@ public class Tweet implements Comparable<Tweet>, Serializable {
     @Column(nullable = false)
     private String email;
 
-    @Column
-    private Long userid;
-
-    @Column
-    private String username;
-
-    @Column
-    private String avatar = "https://i.pinimg.com/736x/d4/15/95/d415956c03d9ca8783bfb3c5cc984dde.jpg";
-
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     private LocalDateTime createdAt = LocalDateTime.now();

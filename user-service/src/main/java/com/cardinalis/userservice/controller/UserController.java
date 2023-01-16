@@ -11,6 +11,8 @@ import com.cardinalis.userservice.exception.ApiRequestException;
 import com.cardinalis.userservice.mapper.UserMapper;
 import com.cardinalis.userservice.model.UserEntity;
 import com.cardinalis.userservice.service.UserService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.dao.DataAccessException;
@@ -191,6 +193,19 @@ public class UserController {
 
         return ResponseEntity.ok(response);
     }
+
+    @GetMapping("/serverExchangeData/{email}")
+    public ResponseEntity<Map<String, Object>> serverExchangeData(@PathVariable("email") String email) throws JsonProcessingException {
+
+        TweetAuthorDTO authorDTO = userService.serverExchangeData(email);
+        String st = new ObjectMapper().writeValueAsString(authorDTO);
+        Map<String, Object> response = createResponse(
+                HttpStatus.OK,
+                new ObjectMapper().writeValueAsString(authorDTO)
+        );
+        return ResponseEntity.ok(response);
+    }
+
 //    @PostMapping("/logout")
 //    public ResponseEntity<String> revoke(HttpServletRequest request) {
 //        try {

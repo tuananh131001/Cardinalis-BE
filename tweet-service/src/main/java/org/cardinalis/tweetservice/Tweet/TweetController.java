@@ -3,11 +3,13 @@ package org.cardinalis.tweetservice.Tweet;
 
 import org.apache.kafka.common.errors.AuthorizationException;
 import org.cardinalis.tweetservice.Comment.CommentRepository;
+import org.cardinalis.tweetservice.DTO.TweetAuthorDTO;
 import org.cardinalis.tweetservice.FavoriteTweet.FavoriteTweetRepository;
 import org.cardinalis.tweetservice.Timeline.TimelineService;
 import org.cardinalis.tweetservice.Util.NoContentFoundException;
 
 import org.cardinalis.tweetservice.Kafka.KafkaProducer;
+import org.cardinalis.tweetservice.Util.Reusable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
@@ -15,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Map;
 
 import static org.cardinalis.tweetservice.Util.Reusable.*;
@@ -45,6 +48,9 @@ public class TweetController {
 
     @Autowired
     TimelineService timelineService;
+
+    @Autowired
+    Reusable reusable;
 
 
     @PostMapping(path = "/tweet")
@@ -111,13 +117,13 @@ public class TweetController {
     }
 
     @GetMapping(path = "/tweet")
-    public ResponseEntity<Map<String, Object>> getTweetById(
-            @RequestParam Long id,
-            @RequestParam(defaultValue = "true") Boolean needCount) {
+    public ResponseEntity<Map<String, Object>> getTweetById(@RequestParam Long id) {
         try {
             Tweet tweet = tweetService.getTweetById(id);
-            Object result = needCount ? tweetDTOService.mapTweetTweetDTO(tweet) : tweet;
-            Map<String, Object> response = createResponse(HttpStatus.OK, result, "tweet found");
+            TweetAuthorDTO tweetAuthorDTO = reusable.getUserInfo(tweet.getEmail());
+            TweetDTO tweetDTO = new TweetDTO(tweet, tweetAuthorDTO );
+
+            Map<String, Object> response = createResponse(HttpStatus.OK, tweetDTO, "tweet found");
             return ResponseEntity.ok(response);
 
         } catch (NoContentFoundException e) {
@@ -177,16 +183,15 @@ public class TweetController {
     @GetMapping(path = "/tweets")
     public ResponseEntity<Map<String, Object>> getTweets(
             @RequestParam(defaultValue = "") String email,
-            @RequestParam(defaultValue = "true") Boolean needCount,
             @RequestParam(defaultValue = "0") int pageNo,
             @RequestParam(defaultValue = "6") int pageSize) {
         try {
             Map<String, Object> result;
             if (!email.isEmpty()) {
-                result = tweetService.getNewestTweetsFromUser(email, needCount, pageNo, pageSize);
+                result = tweetService.getNewestTweetsFromUser(email, pageNo, pageSize);
             }
             else {
-                result = tweetService.getAll(needCount, pageNo, pageSize);
+                result = tweetService.getAll(pageNo, pageSize);
             }
 
             Map<String, Object> response = createResponse(HttpStatus.OK, result);

@@ -3,6 +3,7 @@ package org.cardinalis.tweetservice.FavoriteTweet;
 import lombok.extern.slf4j.Slf4j;
 import org.cardinalis.tweetservice.Tweet.Tweet;
 import org.cardinalis.tweetservice.Util.NoContentFoundException;
+import org.cardinalis.tweetservice.Util.Reusable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -14,7 +15,6 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import static org.cardinalis.tweetservice.Util.Reusable.createPageResponse;
-import static org.cardinalis.tweetservice.Util.Reusable.getResultList;
 
 @Slf4j
 @Service
@@ -22,6 +22,8 @@ public class FavoriteTweetService {
 
     @Autowired
     FavoriteTweetRepository favoriteTweetRepository;
+    @Autowired
+    Reusable reusable;
 
     public FavoriteTweet saveFavorite(FavoriteTweet favoriteTweet) throws Exception {
         try {
@@ -60,11 +62,10 @@ public class FavoriteTweetService {
         return favoriteTweetRepository.findByTweet_Id(tweetId);
     }
 
-    public Map<String, Object> findFavByUser(String email, int pageNo, int pageSize) throws Exception{
+    public Map<String, Object> findFavTweetByUser(String email, int pageNo, int pageSize) throws Exception{
         Page<FavoriteTweet> page = favoriteTweetRepository.findByEmailOrderByCreatedAt(email, PageRequest.of(pageNo, pageSize, Sort.Direction.DESC));
         List<Tweet> tweets = page.getContent().stream().map(favoriteTweet -> favoriteTweet.getTweet()).collect(Collectors.toList());
-        return  createPageResponse(getResultList(tweets, true), page.getNumber(), page.hasNext(), page.getTotalPages(), page.getNumberOfElements(), page.getSize());
-
+        return  createPageResponse(reusable.getTweetDTOList(tweets, email), page.getNumber(), page.hasNext(), page.getTotalPages(), page.getNumberOfElements(), page.getSize());
     }
 
 }

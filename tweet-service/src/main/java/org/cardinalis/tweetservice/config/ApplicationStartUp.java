@@ -79,8 +79,6 @@ public class ApplicationStartUp {
     public Tweet saveTweet1() {
         return new Tweet().builder()
                 .content("xin chao the gioi")
-                .avatar("https://i.pinimg.com/736x/d4/15/95/d415956c03d9ca8783bfb3c5cc984dde.jpg")
-                .username("Thanh NN 2")
                 .email("thanhnn2@gmail.com")
                 .createdAt(LocalDateTime.now())
                 .build();
@@ -89,9 +87,7 @@ public class ApplicationStartUp {
     public Tweet saveTweet2() {
         return new Tweet().builder()
                 .content("hello")
-                .avatar("https://photo-cms-plo.epicdn.me/w850/Uploaded/2023/zreyxqnexq/2015_03_19/happy-dog_VUJG.jpg")
                 .email("jjeanjacques10@github.com")
-                .username("jjeanjacques10")
                 .createdAt(LocalDateTime.now())
                 .build();
     }
@@ -99,9 +95,7 @@ public class ApplicationStartUp {
     public Tweet saveTweet3() {
         return new Tweet().builder()
                 .content("tui nek")
-                .avatar("https://photo-cms-plo.epicdn.me/w850/Uploaded/2023/zreyxqnexq/2015_03_19/happy-dog_VUJG.jpg")
                 .email("user3@gmail.com")
-                .username("user3")
                 .createdAt(LocalDateTime.now())
                 .build();
     }
@@ -109,8 +103,6 @@ public class ApplicationStartUp {
     public Tweet saveTweet4() {
         return new Tweet().builder()
                 .content("bun ngu")
-                .avatar("https://i.pinimg.com/736x/d4/15/95/d415956c03d9ca8783bfb3c5cc984dde.jpg")
-                .username("Thanh NN 2")
                 .email("thanhnn2@gmail.com")
                 .createdAt(LocalDateTime.now())
                 .build();
@@ -120,9 +112,7 @@ public class ApplicationStartUp {
         return new Tweet().builder()
                 .id(95L)
                 .content("muon nghi tet")
-                .avatar("https://photo-cms-plo.epicdn.me/w850/Uploaded/2023/zreyxqnexq/2015_03_19/happy-dog_VUJG.jpg")
                 .email("user3@gmail.com")
-                .username("user3")
                 .createdAt(LocalDateTime.now())
                 .build();
     }

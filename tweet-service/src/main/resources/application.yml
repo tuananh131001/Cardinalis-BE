@@ -59,3 +59,9 @@ jwt:
   header: Authorization
   secret: dejavu
   expiration: 6048000
+
+#constant:
+#  user_local_url: http://localhost:3003
+#  api_cloud_url: http://cardinalis-be.live
+#  api_url: http://localhost:3003
+
