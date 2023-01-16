@@ -72,13 +72,22 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         user.setProviderId(oAuth2UserInfo.getId());
         user.setUsername(oAuth2UserInfo.getName());
         user.setEmail(oAuth2UserInfo.getEmail());
-        user.setAvatar(oAuth2UserInfo.getImageUrl());
+        if(!StringUtils.isEmpty(oAuth2UserInfo.getImageUrl())) {
+            user.setAvatar(oAuth2UserInfo.getImageUrl());
+        }else{
+            user.setAvatar("https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y");
+        }
+        user.setBanner("http://cdn.reatimes.vn/mediav2/upload/userfiles2021/images/dieuphan/2603/phat-trien-tphcm.jpeg");
         return userRepository.save(user);
     }
 
     private UserEntity updateExistingUser(UserEntity existingUser, OAuth2UserInfo oAuth2UserInfo) {
         existingUser.setUsername(oAuth2UserInfo.getName());
-        existingUser.setAvatar(oAuth2UserInfo.getImageUrl());
+        if(!StringUtils.isEmpty(oAuth2UserInfo.getImageUrl())) {
+            existingUser.setAvatar(oAuth2UserInfo.getImageUrl());
+        }else{
+            existingUser.setAvatar("https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y");
+        }
         return userRepository.save(existingUser);
     }
 }
