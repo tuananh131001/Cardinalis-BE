@@ -62,6 +62,7 @@ public class KafkaConsumer {
         tweet.setUsername(product.getUsername());
         tweet.setEmail(product.getEmail());
         tweet.setUserid(product.getUserid());
+        tweet.setContent(product.getContent());
         tweetService.saveTweet(tweet);
 
     }
