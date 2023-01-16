@@ -26,8 +26,7 @@ public class KafkaProducer {
 //    @Bean
 
 
-    public void sendTweetKafka(Tweet tweet) {
-        logger.info(String.format("#### -> Producing message -> %s", tweet));
-        this.kafkaTemplate.send(TOPIC_TWEET, tweet);
+    public void sendTweetKafka(Tweet tweet) throws JsonProcessingException {
+        kafkaTemplate.send(TOPIC_TWEET, new ObjectMapper().writeValueAsString(tweet));
     }
 }

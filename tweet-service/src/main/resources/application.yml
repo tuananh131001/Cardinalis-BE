@@ -34,14 +34,14 @@ spring:
               - user:email
               - read:user
   redis:
-    host: 34.118.240.76
-#    host: ${REDIS_URL:localhost}
-    port: 6380
+    host: containers-us-west-161.railway.app
+    port: 6394
+    password: bKHo0mmnI1atx5ULubqR
+    username: default
 
   kafka:
     consumer:
       bootstrap-servers: 34.118.240.76:9093
-      #      bootstrap-servers: host.minikube.internal:9092
       group-id: group_id
       auto-offset-reset: earliest
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
@@ -53,7 +53,6 @@ spring:
               packages: '*'
     producer:
       bootstrap-servers: 34.118.240.76:9093
-      #      bootstrap-servers: host.minikube.internal:9092
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
 

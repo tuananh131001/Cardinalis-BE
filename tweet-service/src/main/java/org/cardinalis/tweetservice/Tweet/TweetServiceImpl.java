@@ -50,7 +50,7 @@ public class TweetServiceImpl implements TweetService {
             return tweet;
         } catch (Exception e) {
             e.printStackTrace();
-            throw e;
+            return null;
         }
     }
 

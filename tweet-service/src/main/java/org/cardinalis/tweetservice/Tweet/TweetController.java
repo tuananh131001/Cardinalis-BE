@@ -51,8 +51,6 @@ public class TweetController {
     TweetRepository tweetRepository;
     @Autowired
     private RestTemplate restTemplate;
-    @Autowired
-    KafkaProducer kafkaProducer;
     @PostMapping(path = "/tweet")
     public ResponseEntity<Map<String, Object>> saveTweet(
             @RequestHeader("Authorization") String token,

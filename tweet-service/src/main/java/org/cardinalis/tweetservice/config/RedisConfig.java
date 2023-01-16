@@ -1,26 +1,28 @@
 package org.cardinalis.tweetservice.config;
 
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
+import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.serializer.GenericToStringSerializer;
 
 // Configuration class to set up the redis configuration.
 @Configuration
 public class RedisConfig {
+
+    // Setting up the jedis connection factory.
     @Bean
-    public LettuceConnectionFactory redisConnectionFactory() {
-        LettuceConnectionFactory lcf = new LettuceConnectionFactory();
-        lcf.afterPropertiesSet();
-        return lcf;
+    JedisConnectionFactory jedisConnectionFactory() {
+        return new JedisConnectionFactory();
     }
 
     // Setting up the redis template object.
     @Bean
     public RedisTemplate<String, Object> redisTemplate() {
-        RedisTemplate<String, Object> redisTemplate = new RedisTemplate<String ,Object>();
-        redisTemplate.setConnectionFactory(redisConnectionFactory());
-        redisTemplate.afterPropertiesSet();
+        final RedisTemplate<String, Object> redisTemplate = new RedisTemplate<String, Object>();
+        redisTemplate.setConnectionFactory(jedisConnectionFactory());
+        redisTemplate.setValueSerializer(new GenericToStringSerializer<Object>(Object.class));
         return redisTemplate;
     }
 }

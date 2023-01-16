@@ -80,10 +80,15 @@ public class TimelineController {
             @RequestParam(defaultValue = "6") int pageSize,
       @RequestHeader("Authorization") String token){
         try {
-            List<Tweet> listTweetInCache =  hashOperations.get(TIMELINE_CACHE, userId);
-            if (listTweetInCache != null) {
-                return new ResponseEntity<>(listTweetInCache, HttpStatus.OK);
+            try {
+                List<Tweet> listTweetInCache = hashOperations.get(TIMELINE_CACHE, userId);
+                if (listTweetInCache != null) {
+                    return new ResponseEntity<>(listTweetInCache, HttpStatus.OK);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
+
 
             String mail = getUserMailFromHeader(token);
             Map user =  restTemplate.getForObject("/fetch/email=" + mail, Map.class);
