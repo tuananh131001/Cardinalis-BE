@@ -9,10 +9,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.redis.core.HashOperations;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
+import javax.annotation.PostConstruct;
 import java.util.*;
 
 import static org.cardinalis.tweetservice.Util.Reusable.*;
@@ -28,6 +31,16 @@ public class TimelineController {
     TweetRepository tweetRepository;
     @Autowired
     RestTemplate restTemplate;
+
+    @Autowired
+    RedisTemplate<String, Object> redisTemplate;
+    private HashOperations<String, String, List<Tweet>> hashOperations;
+    private final String TIMELINE_CACHE = "TIMELINE";
+
+    @PostConstruct
+    private void intializeHashOperations() {
+        hashOperations = redisTemplate.opsForHash();
+    }
     private ArrayList<Map<String, Object>> getAllFollowers(Long myId, String accessToken){
         System.out.println("myId = " + myId);
         HttpHeaders headers = new HttpHeaders();
@@ -67,6 +80,11 @@ public class TimelineController {
             @RequestParam(defaultValue = "6") int pageSize,
       @RequestHeader("Authorization") String token){
         try {
+            List<Tweet> listTweetInCache =  hashOperations.get(TIMELINE_CACHE, userId);
+            if (listTweetInCache != null) {
+                return new ResponseEntity<>(listTweetInCache, HttpStatus.OK);
+            }
+
             String mail = getUserMailFromHeader(token);
             Map user =  restTemplate.getForObject("/fetch/email=" + mail, Map.class);
             assert user != null;
@@ -74,6 +92,7 @@ public class TimelineController {
             Long myUserId = Long.valueOf((Integer) userData.get("id"));
             ArrayList<Map<String, Object>> listOfFollowing= getAllFollowers(myUserId,token);
             List<Tweet> tweetsGet = getTweetsOfFollowing(listOfFollowing,token);
+            hashOperations.put(TIMELINE_CACHE, userId, tweetsGet);
             Map<String,Object> response = new HashMap<>();
             return new ResponseEntity<List<Tweet>>( tweetsGet , HttpStatus.OK);
 
