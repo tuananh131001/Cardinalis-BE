@@ -19,25 +19,15 @@ import java.util.function.Consumer;
 public class KafkaProducer {
 
     private static final Logger logger = LoggerFactory.getLogger(KafkaProducer.class);
-    private static final String TOPIC_GET_USER = "getUser";
+    private static final String TOPIC_TWEET = "tweet";
     @Autowired
     private KafkaTemplate<String, Object> kafkaTemplate;
 
 //    @Bean
 
 
-    public void sendMessageGetUser(Tweet message) throws JsonProcessingException {
-        logger.info(String.format("#### -> Producing message -> %s", message));
-        // tweet to tweetdto
-        TweetDTOKafka tweetDTO = new TweetDTOKafka();
-        tweetDTO.setId(message.getId());
-        tweetDTO.setContent(message.getContent());
-        tweetDTO.setEmail(message.getEmail());
-        tweetDTO.setAvatar(message.getAvatar());
-        tweetDTO.setUsername(message.getUsername());
-        tweetDTO.setUserid(message.getUserid());
-
-        this.kafkaTemplate.send(TOPIC_GET_USER, new ObjectMapper().writeValueAsString(tweetDTO));
-
+    public void sendTweetKafka(Tweet tweet) {
+        logger.info(String.format("#### -> Producing message -> %s", tweet));
+        this.kafkaTemplate.send(TOPIC_TWEET, tweet);
     }
 }

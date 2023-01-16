@@ -1,6 +1,7 @@
 package org.cardinalis.tweetservice.Tweet;
 
 import org.cardinalis.tweetservice.Comment.CommentRepository;
+import org.cardinalis.tweetservice.Kafka.KafkaProducer;
 import org.cardinalis.tweetservice.Util.Reusable.*;
 
 import org.cardinalis.tweetservice.FavoriteTweet.FavoriteTweetRepository;
@@ -38,12 +39,15 @@ public class TweetServiceImpl implements TweetService {
 
     @Autowired
     TweetDTOService tweetDTOService;
+    @Autowired
+    KafkaProducer kafkaProducer;
 
 
     @Override
     public Tweet saveTweet(Tweet tweet) {
         try {
-            return tweetRepository.save(tweet);
+             kafkaProducer.sendTweetKafka(tweet);
+            return tweet;
         } catch (Exception e) {
             e.printStackTrace();
             throw e;

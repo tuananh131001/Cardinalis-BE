@@ -51,7 +51,8 @@ public class TweetController {
     TweetRepository tweetRepository;
     @Autowired
     private RestTemplate restTemplate;
-
+    @Autowired
+    KafkaProducer kafkaProducer;
     @PostMapping(path = "/tweet")
     public ResponseEntity<Map<String, Object>> saveTweet(
             @RequestHeader("Authorization") String token,
@@ -61,9 +62,6 @@ public class TweetController {
             tweet.setEmail(mail);
 
             if (tweet.getCreatedAt() == null) tweet.setCreatedAt(LocalDateTime.now());
-//            tweet = tweetService.saveTweet(tweet);
-//            kafkaProducer.sendMessageGetUser(tweet);
-            // deplay 5s
             Map user =  restTemplate.getForObject("/fetch/email=" + mail, Map.class);
             Map<String, Object> userData = (Map) user.get("data");
             System.out.println("user: " + user);
@@ -71,9 +69,6 @@ public class TweetController {
             tweet.setUsername((String) userData.get("username"));
             tweet.setUserid(Long.valueOf((Integer) userData.get("id")));
             tweet = tweetService.saveTweet(tweet);
-
-//            List<Tweet> newTweet = tweetRepository.findFirstByEmailOrderByCreatedAtDesc(mail);
-            // reduce new tweet in 1
             Map<String, Object> response = createResponse(HttpStatus.OK, tweet, "saved tweet");
             return ResponseEntity.ok(response);
 
