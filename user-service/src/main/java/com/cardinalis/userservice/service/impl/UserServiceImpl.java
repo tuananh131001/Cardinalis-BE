@@ -90,6 +90,10 @@ public class UserServiceImpl implements UserService {
         if (passwordEncoder.matches(changePasswordDTO.getNewPassword(), user.getPassword())) {
             throw new ApiRequestException("New password is the same as old password", HttpStatus.BAD_REQUEST);
         }
+        //check new password under 10
+        if (changePasswordDTO.getNewPassword().length() < 10) {
+            throw new ApiRequestException("New password must be at least 10 characters", HttpStatus.BAD_REQUEST);
+        }
         user.setPassword(passwordEncoder.encode(changePasswordDTO.getNewPassword()));
         userRepository.save(user);
 
