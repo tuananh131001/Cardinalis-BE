@@ -41,7 +41,6 @@ spring:
   kafka:
     consumer:
       bootstrap-servers: 34.118.240.76:9093
-      #      bootstrap-servers: host.minikube.internal:9092
       group-id: group_id
       auto-offset-reset: earliest
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
@@ -53,7 +52,6 @@ spring:
               packages: '*'
     producer:
       bootstrap-servers: 34.118.240.76:9093
-      #      bootstrap-servers: host.minikube.internal:9092
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
 
@@ -61,21 +59,3 @@ jwt:
   header: Authorization
   secret: dejavu
   expiration: 6048000
-# Default user
-admin:
-  id: 1b2fe584-19b4-4173-9d3d-02acf970faa6
-  username: jjeanjacques10
-  email: jjeanjacques10@github.com
-  password: 123456789
-  isHotUser: true
-app:
-  auth:
-    tokenSecret: 04ca023b39512e46d0c2cf4b48d5aac61d34302994c87ed4eff225dcf3b0a218739f3897051a057f9b846a69ea2927a587044164b7bae5e1306219d50b588cb1
-    tokenExpirationMsec: 864000000
-  oauth2:
-    # After successfully authenticating with the OAuth2 Provider,
-    # we'll be generating an auth token for the user and sending the token to the
-    # redirectUri mentioned by the client in the /oauth2/authorize request.
-    # We're not using cookies because they won't work well in mobile clients.
-    authorizedRedirectUris: "http://localhost:5173/oauth2/redirect"
-#  http://localhost:9002/oauth2/authorize/github?redirect_uri=http://localhost:5173/oauth2/redirect

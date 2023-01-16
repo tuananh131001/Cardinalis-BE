@@ -12,8 +12,4 @@ public class TweetServiceApplication {
 
 		SpringApplication.run(TweetServiceApplication.class, args);
 	}
-//	@Bean
-//	public ModelMapper modelMapper() {
-//		return new ModelMapper();
-//	}
 }

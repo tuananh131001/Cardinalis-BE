@@ -13,6 +13,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Component
@@ -34,25 +35,25 @@ public class ApplicationStartUp {
                 tweetRepository.save(tweet4);
                 tweetRepository.save(tweet5);
 
-                favoriteTweetRepository.save(FavoriteTweet.builder().tweet(tweet1).email("thanhnn2@gmail.com").build());
-                favoriteTweetRepository.save(FavoriteTweet.builder().tweet(tweet4).email("jjeanjacques10@github.com").build());
-                favoriteTweetRepository.save(FavoriteTweet.builder().tweet(tweet3).email("thanhnn2@gmail.com").build());
-                favoriteTweetRepository.save(FavoriteTweet.builder().tweet(tweet2).email("thanhnn2@gmail.com").build());
-                favoriteTweetRepository.save(FavoriteTweet.builder().tweet(tweet2).email("user3@gmail.com").build());
-                favoriteTweetRepository.save(FavoriteTweet.builder().tweet(tweet1).email("user3@gmail.com").build());
-                favoriteTweetRepository.save(FavoriteTweet.builder().tweet(tweet4).email("user3@gmail.com").build());
-                favoriteTweetRepository.save(FavoriteTweet.builder().tweet(tweet5).email("thanhnn2@gmail.com").build());
-                favoriteTweetRepository.save(FavoriteTweet.builder().tweet(tweet5).email("jjeanjacques10@github.com").build());
+                favoriteTweetRepository.save(FavoriteTweet.builder().tweet(tweet1).email("thanhnn2@gmail.com").createdAt(LocalDateTime.now()).build());
+                favoriteTweetRepository.save(FavoriteTweet.builder().tweet(tweet4).email("jjeanjacques10@github.com").createdAt(LocalDateTime.now()).build());
+                favoriteTweetRepository.save(FavoriteTweet.builder().tweet(tweet3).email("thanhnn2@gmail.com").createdAt(LocalDateTime.now()).build());
+                favoriteTweetRepository.save(FavoriteTweet.builder().tweet(tweet2).email("thanhnn2@gmail.com").createdAt(LocalDateTime.now()).build());
+                favoriteTweetRepository.save(FavoriteTweet.builder().tweet(tweet2).email("user3@gmail.com").createdAt(LocalDateTime.now()).build());
+                favoriteTweetRepository.save(FavoriteTweet.builder().tweet(tweet1).email("user3@gmail.com").createdAt(LocalDateTime.now()).build());
+                favoriteTweetRepository.save(FavoriteTweet.builder().tweet(tweet4).email("user3@gmail.com").createdAt(LocalDateTime.now()).build());
+                favoriteTweetRepository.save(FavoriteTweet.builder().tweet(tweet5).email("thanhnn2@gmail.com").createdAt(LocalDateTime.now()).build());
+                favoriteTweetRepository.save(FavoriteTweet.builder().tweet(tweet5).email("jjeanjacques10@github.com").createdAt(LocalDateTime.now()).build());
 
-                Comment commnent1 = commentRepository.save(Comment.builder().tweet(tweet1).email("thanhnn2@gmail.com").content("tuyet").build());
-                Comment commnent2 = commentRepository.save(Comment.builder().tweet(tweet4).email("jjeanjacques10@github.com").content("ok").build());
-                Comment commnent3 = commentRepository.save(Comment.builder().tweet(tweet3).email("thanhnn2@gmail.com").content("haha vui ghe").build());
-                Comment commnent4 = commentRepository.save(Comment.builder().tweet(tweet2).email("thanhnn2@gmail.com").content("an tet nao").build());
-                Comment commnent5 = commentRepository.save(Comment.builder().tweet(tweet2).email("user3@gmail.com").content("bun ngu").build());
-                Comment commnent6 = commentRepository.save(Comment.builder().tweet(tweet1).email("user3@gmail.com").content("bun").build());
-                Comment commnent7 = commentRepository.save(Comment.builder().tweet(tweet4).email("user3@gmail.com").content("mong duoc hd").build());
-                Comment commnent8 = commentRepository.save(Comment.builder().tweet(tweet5).email("thanhnn2@gmail.com").content("haha").build());
-                Comment commnent9 = commentRepository.save(Comment.builder().tweet(tweet5).email("jjeanjacques10@github.com").content("hihi").build());
+                Comment commnent1 = commentRepository.save(Comment.builder().tweet(tweet1).email("thanhnn2@gmail.com").content("tuyet").createdAt(LocalDateTime.now()).build());
+                Comment commnent2 = commentRepository.save(Comment.builder().tweet(tweet4).email("jjeanjacques10@github.com").content("ok").createdAt(LocalDateTime.now()).build());
+                Comment commnent3 = commentRepository.save(Comment.builder().tweet(tweet3).email("thanhnn2@gmail.com").content("haha vui ghe").createdAt(LocalDateTime.now()).build());
+                Comment commnent4 = commentRepository.save(Comment.builder().tweet(tweet2).email("thanhnn2@gmail.com").content("an tet nao").createdAt(LocalDateTime.now()).build());
+                Comment commnent5 = commentRepository.save(Comment.builder().tweet(tweet2).email("user3@gmail.com").content("bun ngu").createdAt(LocalDateTime.now()).build());
+                Comment commnent6 = commentRepository.save(Comment.builder().tweet(tweet1).email("user3@gmail.com").content("bun").createdAt(LocalDateTime.now()).build());
+                Comment commnent7 = commentRepository.save(Comment.builder().tweet(tweet4).email("user3@gmail.com").content("mong duoc hd").createdAt(LocalDateTime.now()).build());
+                Comment commnent8 = commentRepository.save(Comment.builder().tweet(tweet5).email("thanhnn2@gmail.com").content("haha").createdAt(LocalDateTime.now()).build());
+                Comment commnent9 = commentRepository.save(Comment.builder().tweet(tweet5).email("jjeanjacques10@github.com").content("hihi").createdAt(LocalDateTime.now()).build());
 
                 commentRepository.save(commnent1);
                 commentRepository.save(commnent2);
@@ -64,11 +65,11 @@ public class ApplicationStartUp {
                 commentRepository.save(commnent8);
                 commentRepository.save(commnent9);
 
-                replyRepository.save(Reply.builder().comment(commnent2).email("thanhnn2@gmail.com").content("tuyet").build());
-                replyRepository.save(Reply.builder().comment(commnent1).email("jjeanjacques10@github.com").content("ok").build());
-                replyRepository.save(Reply.builder().comment(commnent8).email("user3@gmail.com").content("zui z").build());
-                replyRepository.save(Reply.builder().comment(commnent3).email("jjeanjacques10@github.com").content("ok").build());
-                replyRepository.save(Reply.builder().comment(commnent9).email("thanhnn2@gmail.com").content("mac gi cuoi").build());
+                replyRepository.save(Reply.builder().comment(commnent2).email("thanhnn2@gmail.com").content("tuyet").createdAt(LocalDateTime.now()).build());
+                replyRepository.save(Reply.builder().comment(commnent1).email("jjeanjacques10@github.com").content("ok").createdAt(LocalDateTime.now()).build());
+                replyRepository.save(Reply.builder().comment(commnent8).email("user3@gmail.com").content("zui z").createdAt(LocalDateTime.now()).build());
+                replyRepository.save(Reply.builder().comment(commnent3).email("jjeanjacques10@github.com").content("ok").createdAt(LocalDateTime.now()).build());
+                replyRepository.save(Reply.builder().comment(commnent9).email("thanhnn2@gmail.com").content("mac gi cuoi").createdAt(LocalDateTime.now()).build());
 
 
             }
@@ -81,6 +82,7 @@ public class ApplicationStartUp {
                 .avatar("https://i.pinimg.com/736x/d4/15/95/d415956c03d9ca8783bfb3c5cc984dde.jpg")
                 .username("Thanh NN 2")
                 .email("thanhnn2@gmail.com")
+                .createdAt(LocalDateTime.now())
                 .build();
     }
 
@@ -90,6 +92,7 @@ public class ApplicationStartUp {
                 .avatar("https://photo-cms-plo.epicdn.me/w850/Uploaded/2023/zreyxqnexq/2015_03_19/happy-dog_VUJG.jpg")
                 .email("jjeanjacques10@github.com")
                 .username("jjeanjacques10")
+                .createdAt(LocalDateTime.now())
                 .build();
     }
 
@@ -99,6 +102,7 @@ public class ApplicationStartUp {
                 .avatar("https://photo-cms-plo.epicdn.me/w850/Uploaded/2023/zreyxqnexq/2015_03_19/happy-dog_VUJG.jpg")
                 .email("user3@gmail.com")
                 .username("user3")
+                .createdAt(LocalDateTime.now())
                 .build();
     }
 
@@ -108,6 +112,7 @@ public class ApplicationStartUp {
                 .avatar("https://i.pinimg.com/736x/d4/15/95/d415956c03d9ca8783bfb3c5cc984dde.jpg")
                 .username("Thanh NN 2")
                 .email("thanhnn2@gmail.com")
+                .createdAt(LocalDateTime.now())
                 .build();
     }
 
@@ -118,6 +123,7 @@ public class ApplicationStartUp {
                 .avatar("https://photo-cms-plo.epicdn.me/w850/Uploaded/2023/zreyxqnexq/2015_03_19/happy-dog_VUJG.jpg")
                 .email("user3@gmail.com")
                 .username("user3")
+                .createdAt(LocalDateTime.now())
                 .build();
     }
 

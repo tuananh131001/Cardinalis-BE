@@ -4,6 +4,7 @@ package org.cardinalis.tweetservice.Tweet;
 import org.apache.kafka.common.errors.AuthorizationException;
 import org.cardinalis.tweetservice.Comment.CommentRepository;
 import org.cardinalis.tweetservice.FavoriteTweet.FavoriteTweetRepository;
+import org.cardinalis.tweetservice.Timeline.TimelineService;
 import org.cardinalis.tweetservice.Util.NoContentFoundException;
 
 import org.cardinalis.tweetservice.Kafka.KafkaProducer;
@@ -42,6 +43,9 @@ public class TweetController {
     @Autowired
     TweetDTOService tweetDTOService;
 
+    @Autowired
+    TimelineService timelineService;
+
 
     @PostMapping(path = "/tweet")
     public ResponseEntity<Map<String, Object>> saveTweet(
@@ -51,7 +55,8 @@ public class TweetController {
             String mail = getUserMailFromHeader(token);
             tweet.setEmail(mail);
             if (tweet.getCreatedAt() == null) tweet.setCreatedAt(LocalDateTime.now());
-            kafkaProducer.sendMessageGetUser(tweet);
+//            kafkaProducer.sendMessageGetUser(tweet);
+            kafkaProducer.send("saveTweet", tweet);
 //            tweet = tweetService.saveTweet(tweet);
             Map<String, Object> response = createResponse(HttpStatus.OK, tweet, "saved tweet");
             return ResponseEntity.ok(response);
@@ -139,6 +144,12 @@ public class TweetController {
             Tweet tweet = tweetService.getTweetById(id);
             if (!mail.equals(tweet.getEmail())) throw new AuthorizationException("unauthorized user");
             tweetService.deleteTweet(id);
+            try {
+                timelineService.deleteTweet(id);
+            }
+            catch (Exception e) {
+                System.out.println("failed to delete tweet in timeline");
+            }
             Map<String, Object> response = createResponse(HttpStatus.OK, new TweetDTO(tweet), "deleted tweet");
             return ResponseEntity.ok(response);
 

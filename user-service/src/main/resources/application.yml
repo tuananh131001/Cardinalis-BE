@@ -3,24 +3,24 @@ server:
 spring:
   application:
     name: user-service
-  kafka:
-    consumer:
-      bootstrap-servers: 34.118.240.76:9093
-      #      bootstrap-servers: host.minikube.internal:9092
-      group-id: group_id
-      auto-offset-reset: earliest
-      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
-      properties:
-        spring:
-          json:
-            trusted:
-              packages: '*'
-    producer:
-      bootstrap-servers: 34.118.240.76:9093
-      #      bootstrap-servers: host.minikube.internal:9092
-      key-serializer: org.apache.kafka.common.serialization.StringSerializer
-      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+#  kafka:
+#    consumer:
+#      bootstrap-servers: 34.118.240.76:9093
+#      #      bootstrap-servers: host.minikube.internal:9092
+#      group-id: group_id
+#      auto-offset-reset: earliest
+#      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+#      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+#      properties:
+#        spring:
+#          json:
+#            trusted:
+#              packages: '*'
+#    producer:
+#      bootstrap-servers: 34.118.240.76:9093
+#      #      bootstrap-servers: host.minikube.internal:9092
+#      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+#      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
   datasource:
     username:  ${USER_DB:postgres}
     password: ${PASSWORD_DB:postgres}
