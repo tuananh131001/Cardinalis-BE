@@ -2,11 +2,13 @@ package org.cardinalis.tweetservice.Util;
 
 import org.cardinalis.tweetservice.Tweet.Tweet;
 import org.cardinalis.tweetservice.DTOUser.AuthUserResponse;
+import org.cardinalis.tweetservice.Tweet.TweetDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -86,6 +88,17 @@ public class Reusable {
                 .map(s -> s.split(":", 2))
                 .collect(Collectors.toMap(s -> s[0].trim(), s -> s[1].trim()));
         return map.get("sub"); //the mail
+    }
+
+    public static List<?> getResultList(List<Tweet> tweets, Boolean needCount) {
+        if (!needCount) {
+            return tweets;
+        }
+        List<TweetDTO> tweetDTOS = tweets
+                .stream()
+                .map(tweet -> new TweetDTO(tweet))
+                .collect(Collectors.toList());
+        return tweetDTOS;
     }
 
 }
