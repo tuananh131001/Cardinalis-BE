@@ -72,19 +72,17 @@ public class TweetServiceImpl implements TweetService {
 
     @Override
     public Map<String, Object> getNewestTweetsFromUser(String email, int pageNo, int pageSize) throws JsonProcessingException {
+
+        Pageable pageable = PageRequest.of(pageNo, pageSize, Sort.Direction.DESC,"createdAt");
+        Page<Tweet> page = tweetRepository.findByEmailOrderByCreatedAtDesc(email, pageable);
         try {
-            Pageable pageable = PageRequest.of(pageNo, pageSize, Sort.Direction.DESC,"createdAt");
-            Page<Tweet> page = tweetRepository.findByEmailOrderByCreatedAtDesc(email, pageable);
             TweetAuthorDTO authorDTO = reusable.getUserInfo(email);
             List<TweetDTO> tweetDTOS = page.getContent().stream().map(tweet -> new TweetDTO(tweet,authorDTO)).collect(Collectors.toList());
             return createPageResponse(tweetDTOS, page.getNumber(), page.hasNext(), page.getTotalPages(), page.getNumberOfElements(), page.getSize());
-        } catch (JsonProcessingException e) {
-            System.out.println("huhu json processing");
-            throw e;
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-            throw e;
+        } catch (NullPointerException | JsonProcessingException e) {
+            return createPageResponse(page.getContent(), page.getNumber(), page.hasNext(), page.getTotalPages(), page.getNumberOfElements(), page.getSize());
+        } catch (Exception ex) {
+            throw ex;
         }
     }
 
@@ -102,12 +100,13 @@ public class TweetServiceImpl implements TweetService {
 
     @Override
     public Map<String, Object> getAll(int pageNo, int pageSize) throws Exception {
+        Pageable pageable = PageRequest.of(pageNo, pageSize, Sort.Direction.DESC,"createdAt");
+        Page<Tweet> page = tweetRepository.findAll(pageable);
         try {
-            Pageable pageable = PageRequest.of(pageNo, pageSize, Sort.Direction.DESC,"createdAt");
-            Page<Tweet> page = tweetRepository.findAll(pageable);
             return  createPageResponse(reusable.getTweetDTOList(page.getContent()), page.getNumber(), page.hasNext(), page.getTotalPages(), page.getNumberOfElements(), page.getSize());
+        } catch (NullPointerException | JsonProcessingException e) {
+            return  createPageResponse(page.getContent(), page.getNumber(), page.hasNext(), page.getTotalPages(), page.getNumberOfElements(), page.getSize());
         } catch (Exception e) {
-            e.printStackTrace();
             throw e;
         }
     }

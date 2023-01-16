@@ -40,11 +40,13 @@ public class TweetDTO {
     public TweetDTO(Tweet tweet) {
         this.id = tweet.getId();
         this.email = tweet.getEmail();
-        this.createdAt = tweet.getCreatedAt();
+        this.createdAt = tweet.getCreatedAt() == null ? LocalDateTime.now() : tweet.getCreatedAt();
         this.lastEdit = tweet.getLastEdit();
         this.content = tweet.getContent();
-        this.totalFav = tweet.getFav().stream().count();
-        this.totalComment = tweet.getComments().stream().count();
+        if(tweet.getFav() != null) { this.totalFav = tweet.getFav().stream().count();}
+        else this.totalFav = 0;
+        if(tweet.getComments() != null) { this.totalFav = tweet.getComments().stream().count();}
+        else this.totalComment = 0;
     }
     public TweetDTO(Tweet tweet, TweetAuthorDTO authorDTO) {
         this.id = tweet.getId();
@@ -53,11 +55,13 @@ public class TweetDTO {
         this.avatar = authorDTO.getAvatar();
         this.fullname = authorDTO.getFullName();
         this.userid = authorDTO.getId();
-        this.createdAt = tweet.getCreatedAt();
+        this.createdAt = tweet.getCreatedAt() == null ? LocalDateTime.now() : tweet.getCreatedAt();
         this.lastEdit = tweet.getLastEdit();
         this.content = tweet.getContent();
-        this.totalFav = tweet.getFav().stream().count();
-        this.totalComment = tweet.getComments().stream().count();
+        if(tweet.getFav() != null) { this.totalFav = tweet.getFav().stream().count();}
+        else this.totalFav = 0;
+        if(tweet.getComments() != null) { this.totalFav = tweet.getComments().stream().count();}
+        else this.totalComment = 0;
     }
 
     public TweetDTO(TweetAuthorDTO authorDTO) {

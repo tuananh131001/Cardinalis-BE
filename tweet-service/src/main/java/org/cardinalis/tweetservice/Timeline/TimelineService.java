@@ -4,6 +4,7 @@ package org.cardinalis.tweetservice.Timeline;
 //import com.cardinalis.userservice.repository.UserRepository;
 //import com.cardinalis.userservice.repository.projection.user.UserProjection;
 //import com.cardinalis.userservice.service.UserService;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.cardinalis.tweetservice.Tweet.Tweet;
 import org.cardinalis.tweetservice.Tweet.TweetServiceImpl;
 import org.cardinalis.tweetservice.Util.NoContentFoundException;
@@ -92,7 +93,11 @@ TimelineService {
     @Cacheable(value = "TIMELINE")
     public Map<String, Object> getAll(int pageNo, int pageSize) throws Exception {
         List<Tweet> tweets = hashOperations.entries(TIMELINE_CACHE).values().stream().collect(Collectors.toList());
-        return createPageResponse(reusable.getTweetDTOList(tweets), 0, false, 1, tweets.size(), tweets.size());
+        try {
+            return createPageResponse(reusable.getTweetDTOList(tweets), 0, false, 1, tweets.size(), tweets.size());
+        } catch (NullPointerException | JsonProcessingException e) {
+            return createPageResponse(tweets, 0, false, 1, tweets.size(), tweets.size());
+        }
     }
 
     @Cacheable(value = "TIMELINE")

@@ -116,35 +116,49 @@ public class Reusable {
     }
 
 
-    public Map<String, TweetAuthorDTO> getUserInfo(List<String> emails) throws IOException {
-        String base_url = "http://localhost:3003";
-//        String base_url = "http://cardinalis-be.live";
+    public Map<String, TweetAuthorDTO> getUserInfo(List<String> emails) throws NullPointerException, JsonProcessingException {
+        try {
+            String base_url = "http://cardinalis-be.live";
 
-        List<String> emails_distinct = emails.stream().distinct().collect(Collectors.toList());
+            List<String> emails_distinct = emails.stream().distinct().collect(Collectors.toList());
 
-        Map<String, TweetAuthorDTO> result = new HashMap<>();
+            Map<String, TweetAuthorDTO> result = new HashMap<>();
 
-        for (String email: emails_distinct) {
+            for (String email: emails_distinct) {
+                String url = base_url + "/user/serverExchangeData/" + email;
+                ResponseEntity<Map> tweetAuthorDTOResponseEntity = restTemplate.getForEntity(url, Map.class);
+                Map<String, Object> map = tweetAuthorDTOResponseEntity.getBody();
+                String m = (String) map.get("data");
+                TweetAuthorDTO authorDTO = new ObjectMapper().readValue(m, TweetAuthorDTO.class);
+                result.put(email, authorDTO);
+            }
+            return result;
+
+        } catch (NullPointerException e) {
+            throw new NullPointerException("no user found");
+        }
+        catch (Exception e) {
+            throw e;
+        }
+    }
+
+    public TweetAuthorDTO getUserInfo(String email) throws NullPointerException, JsonProcessingException {
+        try {
+//        String base_url = "http://localhost:3003";
+            String base_url = "http://cardinalis-be.live";
             String url = base_url + "/user/serverExchangeData/" + email;
             ResponseEntity<Map> tweetAuthorDTOResponseEntity = restTemplate.getForEntity(url, Map.class);
             Map<String, Object> map = tweetAuthorDTOResponseEntity.getBody();
             String m = (String) map.get("data");
             TweetAuthorDTO authorDTO = new ObjectMapper().readValue(m, TweetAuthorDTO.class);
-            result.put(email, authorDTO);
+            return authorDTO;
+
+        } catch (NullPointerException e) {
+            throw new NullPointerException("no user found");
         }
-        return result;
-    }
-
-    public TweetAuthorDTO getUserInfo(String email) throws JsonProcessingException {
-        String base_url = "http://localhost:3003";
-//        String base_url = "http://cardinalis-be.live";
-
-        String url = base_url + "/user/serverExchangeData/" + email;
-        ResponseEntity<Map> tweetAuthorDTOResponseEntity = restTemplate.getForEntity(url, Map.class);
-        Map<String, Object> map = tweetAuthorDTOResponseEntity.getBody();
-        String m = (String) map.get("data");
-        TweetAuthorDTO authorDTO = new ObjectMapper().readValue(m, TweetAuthorDTO.class);
-        return authorDTO;
+        catch (Exception e) {
+            throw e;
+        }
     }
 
 
