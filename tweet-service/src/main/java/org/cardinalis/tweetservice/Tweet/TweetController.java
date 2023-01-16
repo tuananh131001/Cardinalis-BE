@@ -9,6 +9,8 @@ import org.cardinalis.tweetservice.Util.NoContentFoundException;
 
 import org.cardinalis.tweetservice.Kafka.KafkaProducer;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -144,6 +146,7 @@ public class TweetController {
         }
     }
 
+    @CacheEvict(value = "tweet", allEntries=true)
     @DeleteMapping(path = "/tweet")
     public ResponseEntity<Map<String, Object>> deleteTweet(
             @RequestHeader("Authorization") String token,
@@ -176,7 +179,7 @@ public class TweetController {
             return errorResponse(e);
         }
     }
-
+    @Cacheable(value = "tweet", key = "#tweet" ,condition="#tweet!=null")
     @GetMapping(path = "/tweets")
     public ResponseEntity<Map<String, Object>> getTweets(
             @RequestParam(defaultValue = "") String email,

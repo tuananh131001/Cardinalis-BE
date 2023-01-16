@@ -7,6 +7,7 @@ import org.cardinalis.tweetservice.Util.NoContentFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.redis.core.HashOperations;
@@ -74,17 +75,13 @@ public class TimelineController {
         return tweets;
     }
     @GetMapping("")
+    @Cacheable(value = "timeline", key = "#timeline" ,condition="#timeline!=null")
     public ResponseEntity<List<Tweet>> getUserTimeline(
             @RequestParam(defaultValue = "") String userId,
             @RequestParam(defaultValue = "0") int pageNo,
             @RequestParam(defaultValue = "6") int pageSize,
       @RequestHeader("Authorization") String token){
         try {
-            List<Tweet> listTweetInCache = hashOperations.get(TIMELINE_CACHE, userId);
-            if (listTweetInCache != null) {
-                return new ResponseEntity<>(listTweetInCache, HttpStatus.OK);
-            }
-
 
 
             String mail = getUserMailFromHeader(token);
@@ -94,7 +91,7 @@ public class TimelineController {
             Long myUserId = Long.valueOf((Integer) userData.get("id"));
             ArrayList<Map<String, Object>> listOfFollowing= getAllFollowers(myUserId,token);
             List<Tweet> tweetsGet = getTweetsOfFollowing(listOfFollowing,token);
-            hashOperations.put(TIMELINE_CACHE, userId, tweetsGet);
+
             Map<String,Object> response = new HashMap<>();
             return new ResponseEntity<List<Tweet>>( tweetsGet , HttpStatus.OK);
 
