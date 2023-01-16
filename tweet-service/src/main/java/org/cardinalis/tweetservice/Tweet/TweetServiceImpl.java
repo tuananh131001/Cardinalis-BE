@@ -1,6 +1,8 @@
 package org.cardinalis.tweetservice.Tweet;
 
 import org.cardinalis.tweetservice.Comment.CommentRepository;
+import org.cardinalis.tweetservice.Util.Reusable.*;
+
 import org.cardinalis.tweetservice.FavoriteTweet.FavoriteTweetRepository;
 import org.cardinalis.tweetservice.Util.NoContentFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+
+import static org.cardinalis.tweetservice.Util.Reusable.createPageResponse;
+import static org.cardinalis.tweetservice.Util.Reusable.getResultList;
 
 @Transactional
 @Service
@@ -69,7 +74,7 @@ public class TweetServiceImpl implements TweetService {
             Pageable pageable = PageRequest.of(pageNo, pageSize, Sort.Direction.DESC,"createdAt");
             Page<Tweet> page = tweetRepository.findByEmailOrderByCreatedAtDesc(email, pageable);
 
-            return createPageResponse(getResultList(page, needCount), page.getNumber(), page.hasNext(), page.getTotalPages(), page.getNumberOfElements(), page.getSize());
+            return createPageResponse(getResultList(page.getContent(), needCount), page.getNumber(), page.hasNext(), page.getTotalPages(), page.getNumberOfElements(), page.getSize());
         } catch (Exception e) {
             e.printStackTrace();
             throw e;
@@ -93,26 +98,13 @@ public class TweetServiceImpl implements TweetService {
         try {
             Pageable pageable = PageRequest.of(pageNo, pageSize, Sort.Direction.DESC,"createdAt");
             Page<Tweet> page = tweetRepository.findAll(pageable);
-
-            return createPageResponse(getResultList(page, needCount), page.getNumber(), page.hasNext(), page.getTotalPages(), page.getNumberOfElements(), page.getSize());
+            return  createPageResponse(getResultList(page.getContent(), needCount), page.getNumber(), page.hasNext(), page.getTotalPages(), page.getNumberOfElements(), page.getSize());
         } catch (Exception e) {
             e.printStackTrace();
             throw e;
         }
     }
 
-
-    public Map<String, Object> createPageResponse(Object data, int currentPage, boolean hasNext, int totalPage, int pageElements, int pageCapacity) {
-        Map<String, Object> response = new HashMap<>();
-        response.put("data",data);
-        response.put("currentPage",currentPage);
-        response.put("hasNext",hasNext);
-        response.put("totalPage", totalPage);
-        response.put("pageElements", pageElements);
-        response.put("pageCapacity", pageCapacity);
-
-        return response;
-    }
 
 //    public TweetDTO setCount(TweetDTO tweetDTO) {
 //        tweetDTO.setTotalFav(favoriteTweetRepository.countByTweet_Id(tweetDTO.getId()));
@@ -121,16 +113,4 @@ public class TweetServiceImpl implements TweetService {
 //        return tweetDTO;
 //    }
 
-    public List<?> getResultList(Page<Tweet> page, Boolean needCount) {
-        if (!needCount) {
-            return page.getContent();
-        }
-
-        List<Tweet> tweets = page.getContent();
-        List<TweetDTO> tweetDTOS = tweets
-                .stream()
-                .map(tweet -> new TweetDTO(tweet))
-                .collect(Collectors.toList());
-        return tweetDTOS;
-    }
 }

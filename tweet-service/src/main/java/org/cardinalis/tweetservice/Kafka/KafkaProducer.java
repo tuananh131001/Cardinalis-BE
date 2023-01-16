@@ -21,6 +21,9 @@ public class KafkaProducer {
     @Autowired
     private KafkaTemplate<String, Object> kafkaTemplate;
 
+//    @Bean
+
+
     public void sendMessageGetUser(Tweet message) throws JsonProcessingException {
         logger.info(String.format("#### -> Producing message -> %s", message));
         // tweet to tweetdto

@@ -2,6 +2,7 @@ package org.cardinalis.tweetservice.FavoriteTweet;
 //import org.cardinalis.tweetservice.engine.Producer;
 import lombok.AllArgsConstructor;
 import org.apache.kafka.common.errors.AuthorizationException;
+import org.cardinalis.tweetservice.Tweet.TweetDTO;
 import org.cardinalis.tweetservice.Tweet.TweetService;
 import org.cardinalis.tweetservice.Util.NoContentFoundException;
 import org.modelmapper.ModelMapper;
@@ -133,13 +134,26 @@ public class FavoriteTweetController {
     }
 
     @GetMapping("/favoritetweets")
-    public ResponseEntity<Map<String, Object>> getFavsOfTweet(@RequestParam Long tweetId) {
+    public ResponseEntity<Map<String, Object>> getFavsOfTweet(
+            @RequestParam(defaultValue = "") String tweetId,
+            @RequestParam(defaultValue = "") String email,
+            @RequestParam(defaultValue = "0") int pageNo,
+            @RequestParam(defaultValue = "6") int pageSize) {
         try {
-            List<FavoriteTweet> favoriteTweets = favoriteTweetService.findAllFavoritesOfTweet(tweetId);
-            List<FavoriteTweetDTO> favDTOs = favoriteTweets.stream()
-                                            .map(fav -> mapper.map(fav, FavoriteTweetDTO.class))
-                                            .collect(Collectors.toList());
-            Map<String, Object> response = createResponse(HttpStatus.OK, favDTOs);
+            Map<String, Object> response;
+            if(tweetId.isEmpty()) {
+                List<FavoriteTweet> favoriteTweets = favoriteTweetService.findFavByTweet(Long.parseLong(tweetId));
+                List<FavoriteTweetDTO> favDTOs = favoriteTweets.stream()
+                        .map(fav -> mapper.map(fav, FavoriteTweetDTO.class))
+                        .collect(Collectors.toList());
+                response = createResponse(HttpStatus.OK, favDTOs);
+
+            }
+            else {
+                Map<String, Object> favedTweets = favoriteTweetService.findFavByUser(email, pageNo, pageSize);
+                response = createResponse(HttpStatus.OK, favedTweets);
+            }
+
             return ResponseEntity.ok(response);
         } catch (NoContentFoundException e) {
             Map<String, Object> response = createResponse(HttpStatus.OK, null, e.getMessage());
