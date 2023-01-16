@@ -94,6 +94,5 @@ wrong ip change to asia.gcr.io/
 # Ref
 https://dev.to/adafycheng/java-microservice-in-google-could-2nbf#containerize-the-microservice
 
-![System Design - Cardinalis](https://user-images.githubusercontent.com/67695658/210173428-8464c161-0576-4d6c-95db-d763487e7932.png)
-
+System Design - Cardinalis(1).png![image](https://user-images.githubusercontent.com/67695658/212726195-57c64d46-7e2c-44df-8ac1-60513b1ccc7f.png)
 
